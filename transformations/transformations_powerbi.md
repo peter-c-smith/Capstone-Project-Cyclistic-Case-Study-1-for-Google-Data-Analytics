@@ -249,4 +249,92 @@ DIVIDE(
 ```
 Proportion of member rides that occur on weekends. Expected to be lower than casual weekend %, reflecting commuter usage patterns among members.
 
+## Phase 3 — Bike Type Analysis
+
+Breaks down rideable type by member type to show preferences and usage patterns. Measures are written for classic and electric bike types, which are the only types present in the current dataset. Docked bike measures are included proactively — they will return BLANK() if the type is absent and will automatically populate if docked bikes are introduced in future data.
+
+---
+
+### Classic Bike Rides
+```dax
+Classic Bike Rides =
+CALCULATE([Total Rides], Trips[rideable_type] = "classic_bike")
+```
+Total rides on classic bikes across all rider types.
+
+```dax
+Member Classic Rides =
+CALCULATE([Member Rides], Trips[rideable_type] = "classic_bike")
+```
+Classic bike rides by members only.
+
+```dax
+Casual Classic Rides =
+CALCULATE([Casual Rides], Trips[rideable_type] = "classic_bike")
+```
+Classic bike rides by casual riders only.
+
+---
+
+### Electric Bike Rides
+```dax
+Electric Bike Rides =
+CALCULATE([Total Rides], Trips[rideable_type] = "electric_bike")
+```
+Total rides on electric bikes across all rider types.
+
+```dax
+Member Electric Rides =
+CALCULATE([Member Rides], Trips[rideable_type] = "electric_bike")
+```
+Electric bike rides by members only.
+
+```dax
+Casual Electric Rides =
+CALCULATE([Casual Rides], Trips[rideable_type] = "electric_bike")
+```
+Electric bike rides by casual riders only.
+
+---
+
+### Docked Bike Rides
+```dax
+Docked Bike Rides =
+CALCULATE([Total Rides], Trips[rideable_type] = "docked_bike")
+```
+Total rides on docked bikes. Returns BLANK() with current dataset — included for forward compatibility.
+
+```dax
+Member Docked Rides =
+CALCULATE([Member Rides], Trips[rideable_type] = "docked_bike")
+```
+Docked bike rides by members only. Returns BLANK() with current dataset.
+
+```dax
+Casual Docked Rides =
+CALCULATE([Casual Rides], Trips[rideable_type] = "docked_bike")
+```
+Docked bike rides by casual riders only. Returns BLANK() with current dataset.
+
+---
+
+### Bike Type Mix %
+```dax
+Classic Bike % =
+DIVIDE([Classic Bike Rides], [Total Rides], BLANK())
+```
+Proportion of all rides on classic bikes.
+
+```dax
+Electric Bike % =
+DIVIDE([Electric Bike Rides], [Total Rides], BLANK())
+```
+Proportion of all rides on electric bikes.
+
+```dax
+Docked Bike % =
+DIVIDE([Docked Bike Rides], [Total Rides], BLANK())
+```
+Proportion of all rides on docked bikes. Returns BLANK() with current dataset.
+
 *Additional transformations will be added as the analysis progresses.*
