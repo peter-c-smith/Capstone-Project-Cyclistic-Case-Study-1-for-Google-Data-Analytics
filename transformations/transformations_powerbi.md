@@ -141,4 +141,112 @@ Averages decimal-minute ride durations. Filters out zero and blank values before
 Avg Ride Distance (mi) = AVERAGEX(FILTER(Trips, Trips[Ride Distance (mi)] > 0), Trips[Ride Distance (mi)])
 Averages Haversine-calculated ride distances in miles. Same filter logic as duration.
 
+## Phase 2 — Temporal & Usage Patterns
+
+### Calculated Column — Ride Start Hour
+Extracts the hour (0–23) from the ride start timestamp. Used as a visual axis to show ride distribution across hours of the day. Peak hour analysis is better surfaced through visuals than a single DAX measure, as the full hourly distribution is more informative than a single peak value.
+
+**Null handling:** Returns BLANK() implicitly if started_at is blank, consistent with other calculated columns.
+
+```dax
+Ride Start Hour =
+HOUR(Trips[started_at])
+```
+
+---
+
+### Weekday Rides
+```dax
+Weekday Rides =
+CALCULATE([Total Rides], 'Date Table'[Is Weekend] = FALSE())
+```
+Counts rides occurring on weekdays (Monday–Friday). Uses the Is Weekend column from the Date Table.
+
+### Weekend Rides
+```dax
+Weekend Rides =
+CALCULATE([Total Rides], 'Date Table'[Is Weekend] = TRUE())
+```
+Counts rides occurring on weekends (Saturday–Sunday).
+
+### Weekend Ride %
+```dax
+Weekend Ride % =
+DIVIDE([Weekend Rides], [Total Rides], BLANK())
+```
+Proportion of all rides occurring on weekends. BLANK() returned on divide-by-zero consistent with null-handling convention.
+
+---
+
+### Avg Duration Member
+```dax
+Avg Duration Member =
+AVERAGEX(
+    FILTER(Trips, Trips[member_casual] = "member" && Trips[Ride Time (min)] > 0),
+    Trips[Ride Time (min)]
+)
+```
+Average ride duration in decimal minutes for members only. Filters out zero and blank values before averaging.
+
+### Avg Duration Casual
+```dax
+Avg Duration Casual =
+AVERAGEX(
+    FILTER(Trips, Trips[member_casual] = "casual" && Trips[Ride Time (min)] > 0),
+    Trips[Ride Time (min)]
+)
+```
+Average ride duration in decimal minutes for casual riders only. Same filter logic as member duration.
+
+---
+
+### Spring Rides
+```dax
+Spring Rides =
+CALCULATE([Total Rides], 'Date Table'[Season] = "Spring")
+```
+
+### Summer Rides
+```dax
+Summer Rides =
+CALCULATE([Total Rides], 'Date Table'[Season] = "Summer")
+```
+
+### Fall Rides
+```dax
+Fall Rides =
+CALCULATE([Total Rides], 'Date Table'[Season] = "Fall")
+```
+
+### Winter Rides
+```dax
+Winter Rides =
+CALCULATE([Total Rides], 'Date Table'[Season] = "Winter")
+```
+Seasonal ride counts using the Season column from the Date Table. Spring: March–May, Summer: June–August, Fall: September–November, Winter: December–February.
+
+---
+
+### Casual Weekend %
+```dax
+Casual Weekend % =
+DIVIDE(
+    CALCULATE([Casual Rides], 'Date Table'[Is Weekend] = TRUE()),
+    [Casual Rides],
+    BLANK()
+)
+```
+Proportion of casual rides that occur on weekends. Expected to skew high — a key indicator that casual riders use the service recreationally rather than for commuting.
+
+### Member Weekend %
+```dax
+Member Weekend % =
+DIVIDE(
+    CALCULATE([Member Rides], 'Date Table'[Is Weekend] = TRUE()),
+    [Member Rides],
+    BLANK()
+)
+```
+Proportion of member rides that occur on weekends. Expected to be lower than casual weekend %, reflecting commuter usage patterns among members.
+
 *Additional transformations will be added as the analysis progresses.*
