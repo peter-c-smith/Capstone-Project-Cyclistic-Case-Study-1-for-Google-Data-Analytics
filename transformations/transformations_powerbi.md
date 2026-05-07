@@ -158,14 +158,14 @@ HOUR(Trips[started_at])
 ### Weekday Rides
 ```dax
 Weekday Rides =
-CALCULATE([Total Rides], 'Date Table'[Is Weekend] = FALSE())
+CALCULATE([Total Rides], 'Date'[Is Weekend] = FALSE())
 ```
-Counts rides occurring on weekdays (Monday–Friday). Uses the Is Weekend column from the Date Table.
+Counts rides occurring on weekdays (Monday–Friday). Uses the Is Weekend column from the Date table.
 
 ### Weekend Rides
 ```dax
 Weekend Rides =
-CALCULATE([Total Rides], 'Date Table'[Is Weekend] = TRUE())
+CALCULATE([Total Rides], 'Date'[Is Weekend] = TRUE())
 ```
 Counts rides occurring on weekends (Saturday–Sunday).
 
@@ -203,27 +203,27 @@ Average ride duration in decimal minutes for casual riders only. Same filter log
 ### Spring Rides
 ```dax
 Spring Rides =
-CALCULATE([Total Rides], 'Date Table'[Season] = "Spring")
+CALCULATE([Total Rides], 'Date'[Season] = "Spring")
 ```
 
 ### Summer Rides
 ```dax
 Summer Rides =
-CALCULATE([Total Rides], 'Date Table'[Season] = "Summer")
+CALCULATE([Total Rides], 'Date'[Season] = "Summer")
 ```
 
 ### Fall Rides
 ```dax
 Fall Rides =
-CALCULATE([Total Rides], 'Date Table'[Season] = "Fall")
+CALCULATE([Total Rides], 'Date'[Season] = "Fall")
 ```
 
 ### Winter Rides
 ```dax
 Winter Rides =
-CALCULATE([Total Rides], 'Date Table'[Season] = "Winter")
+CALCULATE([Total Rides], 'Date'[Season] = "Winter")
 ```
-Seasonal ride counts using the Season column from the Date Table. Spring: March–May, Summer: June–August, Fall: September–November, Winter: December–February.
+Seasonal ride counts using the Season column from the Date table. Spring: March–May, Summer: June–August, Fall: September–November, Winter: December–February.
 
 ---
 
@@ -231,7 +231,7 @@ Seasonal ride counts using the Season column from the Date Table. Spring: March�
 ```dax
 Casual Weekend % =
 DIVIDE(
-    CALCULATE([Casual Rides], 'Date Table'[Is Weekend] = TRUE()),
+    CALCULATE([Casual Rides], 'Date'[Is Weekend] = TRUE()),
     [Casual Rides],
     BLANK()
 )
@@ -242,7 +242,7 @@ Proportion of casual rides that occur on weekends. Expected to skew high — a k
 ```dax
 Member Weekend % =
 DIVIDE(
-    CALCULATE([Member Rides], 'Date Table'[Is Weekend] = TRUE()),
+    CALCULATE([Member Rides], 'Date'[Is Weekend] = TRUE()),
     [Member Rides],
     BLANK()
 )
