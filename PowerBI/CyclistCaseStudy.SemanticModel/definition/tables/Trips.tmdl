@@ -1,0 +1,203 @@
+table Trips
+	lineageTag: 627d0125-dba3-4dfc-85de-c6c8839012bf
+
+	column 'Source.Name'
+		dataType: string
+		lineageTag: 0d7fa49b-d354-46f4-b138-374dbe80090b
+		summarizeBy: none
+		sourceColumn: Source.Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column ride_id
+		dataType: string
+		lineageTag: 368a5230-7e46-421f-8128-b98164f5f9a9
+		summarizeBy: count
+		sourceColumn: ride_id
+
+		annotation SummarizationSetBy = User
+
+	column rideable_type
+		dataType: string
+		lineageTag: a14c8cc0-b0b3-4584-af53-df5e86f6ed17
+		summarizeBy: none
+		sourceColumn: rideable_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column started_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 10b07ffd-d169-4884-b198-48c991e74f93
+		summarizeBy: none
+		sourceColumn: started_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column ended_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 4a4722dc-5a7f-4ca2-aa35-84d681c0a590
+		summarizeBy: none
+		sourceColumn: ended_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_station_name
+		dataType: string
+		lineageTag: bcc6544f-a353-4c0d-9b1d-4d3bcbe941de
+		summarizeBy: none
+		sourceColumn: start_station_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_station_id
+		dataType: string
+		lineageTag: ea995cd9-7363-4d40-803c-e752db772932
+		summarizeBy: none
+		sourceColumn: start_station_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column end_station_name
+		dataType: string
+		lineageTag: 48d83f3b-e614-486c-b680-42d9ec8d4673
+		summarizeBy: none
+		sourceColumn: end_station_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column end_station_id
+		dataType: string
+		lineageTag: a45129dc-c991-4b23-8c46-9478993ecedf
+		summarizeBy: none
+		sourceColumn: end_station_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_lat
+		dataType: double
+		lineageTag: 88c0edd7-efc1-4dbb-a4ec-58e0e6c6f5ef
+		dataCategory: Latitude
+		summarizeBy: none
+		sourceColumn: start_lat
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column start_lng
+		dataType: double
+		lineageTag: 295f77f0-7dca-4ac9-96d4-6f8d86afcab8
+		dataCategory: Longitude
+		summarizeBy: none
+		sourceColumn: start_lng
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column end_lat
+		dataType: double
+		lineageTag: 99b56cd6-900b-420d-acfb-2cea881b5483
+		dataCategory: Latitude
+		summarizeBy: sum
+		sourceColumn: end_lat
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column end_lng
+		dataType: double
+		lineageTag: ceb78359-068c-4282-adcc-3784c1706d48
+		dataCategory: Longitude
+		summarizeBy: sum
+		sourceColumn: end_lng
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column member_casual
+		dataType: string
+		lineageTag: 2d8810ef-d8ea-464a-adfd-38aed466404a
+		summarizeBy: none
+		sourceColumn: member_casual
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ride Distance (mi)' =
+			
+			IF(
+			    OR(
+			        OR(ISBLANK(Trips[start_lat]), ISBLANK(Trips[end_lat])),
+			        OR(ISBLANK(Trips[start_lng]), ISBLANK(Trips[end_lng]))
+			    ),
+			    BLANK(),
+			    VAR lat1 = RADIANS(Trips[start_lat])
+			    VAR lat2 = RADIANS(Trips[end_lat])
+			    VAR lon1 = RADIANS(Trips[start_lng])
+			    VAR lon2 = RADIANS(Trips[end_lng])
+			    VAR dlat = lat2 - lat1
+			    VAR dlon = lon2 - lon1
+			    VAR a =
+			        SIN(dlat / 2) ^ 2 +
+			        COS(lat1) * COS(lat2) * SIN(dlon / 2) ^ 2
+			    VAR c = 2 * ASIN(SQRT(a))
+			    VAR R = 3958.8
+			    RETURN
+			        R * c
+			)
+		lineageTag: 88841ced-9cb0-4f33-b802-d5cb14ef14e9
+		summarizeBy: average
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Ride Time (min)' =
+			
+			IF(
+			    OR(ISBLANK(Trips[started_at]), ISBLANK(Trips[ended_at])),
+			    BLANK(),
+			    VAR ride_seconds = DATEDIFF(Trips[started_at], Trips[ended_at], SECOND)
+			    RETURN
+			        IF(ride_seconds < 0, BLANK(), DIVIDE(ride_seconds, 60))
+			)
+		formatString: 0.00
+		lineageTag: eb5a1349-8434-41de-a712-87e0a46958c2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ride Start Date' =
+			DATE(
+			    YEAR(Trips[started_at]),
+			    MONTH(Trips[started_at]),
+			    DAY(Trips[started_at])
+			)
+		formatString: General Date
+		lineageTag: 5f5e3b4f-3974-425d-a80f-301a5d62c8ee
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Trips = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("D:\OneDrive\Job Stuff\Portfolio Stuff 2026\Google Cert Capstone Case Study 1 - Cyclist\Data\DATAfile_Consolidated"),
+				    #"Filtered Hidden Files1" = Table.SelectRows(Source, each [Attributes]?[Hidden]? <> true),
+				    #"Invoke Custom Function1" = Table.AddColumn(#"Filtered Hidden Files1", "Transform File", each #"Transform File"([Content])),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Invoke Custom Function1", {"Name", "Source.Name"}),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Renamed Columns1", {"Source.Name", "Transform File"}),
+				    #"Expanded Table Column1" = Table.ExpandTableColumn(#"Removed Other Columns1", "Transform File", Table.ColumnNames(#"Transform File"(#"Sample File"))),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Table Column1",{{"Source.Name", type text}, {"ride_id", type text}, {"rideable_type", type text}, {"started_at", type datetime}, {"ended_at", type datetime}, {"start_station_name", type text}, {"start_station_id", type text}, {"end_station_name", type text}, {"end_station_id", type text}, {"start_lat", type number}, {"start_lng", type number}, {"end_lat", type number}, {"end_lng", type number}, {"member_casual", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,76 @@
+table 'Measures Table'
+	lineageTag: bb07b7fc-739d-4025-ad63-44a53bc3ddf7
+
+	measure 'Total Rides' = COUNTROWS(Trips)  --Counts all rows in the Trips table. Relies on upstream cleaning for invalid record removal.
+		formatString: 0
+		lineageTag: 35679c21-9640-493e-b0ec-cda29b2a7a85
+
+	measure 'Member Rides' =
+			-- Filters to member rides only.
+			CALCULATE(
+			    COUNTROWS(Trips),
+			    Trips[member_casual] = "member"
+			)
+		formatString: 0
+		lineageTag: 6db79f1f-c0f5-4f4d-b5a8-1233b46f9ad1
+
+	measure 'Casual Rides' =
+			-- Filters to casual rides only.
+			CALCULATE(
+			    COUNTROWS(Trips),
+			    Trips[member_casual] = "casual"
+			)
+		formatString: 0
+		lineageTag: be6be4fd-a920-4032-b7fb-33a31ceb4691
+
+	measure 'Member Ride %' =
+			-- Returns the proportion of rides by members. BLANK() returned on divide-by-zero to stay consistent with null-handling convention.
+			DIVIDE([Member Rides], [Total Rides], BLANK())
+		lineageTag: 11101433-6c0f-461a-a7c7-f3c2f40514c9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Ride Duration (min)' =
+			
+			AVERAGEX(
+			    FILTER(Trips, Trips[Ride Time (min)] > 0),
+			    Trips[Ride Time (min)]
+			)
+			/*
+			Averages decimal-minute ride durations. Filters out zero and blank values before averaging to avoid skewing the result.*/
+		lineageTag: a2c0b2c2-3ef3-4e0b-8a20-d586c7707342
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Ride Distance (mi)' =
+			
+			/*Averages Haversine-calculated ride distances in miles. Same filter logic as duration.*/
+			AVERAGEX(
+			    FILTER(Trips, Trips[Ride Distance (mi)] > 0),
+			    Trips[Ride Distance (mi)]
+			)
+		lineageTag: d1c15fe3-3deb-4e5d-952f-8063ec3bbdbc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column1
+		dataType: string
+		lineageTag: c8a8da93-c2f4-445a-8c03-0258993823f7
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Measures Table' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

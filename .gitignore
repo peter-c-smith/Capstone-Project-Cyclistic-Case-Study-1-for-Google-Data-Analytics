@@ -55,6 +55,7 @@ Data/
 
 # Large PowerBI files
 PowerBI/
+*.abf
 
 # MSTest test Results
 [Tt]est[Rr]esult*/

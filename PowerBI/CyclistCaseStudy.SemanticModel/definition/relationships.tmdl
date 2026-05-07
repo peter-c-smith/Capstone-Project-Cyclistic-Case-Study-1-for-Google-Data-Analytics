@@ -1,0 +1,4 @@
+relationship a9ceb076-9d6e-a122-0099-f1fb53b61651
+	fromColumn: Trips.'Ride Start Date'
+	toColumn: Date.Date
+
