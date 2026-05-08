@@ -337,4 +337,74 @@ DIVIDE([Docked Bike Rides], [Total Rides], BLANK())
 ```
 Proportion of all rides on docked bikes. Returns BLANK() with current dataset.
 
+## Phase 4 — Station & Geographic Analysis
+
+Analyzes ride origins and destinations to identify popular stations and geographic patterns by rider type. Most insights in this phase are surfaced through visuals (maps using coordinate fields, top station bar charts sliced by member/casual) rather than standalone measures. Note: missing station data is common in this dataset, particularly for electric bikes which can be docked at non-fixed locations.
+
+---
+
+### Station Activity
+```dax
+Rides with Start Station =
+CALCULATE([Total Rides], Trips[start_station_name] <> BLANK())
+```
+Total rides where a start station name is recorded.
+
+```dax
+Rides with End Station =
+CALCULATE([Total Rides], Trips[end_station_name] <> BLANK())
+```
+Total rides where an end station name is recorded.
+
+```dax
+Rides Missing Station Data =
+[Total Rides] - [Rides with Start Station]
+```
+Quantifies rides with no start station recorded. Expected to be non-trivial, particularly for electric bike rides.
+
+---
+
+### Member vs Casual Station Usage
+```dax
+Member Rides with Start Station =
+CALCULATE([Member Rides], Trips[start_station_name] <> BLANK())
+```
+Member rides where a start station name is recorded.
+
+```dax
+Casual Rides with Start Station =
+CALCULATE([Casual Rides], Trips[start_station_name] <> BLANK())
+```
+Casual rides where a start station name is recorded.
+
+---
+
+### Round Trips
+```dax
+Round Trips =
+CALCULATE(
+    [Total Rides],
+    Trips[start_station_name] = Trips[end_station_name]
+)
+```
+Total rides where the start and end station are the same. Indicator of recreational usage.
+
+```dax
+Casual Round Trips =
+CALCULATE(
+    [Casual Rides],
+    Trips[start_station_name] = Trips[end_station_name]
+)
+```
+Round trips by casual riders. Expected to be proportionally higher than members, consistent with recreational usage patterns.
+
+```dax
+Member Round Trips =
+CALCULATE(
+    [Member Rides],
+    Trips[start_station_name] = Trips[end_station_name]
+)
+```
+Round trips by members. Expected to be proportionally lower, consistent with point-to-point commuter usage.
+
 *Additional transformations will be added as the analysis progresses.*
