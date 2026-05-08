@@ -407,4 +407,88 @@ CALCULATE(
 ```
 Round trips by members. Expected to be proportionally lower, consistent with point-to-point commuter usage.
 
-*Additional transformations will be added as the analysis progresses.*
+---
+
+## Phase 5 — Summary KPIs & Final Viz Prep
+
+Ties together behavioral insights from Phases 1–4 with a set of summary measures designed to directly answer the core analysis question: how do casual and member riders use Cyclistic bikes differently? Also includes an illustrative revenue proxy modeled after documented Divvy pricing. See `pricing_model_rationale.md` for full rationale and assumptions.
+
+---
+
+### Revenue Proxy Measures
+
+> **These figures are entirely illustrative.** Cyclistic is a fictional company. Pricing assumptions are modeled after publicly documented Divvy rates. See `pricing_model_rationale.md` for details.
+
+#### Estimated Casual Revenue per Ride
+```dax
+Estimated Casual Revenue per Ride =
+VAR OverageMinutes =
+    MAX(Trips[Ride Time (min)] - 30, 0)
+RETURN
+    3.30 + (OverageMinutes * 0.18)
+```
+Calculates estimated per-ride revenue for a casual rider. Applies a $3.30 unlock fee plus $0.18/min for any minutes beyond the 30-minute included threshold.
+
+#### Total Estimated Casual Revenue
+```dax
+Total Estimated Casual Revenue =
+SUMX(
+    FILTER(Trips, Trips[member_casual] = "casual" && Trips[Ride Time (min)] > 0),
+    VAR OverageMinutes = MAX(Trips[Ride Time (min)] - 30, 0)
+    RETURN 3.30 + (OverageMinutes * 0.18)
+)
+```
+Sums estimated casual revenue across all qualifying rides. Excludes rides with zero or blank duration. Overage calculated per ride before summing.
+
+#### Total Estimated Member Overage Revenue
+```dax
+Total Estimated Member Overage Revenue =
+SUMX(
+    FILTER(Trips, Trips[member_casual] = "member" && Trips[Ride Time (min)] > 0),
+    VAR OverageMinutes = MAX(Trips[Ride Time (min)] - 45, 0)
+    RETURN OverageMinutes * 0.18
+)
+```
+Captures variable overage revenue from member rides exceeding the 45-minute included threshold at $0.18/min. Does not include the annual membership fee, which is not amortized per ride in this model.
+
+---
+
+### Behavioral Summary Measures
+
+These measures are designed to directly support the core analysis question and are intended for use in summary visuals and the final presentation.
+
+#### Duration Ratio Casual to Member
+```dax
+Duration Ratio Casual to Member =
+DIVIDE([Avg Duration Casual], [Avg Duration Member], BLANK())
+```
+Ratio of average casual ride duration to average member ride duration. Values above 1 indicate casual riders take longer rides on average. Expected to be meaningfully above 1, consistent with recreational usage patterns.
+
+#### Distance Ratio Casual to Member
+```dax
+Distance Ratio Casual to Member =
+DIVIDE([Avg Ride Distance Casual], [Avg Ride Distance Member], BLANK())
+```
+Ratio of average casual ride distance to average member ride distance. Compared alongside the duration ratio to assess whether casuals ride longer in time, distance, or both.
+
+#### Weekend Skew Ratio
+```dax
+Weekend Skew Ratio =
+DIVIDE([Casual Weekend %], [Member Weekend %], BLANK())
+```
+How much more concentrated casual rides are on weekends relative to members. A value of 2 indicates casuals are twice as likely to ride on weekends compared to members. A key indicator of recreational vs. commuter usage patterns.
+
+#### Round Trip Ratio Casual to Member
+```dax
+Round Trip Ratio Casual to Member =
+DIVIDE(
+    DIVIDE([Casual Round Trips], [Casual Rides], BLANK()),
+    DIVIDE([Member Round Trips], [Member Rides], BLANK()),
+    BLANK()
+)
+```
+Compares the proportion of round trips for casual riders vs. members. Expected to be significantly above 1, supporting the conclusion that casual riders use the service recreationally while members use it for point-to-point commuting.
+
+---
+
+*Phase 5 completes the DAX measure library for the Cyclistic Power BI analysis. Additional documentation for R and Python analysis phases will be maintained in separate files.*

@@ -45,6 +45,5 @@ The assumed rates correspond directly to publicly available Divvy pricing as of 
 - Day pass pricing is not modeled. Some casual riders may purchase day passes rather than single-ride passes; this model assumes single-ride pricing for all casual trips.
 - These simplifications are intentional — the goal is to illustrate the revenue potential of converting casual riders to members, not to produce auditable financial projections.
 
----
 
 *Sources: Divvy pricing pages, City of Chicago press releases (2024–2026), Streetsblog Chicago reporting on Divvy fare changes.*
