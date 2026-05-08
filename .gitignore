@@ -53,9 +53,8 @@ Data/
 *.zip
 *.csv
 
-# Large PowerBI files
-PowerBI/
 *.abf
+*.pbix
 
 # MSTest test Results
 [Tt]est[Rr]esult*/

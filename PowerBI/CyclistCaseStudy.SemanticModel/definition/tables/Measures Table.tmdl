@@ -2,7 +2,7 @@ table 'Measures Table'
 	lineageTag: bb07b7fc-739d-4025-ad63-44a53bc3ddf7
 
 	measure 'Total Rides' = COUNTROWS(Trips)  --Counts all rows in the Trips table. Relies on upstream cleaning for invalid record removal.
-		formatString: 0
+		formatString: #,0
 		lineageTag: 35679c21-9640-493e-b0ec-cda29b2a7a85
 
 	measure 'Member Rides' =
@@ -53,22 +53,395 @@ table 'Measures Table'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column Column1
-		dataType: string
-		lineageTag: c8a8da93-c2f4-445a-8c03-0258993823f7
-		summarizeBy: none
-		sourceColumn: Column1
+	measure 'Weekday Rides' = ```
+			
+			/*// Counts rides occurring on weekdays (Monday–Friday). Uses the Is Weekend column from the Date Table.*/
+			CALCULATE([Total Rides], 'Date'[Is Weekend] = FALSE())
+			
+			
+			```
+		formatString: 0
+		lineageTag: 39229bc2-e586-45ca-b573-b5e9184b63e1
 
-		annotation SummarizationSetBy = Automatic
+	measure 'Weekend Rides' = ```
+			
+			/*Counts rides occurring on weekends (Saturday–Sunday).  */
+			CALCULATE([Total Rides], 'Date'[Is Weekend] = TRUE())
+			
+			
+			```
+		formatString: 0
+		lineageTag: 385add80-90d1-4541-a0f0-0092edc72052
+
+	measure 'Weekend Ride %' = ```
+			
+			DIVIDE([Weekend Rides], [Total Rides], BLANK())
+			/* 
+			Proportion of all rides occurring on weekends. BLANK() returned on divide-by-zero consistent with null-handling convention. */
+			```
+		lineageTag: 89b49b6e-2e73-4d4d-b054-fef8a43cad66
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Duration Casual' = ```
+			
+			AVERAGEX(
+			    FILTER(Trips, Trips[member_casual] = "casual" && Trips[Ride Time (min)] > 0),
+			    Trips[Ride Time (min)]
+			)
+			/* 
+			Average ride duration in decimal minutes for casual riders only. Same filter logic as member duration. */
+			```
+		lineageTag: 7e4ff32d-3ee1-42c8-adc3-8bbadc810dfc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Duration Member' = ```
+			
+			AVERAGEX(
+			    FILTER(Trips, Trips[member_casual] = "member" && Trips[Ride Time (min)] > 0),
+			    Trips[Ride Time (min)]
+			)
+			/* 
+			Average ride duration in decimal minutes for members only. Filters out zero and blank values before averaging. */
+			```
+		lineageTag: 9aa5b069-a6d5-482e-b577-c6871963aecc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Spring Rides' =
+			
+			CALCULATE([Total Rides], 'Date'[Season] = "Spring")
+		formatString: 0
+		lineageTag: f219d7ce-a056-4456-b38f-135d239ed2e0
+
+	measure 'Summer Rides' =
+			
+			CALCULATE([Total Rides], 'Date'[Season] = "Summer")
+		formatString: 0
+		lineageTag: b5947c3c-179f-4a95-88c4-21896e4f11eb
+
+	measure 'Fall Rides' =
+			
+			CALCULATE([Total Rides], 'Date'[Season] = "Fall")
+		formatString: 0
+		lineageTag: 6d3a04f8-3364-4453-8328-30e642eb177e
+
+	measure 'Winter Rides' =
+			
+			CALCULATE([Total Rides], 'Date'[Season] = "Winter")
+		formatString: 0
+		lineageTag: 6c7f670e-3664-4518-9a74-f35c2973537a
+
+	measure 'Casual Weekend %' = ```
+			
+			DIVIDE(
+			    CALCULATE([Casual Rides], 'Date'[Is Weekend] = TRUE()),
+			    [Casual Rides],
+			    BLANK()
+			)
+			/* 
+			Proportion of casual rides that occur on weekends. Expected to skew high — a key indicator that casual riders use the service recreationally rather than for commuting. */
+			```
+		lineageTag: 76988afe-4a8e-4edd-98db-0c3dfc5b7be2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Member Weekend %' = ```
+			
+			DIVIDE(
+			    CALCULATE([Member Rides], 'Date'[Is Weekend] = TRUE()),
+			    [Member Rides],
+			    BLANK()
+			)
+			/* 
+			Proportion of member rides that occur on weekends. Expected to be lower than casual weekend %, reflecting commuter usage patterns among members. */
+			```
+		lineageTag: 3602a300-1a7f-48bd-8db1-bbd1e0486aed
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Member Classic Rides' = ```
+			
+			CALCULATE([Member Rides], Trips[rideable_type] = "classic_bike")
+			/* 
+			Classic bike rides by members only. */
+			```
+		formatString: 0
+		lineageTag: b626a91d-e689-4f1f-9ca9-3c0408f9e2c6
+
+	measure 'Classic Bike Rides' = ```
+			
+			CALCULATE([Total Rides], Trips[rideable_type] = "classic_bike")
+			/* 
+			Total rides on classic bikes across all rider types. */
+			```
+		formatString: 0
+		lineageTag: 4a557c83-6683-4610-b88b-736da32ef231
+
+	measure 'Casual Classic Rides' = ```
+			
+			CALCULATE([Casual Rides], Trips[rideable_type] = "classic_bike")
+			/* 
+			Classic bike rides by casual riders only. */
+			```
+		formatString: 0
+		lineageTag: ebe69a27-a41a-49a7-b06e-61dfa6a0eeac
+
+	measure 'Electric Bike Rides' = ```
+			
+			CALCULATE([Total Rides], Trips[rideable_type] = "electric_bike")
+			/* 
+			Total rides on electric bikes across all rider types. */
+			```
+		formatString: 0
+		lineageTag: 34fa55f0-e31b-4117-ad24-578bc89dc8ac
+
+	measure 'Member Electric Rides' = ```
+			
+			CALCULATE([Member Rides], Trips[rideable_type] = "electric_bike")
+			/* 
+			Electric bike rides by members only. */
+			```
+		formatString: 0
+		lineageTag: cf453297-7318-4048-b05c-45ae00f8eaa0
+
+	measure 'Casual Electric Rides' = ```
+			
+			CALCULATE([Casual Rides], Trips[rideable_type] = "electric_bike")
+			/* 
+			Electric bike rides by casual riders only. */
+			```
+		formatString: 0
+		lineageTag: 9d239f6a-dbeb-4ed8-ba8e-adbdf5337e61
+
+	measure 'Docked Bike Rides' = ```
+			
+			CALCULATE([Total Rides], Trips[rideable_type] = "docked_bike")
+			/* 
+			Total rides on docked bikes. Returns BLANK() with current dataset — included for forward compatibility. */
+			```
+		formatString: 0
+		lineageTag: d64828e8-6b1f-4e0c-90df-e11550e9746d
+
+	measure 'Member Docked Rides' = ```
+			
+			CALCULATE([Member Rides], Trips[rideable_type] = "docked_bike")
+			/* 
+			Docked bike rides by members only. Returns BLANK() with current dataset. */
+			```
+		formatString: 0
+		lineageTag: 65685e0d-534b-4722-adb0-ebfc96e6ce06
+
+	measure 'Casual Docked Rides' = ```
+			
+			CALCULATE([Casual Rides], Trips[rideable_type] = "docked_bike")
+			/* 
+			Docked bike rides by casual riders only. Returns BLANK() with current dataset. */
+			```
+		formatString: 0
+		lineageTag: 06e0d7b1-746e-45a0-b546-55aad789af5a
+
+	measure 'Classic Bike %' = ```
+			
+			DIVIDE([Classic Bike Rides], [Total Rides], BLANK())
+			/* 
+			Proportion of all rides on classic bikes. */
+			```
+		lineageTag: 5e6a8fd3-4c35-4257-a2de-8ccec3ac38b1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Electric Bike %' = ```
+			
+			DIVIDE([Electric Bike Rides], [Total Rides], BLANK())
+			/* 
+			Proportion of all rides on electric bikes. */
+			```
+		lineageTag: 56db288f-28b8-469b-acdf-731e826cd547
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Docked Bike %' = ```
+			
+			DIVIDE([Docked Bike Rides], [Total Rides], BLANK())
+			/* 
+			Proportion of all rides on docked bikes. Returns BLANK() with current dataset. */
+			```
+		lineageTag: c3fa7dcf-70b3-4d96-8419-10d7368986dd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Rides with Start Station' = ```
+			
+			CALCULATE([Total Rides], Trips[start_station_name] <> BLANK())
+			/* 
+			Total rides where a start station name is recorded. */
+			```
+		formatString: 0
+		lineageTag: 21e7ca21-121f-48ca-b2d9-e15237df4737
+
+	measure 'Rides with End Station' = ```
+			
+			CALCULATE([Total Rides], Trips[end_station_name] <> BLANK())
+			/* 
+			Total rides where an end station name is recorded. */
+			```
+		formatString: 0
+		lineageTag: ad76ce8e-37d6-48eb-9f5a-6a36864d561d
+
+	measure 'Rides Missing Station Data' = ```
+			
+			[Total Rides] - [Rides with Start Station]
+			/* 
+			Quantifies rides with no start station recorded. Expected to be non-trivial, particularly for electric bike rides. */
+			```
+		formatString: 0
+		lineageTag: fef9a94d-7fb0-493a-b7c4-bc9343524482
+
+	measure 'Member Rides with Start Station' = ```
+			
+			CALCULATE([Member Rides], Trips[start_station_name] <> BLANK())
+			/* 
+			Member rides where a start station name is recorded. */
+			```
+		formatString: 0
+		lineageTag: fb4627d7-7589-40ac-9e43-034eef53a013
+
+	measure 'Casual Rides with Start Station' = ```
+			
+			CALCULATE([Casual Rides], Trips[start_station_name] <> BLANK())
+			/* 
+			Casual rides where a start station name is recorded. */
+			```
+		formatString: 0
+		lineageTag: 8e89ca29-78f8-45bb-bce8-bc6d7ebb4ac1
+
+	measure 'Round Trips' = ```
+			
+			CALCULATE(
+			    [Total Rides],
+			    Trips[start_station_name] = Trips[end_station_name]
+			)
+			/* 
+			Total rides where the start and end station are the same. Indicator of recreational usage. */
+			```
+		formatString: 0
+		lineageTag: 82f94991-72e7-456a-80cb-93b54ce49656
+
+	measure 'Casual Round Trips' = ```
+			
+			CALCULATE(
+			    [Casual Rides],
+			    Trips[start_station_name] = Trips[end_station_name]
+			)
+			/* 
+			Round trips by casual riders. Expected to be proportionally higher than members, consistent with recreational usage patterns. */
+			```
+		formatString: 0
+		lineageTag: 00c5a554-c850-4710-ad94-249bc4e2e8a4
+
+	measure 'Member Round Trips' = ```
+			
+			CALCULATE(
+			    [Member Rides],
+			    Trips[start_station_name] = Trips[end_station_name]
+			)
+			/* 
+			Round trips by members. Expected to be proportionally lower, consistent with point-to-point commuter usage. */
+			```
+		formatString: 0
+		lineageTag: f7a9d148-7109-4f87-9d43-e004da0a7af3
+
+	measure 'Estimated Casual Revenue per Ride' = ```
+			
+			VAR OverageMinutes =
+			    MAX(Trips[Ride Time (min)] - 30, 0)
+			RETURN
+			    3.30 + (OverageMinutes * 0.18)
+			/* 
+			Calculates estimated per-ride revenue for a casual rider. Applies a $3.30 unlock fee plus $0.18/min for any minutes beyond the 30-minute included threshold. */
+			```
+		lineageTag: 7f6fba28-35fb-4f2f-9f63-15dd464584aa
+
+	measure 'Total Estimated Casual Revenue' = ```
+			
+			SUMX(
+			    FILTER(Trips, Trips[member_casual] = "casual" && Trips[Ride Time (min)] > 0),
+			    VAR OverageMinutes = MAX(Trips[Ride Time (min)] - 30, 0)
+			    RETURN 3.30 + (OverageMinutes * 0.18)
+			)
+			/* 
+			Sums estimated casual revenue across all qualifying rides. Excludes rides with zero or blank duration. Overage calculated per ride before summing. */
+			```
+		lineageTag: e553028c-4a4d-4082-be3e-402ff65c1757
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Estimated Member Overage Revenue' = ```
+			
+			SUMX(
+			    FILTER(Trips, Trips[member_casual] = "member" && Trips[Ride Time (min)] > 0),
+			    VAR OverageMinutes = MAX(Trips[Ride Time (min)] - 45, 0)
+			    RETURN OverageMinutes * 0.18
+			)
+			/* 
+			Captures variable overage revenue from member rides exceeding the 45-minute included threshold at $0.18/min. Does not include the annual membership fee, which is not  amortized per ride in this model.*/
+			```
+		lineageTag: 7947a3bf-4f63-4c85-9ad7-67b5e38c7423
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Duration Ratio Casual to Member' =
+			
+			DIVIDE([Avg Duration Casual], [Avg Duration Member], BLANK())
+			
+			/* Ratio of average casual ride duration to average member ride duration. Values above 1 indicate casual riders take longer rides on average. Expected to be meaningfully above 1, consistent with recreational usage patterns. */
+		lineageTag: 8b01ceba-3b89-4a05-b55d-042f5a4448ca
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Distance Ratio Casual to Member' = ```
+			
+			DIVIDE([Avg Ride Distance Casual], [Avg Ride Distance Member], BLANK())
+			/* 
+			Ratio of average casual ride distance to average member ride distance. Compared alongside the duration ratio to assess whether casuals ride longer in time, distance, or both. */
+			```
+		lineageTag: ae1cefb7-cec3-4337-97a4-d8984d1856eb
+
+	measure 'Weekend Skew Ratio' = ```
+			
+			DIVIDE([Casual Weekend %], [Member Weekend %], BLANK())
+			/* 
+			How much more concentrated casual rides are on weekends relative to members. A value of 2 indicates casuals are twice as likely to ride on weekends compared to members. A key indicator of recreational vs. commuter usage patterns. */
+			```
+		lineageTag: 67c71dc8-9d2d-4cc7-97ff-7d14fc8594f0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Round Trip Ratio Casual to Member' = ```
+			
+			DIVIDE(
+			    DIVIDE([Casual Round Trips], [Casual Rides], BLANK()),
+			    DIVIDE([Member Round Trips], [Member Rides], BLANK()),
+			    BLANK()
+			)
+			/* 
+			Compares the proportion of round trips for casual riders vs. members. Expected to be significantly above 1, supporting the conclusion that casual riders use the service recreationally while members use it for point-to-point commuting. */
+			```
+		lineageTag: 3f64c7fe-2ce6-497f-8afb-6719fb65f822
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition 'Measures Table' = m
 		mode: import
 		source =
 				let
 				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
-				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
 				in
-				    #"Changed Type"
+				    #"Removed Columns"
 
 	changedProperty = Name
 

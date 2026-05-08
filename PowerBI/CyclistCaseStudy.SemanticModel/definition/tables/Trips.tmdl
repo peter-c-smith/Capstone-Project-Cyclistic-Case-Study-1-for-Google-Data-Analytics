@@ -183,6 +183,16 @@ table Trips
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Ride Start Hour' =
+			
+			/*Extracts the hour (0–23) from the ride start timestamp. Used as a visual axis to show ride distribution across hours of the day. Peak hour analysis is better surfaced through visuals than a single DAX measure, as the full hourly distribution is more informative than a single peak value.*/
+			HOUR(Trips[started_at])
+		formatString: 0
+		lineageTag: dc4e35c5-697a-418f-81fe-3b3c09acad20
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition Trips = m
 		mode: import
 		source =
