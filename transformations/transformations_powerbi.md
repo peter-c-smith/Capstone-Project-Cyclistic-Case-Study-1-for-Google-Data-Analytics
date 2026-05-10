@@ -141,6 +141,26 @@ Averages decimal-minute ride durations. Filters out zero and blank values before
 Avg Ride Distance (mi) = AVERAGEX(FILTER(Trips, Trips[Ride Distance (mi)] > 0), Trips[Ride Distance (mi)])
 Averages Haversine-calculated ride distances in miles. Same filter logic as duration.
 
+### Avg Ride Distance Member
+```dax
+Avg Ride Distance Member =
+AVERAGEX(
+    FILTER(Trips, Trips[member_casual] = "member" && Trips[Ride Distance (mi)] > 0),
+    Trips[Ride Distance (mi)]
+)
+```
+Average ride distance in miles for members only. Filters out zero and blank values before averaging, consistent with other average measures in this project. Companion measure to Avg Ride Distance Casual — both are used to feed the Distance Ratio Casual to Member measure in Phase 5.
+
+### Avg Ride Distance Casual
+```dax
+Avg Ride Distance Casual =
+AVERAGEX(
+    FILTER(Trips, Trips[member_casual] = "casual" && Trips[Ride Distance (mi)] > 0),
+    Trips[Ride Distance (mi)]
+)
+```
+Average ride distance in miles for casual riders only. Filters out zero and blank values before averaging, consistent with other average measures in this project. Companion measure to Avg Ride Distance Member — both are used to feed the Distance Ratio Casual to Member measure in Phase 5.
+
 ## Phase 2 — Temporal & Usage Patterns
 
 ### Calculated Column — Ride Start Hour
