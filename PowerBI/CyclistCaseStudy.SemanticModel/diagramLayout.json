@@ -35,19 +35,20 @@
         },
         {
           "location": {
-            "x": 642,
-            "y": 98
+            "x": 625,
+            "y": 0
           },
-          "nodeIndex": "Measures Table",
+          "nodeIndex": "Measures Folder",
+          "nodeLineageTag": "bb07b7fc-739d-4025-ad63-44a53bc3ddf7",
           "size": {
-            "height": 104,
+            "height": 674,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 3
         }
       ],
       "name": "All tables",
-      "zoomValue": 100,
+      "zoomValue": 76.577669902912632,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,

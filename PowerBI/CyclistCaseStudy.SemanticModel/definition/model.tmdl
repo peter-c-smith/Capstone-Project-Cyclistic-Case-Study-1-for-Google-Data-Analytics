@@ -16,13 +16,13 @@ queryGroup 'Transform File from DATAfile_Consolidated\Helper Queries'
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_QueryOrder = ["Trips","Sample File","Parameter1","Transform Sample File","Transform File","Measures Table"]
+annotation PBI_QueryOrder = ["Trips","Sample File","Parameter1","Transform Sample File","Transform File","Measures Folder"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
 ref table Trips
 ref table Date
-ref table 'Measures Table'
+ref table 'Measures Folder'
 
 ref cultureInfo en-US
 

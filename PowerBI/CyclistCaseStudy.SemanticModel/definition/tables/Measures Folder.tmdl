@@ -1,8 +1,9 @@
-table 'Measures Table'
+table 'Measures Folder'
 	lineageTag: bb07b7fc-739d-4025-ad63-44a53bc3ddf7
 
 	measure 'Total Rides' = COUNTROWS(Trips)  --Counts all rows in the Trips table. Relies on upstream cleaning for invalid record removal.
 		formatString: #,0
+		displayFolder: Core
 		lineageTag: 35679c21-9640-493e-b0ec-cda29b2a7a85
 
 	measure 'Member Rides' =
@@ -11,7 +12,8 @@ table 'Measures Table'
 			    COUNTROWS(Trips),
 			    Trips[member_casual] = "member"
 			)
-		formatString: 0
+		formatString: #,0
+		displayFolder: Core
 		lineageTag: 6db79f1f-c0f5-4f4d-b5a8-1233b46f9ad1
 
 	measure 'Casual Rides' =
@@ -20,15 +22,16 @@ table 'Measures Table'
 			    COUNTROWS(Trips),
 			    Trips[member_casual] = "casual"
 			)
-		formatString: 0
+		formatString: #,0
+		displayFolder: Core
 		lineageTag: be6be4fd-a920-4032-b7fb-33a31ceb4691
 
 	measure 'Member Ride %' =
 			-- Returns the proportion of rides by members. BLANK() returned on divide-by-zero to stay consistent with null-handling convention.
 			DIVIDE([Member Rides], [Total Rides], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Core
 		lineageTag: 11101433-6c0f-461a-a7c7-f3c2f40514c9
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Avg Ride Duration (min)' =
 			
@@ -38,6 +41,7 @@ table 'Measures Table'
 			)
 			/*
 			Averages decimal-minute ride durations. Filters out zero and blank values before averaging to avoid skewing the result.*/
+		displayFolder: Core
 		lineageTag: a2c0b2c2-3ef3-4e0b-8a20-d586c7707342
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -49,6 +53,7 @@ table 'Measures Table'
 			    FILTER(Trips, Trips[Ride Distance (mi)] > 0),
 			    Trips[Ride Distance (mi)]
 			)
+		displayFolder: Core
 		lineageTag: d1c15fe3-3deb-4e5d-952f-8063ec3bbdbc
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -61,6 +66,7 @@ table 'Measures Table'
 			
 			```
 		formatString: 0
+		displayFolder: Temporal
 		lineageTag: 39229bc2-e586-45ca-b573-b5e9184b63e1
 
 	measure 'Weekend Rides' = ```
@@ -71,6 +77,7 @@ table 'Measures Table'
 			
 			```
 		formatString: 0
+		displayFolder: Temporal
 		lineageTag: 385add80-90d1-4541-a0f0-0092edc72052
 
 	measure 'Weekend Ride %' = ```
@@ -79,6 +86,7 @@ table 'Measures Table'
 			/* 
 			Proportion of all rides occurring on weekends. BLANK() returned on divide-by-zero consistent with null-handling convention. */
 			```
+		displayFolder: Temporal
 		lineageTag: 89b49b6e-2e73-4d4d-b054-fef8a43cad66
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -92,6 +100,7 @@ table 'Measures Table'
 			/* 
 			Average ride duration in decimal minutes for casual riders only. Same filter logic as member duration. */
 			```
+		displayFolder: Temporal
 		lineageTag: 7e4ff32d-3ee1-42c8-adc3-8bbadc810dfc
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -105,6 +114,7 @@ table 'Measures Table'
 			/* 
 			Average ride duration in decimal minutes for members only. Filters out zero and blank values before averaging. */
 			```
+		displayFolder: Temporal
 		lineageTag: 9aa5b069-a6d5-482e-b577-c6871963aecc
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -113,24 +123,28 @@ table 'Measures Table'
 			
 			CALCULATE([Total Rides], 'Date'[Season] = "Spring")
 		formatString: 0
+		displayFolder: Temporal
 		lineageTag: f219d7ce-a056-4456-b38f-135d239ed2e0
 
 	measure 'Summer Rides' =
 			
 			CALCULATE([Total Rides], 'Date'[Season] = "Summer")
 		formatString: 0
+		displayFolder: Temporal
 		lineageTag: b5947c3c-179f-4a95-88c4-21896e4f11eb
 
 	measure 'Fall Rides' =
 			
 			CALCULATE([Total Rides], 'Date'[Season] = "Fall")
 		formatString: 0
+		displayFolder: Temporal
 		lineageTag: 6d3a04f8-3364-4453-8328-30e642eb177e
 
 	measure 'Winter Rides' =
 			
 			CALCULATE([Total Rides], 'Date'[Season] = "Winter")
 		formatString: 0
+		displayFolder: Temporal
 		lineageTag: 6c7f670e-3664-4518-9a74-f35c2973537a
 
 	measure 'Casual Weekend %' = ```
@@ -143,6 +157,7 @@ table 'Measures Table'
 			/* 
 			Proportion of casual rides that occur on weekends. Expected to skew high — a key indicator that casual riders use the service recreationally rather than for commuting. */
 			```
+		displayFolder: Temporal
 		lineageTag: 76988afe-4a8e-4edd-98db-0c3dfc5b7be2
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -157,6 +172,7 @@ table 'Measures Table'
 			/* 
 			Proportion of member rides that occur on weekends. Expected to be lower than casual weekend %, reflecting commuter usage patterns among members. */
 			```
+		displayFolder: Temporal
 		lineageTag: 3602a300-1a7f-48bd-8db1-bbd1e0486aed
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -168,6 +184,7 @@ table 'Measures Table'
 			Classic bike rides by members only. */
 			```
 		formatString: 0
+		displayFolder: Bike Type
 		lineageTag: b626a91d-e689-4f1f-9ca9-3c0408f9e2c6
 
 	measure 'Classic Bike Rides' = ```
@@ -177,6 +194,7 @@ table 'Measures Table'
 			Total rides on classic bikes across all rider types. */
 			```
 		formatString: 0
+		displayFolder: Bike Type
 		lineageTag: 4a557c83-6683-4610-b88b-736da32ef231
 
 	measure 'Casual Classic Rides' = ```
@@ -186,6 +204,7 @@ table 'Measures Table'
 			Classic bike rides by casual riders only. */
 			```
 		formatString: 0
+		displayFolder: Bike Type
 		lineageTag: ebe69a27-a41a-49a7-b06e-61dfa6a0eeac
 
 	measure 'Electric Bike Rides' = ```
@@ -195,6 +214,7 @@ table 'Measures Table'
 			Total rides on electric bikes across all rider types. */
 			```
 		formatString: 0
+		displayFolder: Bike Type
 		lineageTag: 34fa55f0-e31b-4117-ad24-578bc89dc8ac
 
 	measure 'Member Electric Rides' = ```
@@ -204,6 +224,7 @@ table 'Measures Table'
 			Electric bike rides by members only. */
 			```
 		formatString: 0
+		displayFolder: Bike Type
 		lineageTag: cf453297-7318-4048-b05c-45ae00f8eaa0
 
 	measure 'Casual Electric Rides' = ```
@@ -213,6 +234,7 @@ table 'Measures Table'
 			Electric bike rides by casual riders only. */
 			```
 		formatString: 0
+		displayFolder: Bike Type
 		lineageTag: 9d239f6a-dbeb-4ed8-ba8e-adbdf5337e61
 
 	measure 'Docked Bike Rides' = ```
@@ -222,6 +244,7 @@ table 'Measures Table'
 			Total rides on docked bikes. Returns BLANK() with current dataset — included for forward compatibility. */
 			```
 		formatString: 0
+		displayFolder: Bike Type
 		lineageTag: d64828e8-6b1f-4e0c-90df-e11550e9746d
 
 	measure 'Member Docked Rides' = ```
@@ -231,6 +254,7 @@ table 'Measures Table'
 			Docked bike rides by members only. Returns BLANK() with current dataset. */
 			```
 		formatString: 0
+		displayFolder: Bike Type
 		lineageTag: 65685e0d-534b-4722-adb0-ebfc96e6ce06
 
 	measure 'Casual Docked Rides' = ```
@@ -240,6 +264,7 @@ table 'Measures Table'
 			Docked bike rides by casual riders only. Returns BLANK() with current dataset. */
 			```
 		formatString: 0
+		displayFolder: Bike Type
 		lineageTag: 06e0d7b1-746e-45a0-b546-55aad789af5a
 
 	measure 'Classic Bike %' = ```
@@ -248,9 +273,9 @@ table 'Measures Table'
 			/* 
 			Proportion of all rides on classic bikes. */
 			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Bike Type
 		lineageTag: 5e6a8fd3-4c35-4257-a2de-8ccec3ac38b1
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Electric Bike %' = ```
 			
@@ -258,9 +283,9 @@ table 'Measures Table'
 			/* 
 			Proportion of all rides on electric bikes. */
 			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Bike Type
 		lineageTag: 56db288f-28b8-469b-acdf-731e826cd547
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Docked Bike %' = ```
 			
@@ -268,6 +293,7 @@ table 'Measures Table'
 			/* 
 			Proportion of all rides on docked bikes. Returns BLANK() with current dataset. */
 			```
+		displayFolder: Bike Type
 		lineageTag: c3fa7dcf-70b3-4d96-8419-10d7368986dd
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -279,6 +305,7 @@ table 'Measures Table'
 			Total rides where a start station name is recorded. */
 			```
 		formatString: 0
+		displayFolder: Station
 		lineageTag: 21e7ca21-121f-48ca-b2d9-e15237df4737
 
 	measure 'Rides with End Station' = ```
@@ -288,6 +315,7 @@ table 'Measures Table'
 			Total rides where an end station name is recorded. */
 			```
 		formatString: 0
+		displayFolder: Station
 		lineageTag: ad76ce8e-37d6-48eb-9f5a-6a36864d561d
 
 	measure 'Rides Missing Station Data' = ```
@@ -297,6 +325,7 @@ table 'Measures Table'
 			Quantifies rides with no start station recorded. Expected to be non-trivial, particularly for electric bike rides. */
 			```
 		formatString: 0
+		displayFolder: Station
 		lineageTag: fef9a94d-7fb0-493a-b7c4-bc9343524482
 
 	measure 'Member Rides with Start Station' = ```
@@ -306,6 +335,7 @@ table 'Measures Table'
 			Member rides where a start station name is recorded. */
 			```
 		formatString: 0
+		displayFolder: Station
 		lineageTag: fb4627d7-7589-40ac-9e43-034eef53a013
 
 	measure 'Casual Rides with Start Station' = ```
@@ -315,6 +345,7 @@ table 'Measures Table'
 			Casual rides where a start station name is recorded. */
 			```
 		formatString: 0
+		displayFolder: Station
 		lineageTag: 8e89ca29-78f8-45bb-bce8-bc6d7ebb4ac1
 
 	measure 'Round Trips' = ```
@@ -327,6 +358,7 @@ table 'Measures Table'
 			Total rides where the start and end station are the same. Indicator of recreational usage. */
 			```
 		formatString: 0
+		displayFolder: Station
 		lineageTag: 82f94991-72e7-456a-80cb-93b54ce49656
 
 	measure 'Casual Round Trips' = ```
@@ -339,6 +371,7 @@ table 'Measures Table'
 			Round trips by casual riders. Expected to be proportionally higher than members, consistent with recreational usage patterns. */
 			```
 		formatString: 0
+		displayFolder: Station
 		lineageTag: 00c5a554-c850-4710-ad94-249bc4e2e8a4
 
 	measure 'Member Round Trips' = ```
@@ -351,6 +384,7 @@ table 'Measures Table'
 			Round trips by members. Expected to be proportionally lower, consistent with point-to-point commuter usage. */
 			```
 		formatString: 0
+		displayFolder: Station
 		lineageTag: f7a9d148-7109-4f87-9d43-e004da0a7af3
 
 	measure 'Estimated Casual Revenue per Ride' = ```
@@ -362,6 +396,7 @@ table 'Measures Table'
 			/* 
 			Calculates estimated per-ride revenue for a casual rider. Applies a $3.30 unlock fee plus $0.18/min for any minutes beyond the 30-minute included threshold. */
 			```
+		displayFolder: Revenue (Synthetic or Illustrative)
 		lineageTag: 7f6fba28-35fb-4f2f-9f63-15dd464584aa
 
 	measure 'Total Estimated Casual Revenue' = ```
@@ -374,6 +409,7 @@ table 'Measures Table'
 			/* 
 			Sums estimated casual revenue across all qualifying rides. Excludes rides with zero or blank duration. Overage calculated per ride before summing. */
 			```
+		displayFolder: Revenue (Synthetic or Illustrative)
 		lineageTag: e553028c-4a4d-4082-be3e-402ff65c1757
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -388,6 +424,7 @@ table 'Measures Table'
 			/* 
 			Captures variable overage revenue from member rides exceeding the 45-minute included threshold at $0.18/min. Does not include the annual membership fee, which is not  amortized per ride in this model.*/
 			```
+		displayFolder: Revenue (Synthetic or Illustrative)
 		lineageTag: 7947a3bf-4f63-4c85-9ad7-67b5e38c7423
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -397,6 +434,7 @@ table 'Measures Table'
 			DIVIDE([Avg Duration Casual], [Avg Duration Member], BLANK())
 			
 			/* Ratio of average casual ride duration to average member ride duration. Values above 1 indicate casual riders take longer rides on average. Expected to be meaningfully above 1, consistent with recreational usage patterns. */
+		displayFolder: Behavioral Ratios
 		lineageTag: 8b01ceba-3b89-4a05-b55d-042f5a4448ca
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -407,6 +445,7 @@ table 'Measures Table'
 			/* 
 			Ratio of average casual ride distance to average member ride distance. Compared alongside the duration ratio to assess whether casuals ride longer in time, distance, or both. */
 			```
+		displayFolder: Behavioral Ratios
 		lineageTag: ae1cefb7-cec3-4337-97a4-d8984d1856eb
 
 	measure 'Weekend Skew Ratio' = ```
@@ -415,6 +454,7 @@ table 'Measures Table'
 			/* 
 			How much more concentrated casual rides are on weekends relative to members. A value of 2 indicates casuals are twice as likely to ride on weekends compared to members. A key indicator of recreational vs. commuter usage patterns. */
 			```
+		displayFolder: Behavioral Ratios
 		lineageTag: 67c71dc8-9d2d-4cc7-97ff-7d14fc8594f0
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -429,11 +469,40 @@ table 'Measures Table'
 			/* 
 			Compares the proportion of round trips for casual riders vs. members. Expected to be significantly above 1, supporting the conclusion that casual riders use the service recreationally while members use it for point-to-point commuting. */
 			```
+		displayFolder: Behavioral Ratios
 		lineageTag: 3f64c7fe-2ce6-497f-8afb-6719fb65f822
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	partition 'Measures Table' = m
+	measure 'Avg Ride Distance Member' = ```
+			
+			AVERAGEX(
+			    FILTER(Trips, Trips[member_casual] = "member" && Trips[Ride Distance (mi)] > 0),
+			    Trips[Ride Distance (mi)]
+			)
+			/* 
+			Average ride distance in miles for members only. Filters out zero and blank values before averaging, consistent with other average measures in this project. Companion measure to Avg Ride Distance Casual — both are used to feed the Distance Ratio Casual to Member measure in Phase 5. */
+			```
+		displayFolder: Temporal
+		lineageTag: f4e85ab1-5cbf-4f9b-8ac5-63c08aea31b7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Ride Distance Casual' = ```
+			
+			AVERAGEX(
+			    FILTER(Trips, Trips[member_casual] = "casual" && Trips[Ride Distance (mi)] > 0),
+			    Trips[Ride Distance (mi)]
+			)
+			/* 
+			Average ride distance in miles for casual riders only. Filters out zero and blank values before averaging, consistent with other average measures in this project. Companion measure to Avg Ride Distance Member — both are used to feed the Distance Ratio Casual to Member measure in Phase 5. */
+			```
+		displayFolder: Temporal
+		lineageTag: 0f8e3835-efc6-4b03-8125-4c8acbaf957c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Measures Folder' = m
 		mode: import
 		source =
 				let

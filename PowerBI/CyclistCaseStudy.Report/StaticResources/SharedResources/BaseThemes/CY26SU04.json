@@ -1,5 +1,5 @@
 {
-  "name": "CY26SU02",
+  "name": "CY26SU04",
   "dataColors": [
     "#118DFF",
     "#12239E",
@@ -193,6 +193,7 @@
         "bubbles": [
           {
             "bubbleSize": -10,
+            "preventOverflow": true,
             "markerRangeType": "auto"
           }
         ],
@@ -229,6 +230,13 @@
         "forecast": [
           {
             "matchSeriesInterpolation": true
+          }
+        ],
+        "seriesLabels": [
+          {
+            "enableBackground": true,
+            "leaderLines": true,
+            "seriesMatchColor": true
           }
         ]
       }
@@ -535,6 +543,15 @@
         ]
       }
     },
+    "listSlicer": {
+      "*": {
+        "layout": [
+          {
+            "showFixedSize": true
+          }
+        ]
+      }
+    },
     "slicer": {
       "*": {
         "general": [
@@ -696,6 +713,13 @@
             "backgroundTransparency": 0,
             "gridLineType": "inner"
           }
+        ],
+        "seriesLabels": [
+          {
+            "enableBackground": true,
+            "leaderLines": true,
+            "seriesMatchColor": true
+          }
         ]
       }
     },
@@ -710,6 +734,13 @@
           {
             "backgroundTransparency": 0,
             "gridLineType": "inner"
+          }
+        ],
+        "seriesLabels": [
+          {
+            "enableBackground": true,
+            "leaderLines": true,
+            "seriesMatchColor": true
           }
         ]
       }
@@ -729,7 +760,10 @@
         ],
         "seriesLabels": [
           {
-            "backgroundTransparency": 0.9
+            "backgroundTransparency": 0.9,
+            "enableBackground": true,
+            "leaderLines": true,
+            "seriesMatchColor": true
           }
         ]
       }
@@ -749,7 +783,10 @@
         ],
         "seriesLabels": [
           {
-            "backgroundTransparency": 0.9
+            "backgroundTransparency": 0.9,
+            "enableBackground": true,
+            "leaderLines": true,
+            "seriesMatchColor": true
           }
         ]
       }
@@ -785,6 +822,13 @@
           {
             "backgroundTransparency": 0,
             "gridLineType": "inner"
+          }
+        ],
+        "seriesLabels": [
+          {
+            "enableBackground": true,
+            "leaderLines": true,
+            "seriesMatchColor": true
           }
         ]
       }

@@ -18,6 +18,26 @@ This analysis is based in the United States where miles are the standard unit of
 
 **Null handling:**
 Rows with missing coordinates return BLANK() rather than 0 to avoid skewing distance averages with invalid data.
+
+### Calculated Column — Ride Start Hour Label
+Converts the 24-hour Ride Start Hour column into a 12-hour clock label (e.g. "9 AM", "3 PM") for use as a display axis in visuals. The column is intended to be used alongside Ride Start Hour — place Ride Start Hour Label on the visual axis and sort it by Ride Start Hour to maintain correct 24-hour chronological order.
+
+**Null handling:** Inherits from Ride Start Hour — returns BLANK() implicitly if started_at is blank.
+
+```dax
+Ride Start Hour Label =
+VAR Hour24 = Trips[Ride Start Hour]
+VAR Hour12 = MOD(Hour24 - 1, 12) + 1
+VAR Suffix = IF(Hour24 < 12 || Hour24 = 0, " AM", " PM")
+VAR Midnight = Hour24 = 0
+VAR Noon = Hour24 = 12
+RETURN
+    IF(Midnight, "12 AM",
+        IF(Noon, "12 PM",
+            FORMAT(Hour12, "0") & Suffix
+        )
+    )
+```
 ```dax
 Ride Distance (mi) =
 IF(

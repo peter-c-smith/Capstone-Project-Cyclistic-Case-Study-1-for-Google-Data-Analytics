@@ -1,32 +1,51 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
-  "name": "176ce61882486a5048fa",
+  "name": "d0a2910a314ab602c26a",
   "position": {
-    "x": 461.19402985074623,
-    "y": 173.73134328358208,
-    "z": 0,
-    "height": 280.29850746268659,
-    "width": 280.29850746268659,
-    "tabOrder": 0
+    "x": 27.984790874524712,
+    "y": 405.17110266159693,
+    "z": 3000,
+    "height": 315.13307984790873,
+    "width": 485.47528517110266,
+    "tabOrder": 3000
   },
   "visual": {
-    "visualType": "cardVisual",
+    "visualType": "barChart",
     "query": {
       "queryState": {
-        "Data": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Trips"
+                    }
+                  },
+                  "Property": "start_station_id"
+                }
+              },
+              "queryRef": "Trips.start_station_id",
+              "nativeQueryRef": "start_station_id",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
           "projections": [
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Measures Table"
+                      "Entity": "Measures Folder"
                     }
                   },
                   "Property": "Total Rides"
                 }
               },
-              "queryRef": "Measures Table.Total Rides",
+              "queryRef": "Measures Folder.Total Rides",
               "nativeQueryRef": "Total Rides"
             }
           ]
@@ -39,7 +58,7 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Measures Table"
+                    "Entity": "Measures Folder"
                   }
                 },
                 "Property": "Total Rides"
@@ -52,9 +71,16 @@
       }
     },
     "objects": {
-      "value": [
+      "labels": [
         {
           "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
             "labelDisplayUnits": {
               "expr": {
                 "Literal": {
@@ -62,9 +88,6 @@
                 }
               }
             }
-          },
-          "selector": {
-            "metadata": "Measures Table.Total Rides"
           }
         }
       ]
