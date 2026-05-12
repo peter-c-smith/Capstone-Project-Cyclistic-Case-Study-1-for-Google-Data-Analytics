@@ -529,6 +529,18 @@ DIVIDE(
 ```
 Compares the proportion of round trips for casual riders vs. members. Expected to be significantly above 1, supporting the conclusion that casual riders use the service recreationally while members use it for point-to-point commuting.
 
+### Fleet Utilization
+True concurrent ride calculation (peak bikes in use simultaneously) requires interval overlap analysis that is computationally impractical in DAX. The Ride Start Hour column combined with day-of-week from the Date table serves as a proxy for peak demand periods in Power BI visuals. Full concurrency analysis is deferred to the R and Python phases of this project.
+
+### Known Limitation — Unique Rider IDs
+This dataset does not include unique rider identifiers. As a result the following analyses cannot be performed in this project:
+
+- Total unique casual rider count
+- Repeat ride frequency per rider
+- Conversion rate modeling (estimating revenue impact of casual-to-member conversion)
+
+A what-if analysis estimating revenue uplift from casual rider conversion would typically accompany the Phase 5 revenue measures. This has been intentionally omitted due to the methodological limitations described above. The omission is documented on the Revenue Opportunity report page. This analysis is flagged as a recommended next step should rider-level data become available.
+
 ---
 
 *Phase 5 completes the DAX measure library for the Cyclistic Power BI analysis. Additional documentation for R and Python analysis phases will be maintained in separate files.*

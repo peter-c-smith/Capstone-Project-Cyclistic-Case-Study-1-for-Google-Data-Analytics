@@ -49,7 +49,6 @@ bld/
 Generated\ Files/
 
 # Data files
-Data/
 *.zip
 *.csv
 
@@ -424,3 +423,4 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+cyclistic_pricing_rationale.docx

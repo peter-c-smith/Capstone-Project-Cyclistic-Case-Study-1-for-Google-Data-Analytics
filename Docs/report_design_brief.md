@@ -92,3 +92,16 @@
 - Page 5 disclaimer should appear at the top of the page in amber text (#7F5A00), not buried at the bottom
 - The map visual on Page 4 requires that coordinate fields are correctly typed as Decimal Number in Power Query
 - The hour-of-day chart on Page 3 is the single most compelling visual in the report — give it the most canvas space on that page
+- 
+### Fleet Utilization Note
+True concurrent ride calculations (peak bikes in use simultaneously) are not practical in DAX due to the computational complexity of interval overlap analysis. A rides-per-hour-by-day-of-week visual using the existing Ride Start Hour column serves as a practical proxy for peak demand periods in Power BI. Full concurrency analysis will be performed in the R and Python sections of this project where interval overlap algorithms can be applied properly.
+
+### Conversion Rate Analysis — Intentional Omission
+A conversion rate analysis estimating revenue impact if a percentage of casual riders became annual members would typically accompany this section. However, this dataset does not include unique rider identifiers, making it impossible to distinguish individual users from repeat rides. Without that baseline, conversion estimates would require assumptions that compound too heavily to be defensible. This limitation is noted here in the interest of analytical integrity.
+
+A what-if analysis of this type would require:
+- Unique rider IDs to establish a true casual rider population
+- Repeat ride frequency per rider to model realistic conversion behavior
+- A defensible assumption about conversion rate drawn from industry benchmarks
+
+This analysis is flagged as a recommended next step should Cyclistic provide rider-level data in the future.
