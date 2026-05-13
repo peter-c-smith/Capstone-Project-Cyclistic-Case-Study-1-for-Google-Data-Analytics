@@ -4,6 +4,19 @@ This document lists all DAX measures organized by their assigned display folder 
 
 ---
 
+---
+
+## 📁 Annotations
+
+Dynamic text measures that generate descriptive sentences for use in Card visuals alongside behavioral ratio cards. Values update automatically when slicers are adjusted.
+
+| Measure | Description |
+|---|---|
+| Annotation Duration Ratio | Dynamic text describing the casual to member ride duration ratio |
+| Annotation Weekend Skew | Dynamic text describing the casual to member weekend concentration ratio |
+| Annotation Round Trip Ratio | Dynamic text describing the casual to member round trip ratio |
+| Annotation Distance Ratio | Dynamic text describing the casual to member ride distance ratio |
+
 ## 📁 Core
 
 | Measure | Description |

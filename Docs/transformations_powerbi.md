@@ -544,3 +544,41 @@ A what-if analysis estimating revenue uplift from casual rider conversion would 
 ---
 
 *Phase 5 completes the DAX measure library for the Cyclistic Power BI analysis. Additional documentation for R and Python analysis phases will be maintained in separate files.*
+
+### Annotation Measures
+
+Dynamic text measures that generate descriptive sentences for use in Card visuals alongside behavioral ratio cards. Values update automatically when slicers are adjusted.
+
+#### Annotation Duration Ratio
+```dax
+Annotation Duration Ratio =
+VAR Ratio = [Duration Ratio Casual to Member]
+RETURN
+    "Casual riders take rides " & FORMAT(Ratio, "0.00") & "x longer on average than members"
+```
+
+#### Annotation Weekend Skew
+```dax
+Annotation Weekend Skew =
+VAR Ratio = [Weekend Skew Ratio]
+RETURN
+    "Casual riders are " & FORMAT(Ratio, "0.00") & "x more likely to ride on weekends than members"
+```
+
+#### Annotation Round Trip Ratio
+```dax
+Annotation Round Trip Ratio =
+VAR Ratio = [Round Trip Ratio Casual to Member]
+RETURN
+    "Casual riders return to their starting station " & FORMAT(Ratio, "0.00") & "x more often than members"
+```
+
+#### Annotation Distance Ratio
+```dax
+Annotation Distance Ratio =
+VAR Ratio = [Distance Ratio Casual to Member]
+RETURN
+    "Casual riders cover " & FORMAT(Ratio, "0.00") & "x the distance per ride compared to members"
+```
+
+*Place these measures in the Annotations display folder in Power BI Desktop.*
