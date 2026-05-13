@@ -289,6 +289,41 @@ DIVIDE(
 ```
 Proportion of member rides that occur on weekends. Expected to be lower than casual weekend %, reflecting commuter usage patterns among members.
 
+### Metric Group Measures
+
+These measures work in conjunction with the Metric Groups calculated table to drive the clustered column chart on Page 2. They use SWITCH() to return the appropriate measure value based on the selected metric category, allowing a single clustered chart to display two different percentage metrics side by side with consistent member/casual color coding.
+
+#### Metric Groups Table
+```dax
+Metric Groups = 
+DATATABLE("Metric", STRING, {{"Weekend %"}, {"Round Trip %"}})
+```
+Calculated table containing two rows used as the X-axis category in the Page 2 clustered column chart. Created via Modeling → New Table in Power BI Desktop.
+
+#### Member % by Metric
+```dax
+Member % by Metric =
+SWITCH(
+    SELECTEDVALUE('Metric Groups'[Metric]),
+    "Weekend %", [Member Weekend %],
+    "Round Trip %", [Round Trip % Member],
+    BLANK()
+)
+```
+Returns the appropriate member percentage measure based on the selected metric category from the Metric Groups table. Used as a Y-axis series in the Page 2 clustered column chart. Set color to #1F77B4 in the visual format pane.
+
+#### Casual % by Metric
+```dax
+Casual % by Metric =
+SWITCH(
+    SELECTEDVALUE('Metric Groups'[Metric]),
+    "Weekend %", [Casual Weekend %],
+    "Round Trip %", [Round Trip % Casual],
+    BLANK()
+)
+```
+Returns the appropriate casual percentage measure based on the selected metric category from the Metric Groups table. Used as a Y-axis series in the Page 2 clustered column chart. Set color to #FF7F0E in the visual format pane.
+
 ## Phase 3 — Bike Type Analysis
 
 Breaks down rideable type by member type to show preferences and usage patterns. Measures are written for classic and electric bike types, which are the only types present in the current dataset. Docked bike measures are included proactively — they will return BLANK() if the type is absent and will automatically populate if docked bikes are introduced in future data.

@@ -93,6 +93,8 @@ This document lists all DAX measures organized by their assigned display folder 
 | Distance Ratio Casual to Member | Ratio of average casual ride distance to average member ride distance |
 | Weekend Skew Ratio | How much more concentrated casual rides are on weekends relative to members |
 | Round Trip Ratio Casual to Member | Compares the round trip rate of casual riders vs members |
+| Member % by Metric | Returns member weekend % or round trip % based on Metric Groups table context — used in Page 2 clustered column chart |
+| Casual % by Metric | Returns casual weekend % or round trip % based on Metric Groups table context — used in Page 2 clustered column chart |
 
 ---
 
@@ -130,3 +132,10 @@ Calculated columns live in the `Trips` table and are not stored in measure folde
 | Ride Start Date | Date portion of started_at for use with the Date table |
 | Ride Start Hour | Hour (0–23) extracted from started_at for hourly distribution visuals |
 | Ride Start Hour Label | 12-hour clock label (e.g. "9 AM", "3 PM") — sort by Ride Start Hour to maintain chronological order |
+
+## Calculated Tables
+
+| Table | Description |
+|---|---|
+| Metric Groups | Two-row table containing "Weekend %" and "Round Trip %" used as X-axis category in the Page 2 clustered column chart. Created via Modeling → New Table. 
+
