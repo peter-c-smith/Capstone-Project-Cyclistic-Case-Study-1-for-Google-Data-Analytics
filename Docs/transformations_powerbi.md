@@ -581,4 +581,16 @@ RETURN
     "Casual riders cover " & FORMAT(Ratio, "0.00") & "x the distance per ride compared to members"
 ```
 
+### Annotation Pace Insight
+```dax
+Annotation Pace Insight =
+VAR DurationRatio = [Duration Ratio Casual to Member]
+VAR DistanceRatio = [Distance Ratio Casual to Member]
+VAR DurationPct = FORMAT((DurationRatio - 1) * 100, "0") & "%"
+VAR DistancePct = FORMAT((DistanceRatio - 1) * 100, "0") & "%"
+RETURN
+    "Casual riders take " & DurationPct & " longer rides but cover only " & DistancePct & " more distance — suggesting a more leisurely pace than members. See the Ride Behavior page for more analysis."
+```
+Use
+
 *Place these measures in the Annotations display folder in Power BI Desktop.*
