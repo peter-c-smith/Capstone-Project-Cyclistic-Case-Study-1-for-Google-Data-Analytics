@@ -728,6 +728,17 @@ RETURN
 ```
 Fuller pace insight callout displayed at the bottom of Page 2 spanning the full canvas width. Connects the duration and distance findings into a single interpretive conclusion. Updates automatically when slicers are adjusted. Style as Segoe UI italic, 11pt, #666666, no border, no background.
 
+### Annotation Page 3 Temporal Insight
+```dax
+Annotation Page 3 Temporal Insight =
+VAR SummerCasual = [Summer Rides] - CALCULATE([Summer Rides], Trips[member_casual] = "member")
+VAR TotalCasual = [Casual Rides]
+VAR SummerCasualPct = FORMAT(DIVIDE(SummerCasual, TotalCasual) * 100, "0")
+RETURN
+    "Members spike at commuter hours and favor weekdays year-round. Casual riders peak midday and on weekends — with " & SummerCasualPct & "% of all casual rides occurring in summer months."
+```
+Dynamic text callout displayed at the bottom of Page 3 spanning the full canvas width. Pulls the percentage of casual rides occurring in summer months as a live data point, making the annotation data-driven rather than static. Updates automatically when slicers are adjusted. Style as Segoe UI italic, 11pt, #666666, no border, no background.
+
 ### Display Unit Measures
 
 Simple text measures used as Category/Details field in Card visuals to display unit labels alongside numeric values. Keeps underlying measures numeric and available for calculations while providing unit context in the visual. Place in the Annotations display folder in Power BI Desktop.
