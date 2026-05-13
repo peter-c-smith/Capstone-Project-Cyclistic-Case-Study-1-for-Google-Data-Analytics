@@ -520,7 +520,6 @@ Calculates estimated per-ride revenue for a casual rider. Applies a $3.30 unlock
 
 #### Total Estimated Casual Revenue
 ```dax
-Total Estimated Casual Revenue =
 SUMX(
     FILTER(Trips, Trips[member_casual] = "casual" && Trips[Ride Time (min)] > 0),
     VAR OverageMinutes = MAX(Trips[Ride Time (min)] - 30, 0)
@@ -640,6 +639,43 @@ VAR DistancePct = FORMAT((DistanceRatio - 1) * 100, "0") & "%"
 RETURN
     "Casual riders take " & DurationPct & " longer rides but cover only " & DistancePct & " more distance — suggesting a more leisurely pace than members. See the Ride Behavior page for more analysis."
 ```
+### Annotation Duration Card Callout
+```dax
+Annotation Duration Card Callout =
+VAR DurationRatio = [Duration Ratio Casual to Member]
+VAR DurationPct = FORMAT((DurationRatio - 1) * 100, "0")
+RETURN
+    "Casual riders average " & DurationPct & "% longer rides than members"
+```
+Dynamic text callout displayed beneath the duration card pair on Page 2. Updates automatically when slicers are adjusted.
+
+### Annotation Distance Card Callout
+```dax
+Annotation Distance Card Callout =
+VAR DistanceRatio = [Distance Ratio Casual to Member]
+VAR DistancePct = FORMAT((DistanceRatio - 1) * 100, "0")
+RETURN
+    IF(
+        DistanceRatio >= 1,
+        "Casual riders cover " & DistancePct & "% more distance per ride than members",
+        "Casual riders cover " & FORMAT((1 - DistanceRatio) * 100, "0") & "% less distance per ride than members"
+    )
+```
+Dynamic text callout displayed beneath the distance card pair on Page 2. Handles both directions — if casual riders cover more distance it says "more", if less it says "less". Updates automatically when slicers are adjusted.
+
+### Annotation Page 2 Pace Insight
+```dax
+Annotation Page 2 Pace Insight =
+VAR DurationRatio = [Duration Ratio Casual to Member]
+VAR DistanceRatio = [Distance Ratio Casual to Member]
+VAR DurationPct = FORMAT((DurationRatio - 1) * 100, "0")
+VAR DistancePct = FORMAT(ABS(DistanceRatio - 1) * 100, "0")
+VAR DistanceDirection = IF(DistanceRatio >= 1, "more", "less")
+RETURN
+    "Casual riders take " & DurationPct & "% longer rides but cover only " & DistancePct & "% " & DistanceDirection & " distance than members. This suggests casual riders move at a more leisurely pace — prioritizing the experience of riding over reaching a destination efficiently."
+```
+Fuller pace insight callout displayed at the bottom of Page 2 spanning the full canvas width. Connects the duration and distance findings into a single interpretive conclusion. Updates automatically when slicers are adjusted. Style as Segoe UI italic, 11pt, #666666, no border, no background.
+
 ### Display Unit Measures
 
 Simple text measures used as Category/Details field in Card visuals to display unit labels alongside numeric values. Keeps underlying measures numeric and available for calculations while providing unit context in the visual. Place in the Annotations display folder in Power BI Desktop.
