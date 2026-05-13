@@ -23,11 +23,11 @@
                       "Entity": "Measures Folder"
                     }
                   },
-                  "Property": "Avg Duration Casual"
+                  "Property": "Avg Ride Distance Casual"
                 }
               },
-              "queryRef": "Measures Folder.Avg Duration Casual",
-              "nativeQueryRef": "Avg Duration Casual"
+              "queryRef": "Measures Folder.Avg Ride Distance Casual",
+              "nativeQueryRef": "Avg Ride Distance Casual"
             },
             {
               "field": {
@@ -37,11 +37,11 @@
                       "Entity": "Measures Folder"
                     }
                   },
-                  "Property": "Avg Duration Member"
+                  "Property": "Avg Ride Distance Member"
                 }
               },
-              "queryRef": "Measures Folder.Avg Duration Member",
-              "nativeQueryRef": "Avg Duration Member"
+              "queryRef": "Measures Folder.Avg Ride Distance Member",
+              "nativeQueryRef": "Avg Ride Distance Member"
             }
           ]
         }
@@ -56,7 +56,7 @@
                     "Entity": "Measures Folder"
                   }
                 },
-                "Property": "Avg Duration Casual"
+                "Property": "Avg Ride Distance Casual"
               }
             },
             "direction": "Descending"
@@ -82,7 +82,7 @@
             }
           },
           "selector": {
-            "metadata": "Measures Folder.Avg Duration Member"
+            "metadata": "Measures Folder.Avg Ride Distance Member"
           }
         },
         {
@@ -100,7 +100,35 @@
             }
           },
           "selector": {
-            "metadata": "Measures Folder.Avg Duration Casual"
+            "metadata": "Measures Folder.Avg Ride Distance Casual"
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Miles'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Average Ride Duration'"
+                }
+              }
+            }
           }
         }
       ]
