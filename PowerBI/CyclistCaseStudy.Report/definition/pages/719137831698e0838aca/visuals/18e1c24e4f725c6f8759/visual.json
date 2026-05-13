@@ -1,18 +1,37 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
-  "name": "3ed21a3207092db4d06f",
+  "name": "18e1c24e4f725c6f8759",
   "position": {
-    "x": 616.715830875123,
-    "y": 0,
-    "z": 1000,
-    "height": 293.25467059980332,
-    "width": 502.18289085545723,
+    "x": 267.77011494252872,
+    "y": 322.69731800766283,
+    "z": 2000,
+    "height": 307.0038314176245,
+    "width": 745.44061302682,
     "tabOrder": 1000
   },
   "visual": {
-    "visualType": "clusteredBarChart",
+    "visualType": "clusteredColumnChart",
     "query": {
       "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Metric Groups"
+                    }
+                  },
+                  "Property": "Metric"
+                }
+              },
+              "queryRef": "Metric Groups.Metric",
+              "nativeQueryRef": "Metric",
+              "active": true
+            }
+          ]
+        },
         "Y": {
           "projections": [
             {
@@ -23,11 +42,11 @@
                       "Entity": "Measures Folder"
                     }
                   },
-                  "Property": "Avg Ride Distance Casual"
+                  "Property": "Member % by Metric"
                 }
               },
-              "queryRef": "Measures Folder.Avg Ride Distance Casual",
-              "nativeQueryRef": "Avg Ride Distance Casual"
+              "queryRef": "Measures Folder.Member % by Metric",
+              "nativeQueryRef": "Member % by Metric"
             },
             {
               "field": {
@@ -37,11 +56,11 @@
                       "Entity": "Measures Folder"
                     }
                   },
-                  "Property": "Avg Ride Distance Member"
+                  "Property": "Casual % by Metric"
                 }
               },
-              "queryRef": "Measures Folder.Avg Ride Distance Member",
-              "nativeQueryRef": "Avg Ride Distance Member"
+              "queryRef": "Measures Folder.Casual % by Metric",
+              "nativeQueryRef": "Casual % by Metric"
             }
           ]
         }
@@ -56,7 +75,7 @@
                     "Entity": "Measures Folder"
                   }
                 },
-                "Property": "Avg Ride Distance Casual"
+                "Property": "Member % by Metric"
               }
             },
             "direction": "Descending"
@@ -66,6 +85,19 @@
       }
     },
     "objects": {
+      "legend": [
+        {
+          "properties": {
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'TopCenter'"
+                }
+              }
+            }
+          }
+        }
+      ],
       "dataPoint": [
         {
           "properties": {
@@ -82,7 +114,7 @@
             }
           },
           "selector": {
-            "metadata": "Measures Folder.Avg Ride Distance Member"
+            "metadata": "Measures Folder.Member % by Metric"
           }
         },
         {
@@ -100,7 +132,33 @@
             }
           },
           "selector": {
-            "metadata": "Measures Folder.Avg Ride Distance Casual"
+            "metadata": "Measures Folder.Casual % by Metric"
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
           }
         }
       ],
@@ -110,7 +168,7 @@
             "titleText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Miles'"
+                  "Value": "'Percentage of Rides'"
                 }
               }
             }
@@ -122,10 +180,10 @@
       "title": [
         {
           "properties": {
-            "text": {
+            "show": {
               "expr": {
                 "Literal": {
-                  "Value": "'Average Ride Duration'"
+                  "Value": "false"
                 }
               }
             }
@@ -134,6 +192,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "parentGroupName": "b5e4dcdb4eae36027375"
+  }
 }

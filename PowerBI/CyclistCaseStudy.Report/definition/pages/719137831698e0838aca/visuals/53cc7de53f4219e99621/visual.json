@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
-  "name": "42e1ec99651ad6ef5d9e",
+  "name": "53cc7de53f4219e99621",
   "position": {
-    "x": 88,
-    "y": 659,
-    "z": 11501,
-    "height": 56,
-    "width": 1104,
-    "tabOrder": 4000
+    "x": 231.47892720306521,
+    "y": 0,
+    "z": 1000,
+    "height": 93.1800766283525,
+    "width": 257.96168582375481,
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "cardVisual",
@@ -23,63 +23,17 @@
                       "Entity": "Measures Folder"
                     }
                   },
-                  "Property": "Annotation Pace Insight"
+                  "Property": "Avg Duration Member Display"
                 }
               },
-              "queryRef": "Measures Folder.Annotation Pace Insight",
-              "nativeQueryRef": "Annotation Pace Insight"
+              "queryRef": "Measures Folder.Avg Duration Member Display",
+              "nativeQueryRef": "Avg Duration Member Display"
             }
           ]
         }
       }
     },
     "objects": {
-      "label": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Measures Folder.Annotation Pace Insight"
-          }
-        }
-      ],
-      "value": [
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
-                }
-              }
-            },
-            "italic": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "textWrap": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Measures Folder.Annotation Pace Insight"
-          }
-        }
-      ],
       "outline": [
         {
           "properties": {
@@ -96,7 +50,7 @@
           }
         }
       ],
-      "shadowCustom": [
+      "label": [
         {
           "properties": {
             "show": {
@@ -108,77 +62,88 @@
             }
           },
           "selector": {
-            "id": "default"
+            "metadata": "Measures Folder.Avg Duration Member Display"
           }
         }
       ],
-      "fillCustom": [
+      "value": [
         {
           "properties": {
-            "show": {
+            "horizontalAlignment": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "'center'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1F77B4'"
+                    }
+                  }
                 }
               }
             }
+          },
+          "selector": {
+            "metadata": "Measures Folder.Avg Duration Member Display"
           }
-        }
-      ],
-      "divider": [
+        },
         {
           "properties": {
-            "show": {
+            "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "28D"
                 }
               }
             }
           },
           "selector": {
             "id": "default"
-          }
-        }
-      ],
-      "padding": [
-        {
-          "properties": {
-            "paddingUniform": {
-              "expr": {
-                "Literal": {
-                  "Value": "0L"
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "default"
-          }
-        }
-      ],
-      "layout": [
-        {
-          "properties": {
-            "calloutSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "45D"
-                }
-              }
-            }
           }
         }
       ]
     },
     "visualContainerObjects": {
-      "background": [
+      "title": [
         {
           "properties": {
-            "transparency": {
+            "show": {
               "expr": {
                 "Literal": {
-                  "Value": "100D"
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "' Avg Duration - Member'"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
                 }
               }
             }
@@ -187,5 +152,6 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  }
+  },
+  "parentGroupName": "ca4eb4dda6df2fa7bd47"
 }

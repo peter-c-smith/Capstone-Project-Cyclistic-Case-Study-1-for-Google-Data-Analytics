@@ -1,0 +1,19 @@
+table 'Metric Groups'
+	lineageTag: a1b649bb-4080-470a-8121-422e30f4d229
+
+	column Metric
+		lineageTag: 3b1dcd76-7fdb-4c03-b0dd-0f5f1e9448f2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Metric]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Metric Groups' = calculated
+		mode: import
+		source =
+				
+				DATATABLE("Metric", STRING, {{"Weekend %"}, {"Round Trip %"}})
+
+	annotation PBI_Id = 1a853e6a35854d4e883dca1a7512395c
+

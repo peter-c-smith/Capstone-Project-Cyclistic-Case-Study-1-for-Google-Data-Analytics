@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
-  "name": "e798e8b6a39ce23f61ae",
+  "name": "9945f42ae83f4969cc22",
   "position": {
-    "x": 36.50190114068441,
-    "y": 26.7680608365019,
-    "z": 0,
-    "height": 279.84790874524714,
-    "width": 478.17490494296578,
-    "tabOrder": 0
+    "x": 639.50957854406136,
+    "y": 351.16091940812544,
+    "z": 3000,
+    "height": 280.52107279693485,
+    "width": 612.0459770114943,
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Date"
+                      "Entity": "Day Type Groups"
                     }
                   },
-                  "Property": "Season"
+                  "Property": "Day Type"
                 }
               },
-              "queryRef": "Date.Season",
-              "nativeQueryRef": "Season",
+              "queryRef": "Day Type Groups.Day Type",
+              "nativeQueryRef": "Day Type",
               "active": true
             }
           ]
@@ -42,11 +42,11 @@
                       "Entity": "Measures Folder"
                     }
                   },
-                  "Property": "Casual Rides"
+                  "Property": "Member Rides by Day Type"
                 }
               },
-              "queryRef": "Measures Folder.Casual Rides",
-              "nativeQueryRef": "Casual Rides"
+              "queryRef": "Measures Folder.Member Rides by Day Type",
+              "nativeQueryRef": "Member Rides by Day Type"
             },
             {
               "field": {
@@ -56,11 +56,11 @@
                       "Entity": "Measures Folder"
                     }
                   },
-                  "Property": "Member Rides"
+                  "Property": "Casual Rides by Day Type"
                 }
               },
-              "queryRef": "Measures Folder.Member Rides",
-              "nativeQueryRef": "Member Rides"
+              "queryRef": "Measures Folder.Casual Rides by Day Type",
+              "nativeQueryRef": "Casual Rides by Day Type"
             }
           ]
         }
@@ -69,18 +69,19 @@
         "sort": [
           {
             "field": {
-              "Column": {
+              "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Date"
+                    "Entity": "Measures Folder"
                   }
                 },
-                "Property": "Season"
+                "Property": "Member Rides by Day Type"
               }
             },
             "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
@@ -100,7 +101,7 @@
             }
           },
           "selector": {
-            "metadata": "Measures Folder.Casual Rides"
+            "metadata": "Measures Folder.Casual Rides by Day Type"
           }
         },
         {
@@ -118,7 +119,68 @@
             }
           },
           "selector": {
-            "metadata": "Measures Folder.Member Rides"
+            "metadata": "Measures Folder.Member Rides by Day Type"
+          }
+        }
+      ],
+      "legend": [
+        {
+          "properties": {
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'TopCenter'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "2L"
+                }
+              }
+            },
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Weekday vs Weekend Rides'"
+                }
+              }
+            }
           }
         }
       ]

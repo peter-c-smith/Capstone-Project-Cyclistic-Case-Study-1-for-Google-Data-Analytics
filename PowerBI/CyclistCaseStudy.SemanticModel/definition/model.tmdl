@@ -23,6 +23,8 @@ annotation PBI_ProTooling = ["DevMode"]
 ref table Trips
 ref table Date
 ref table 'Measures Folder'
+ref table 'Metric Groups'
+ref table 'Day Type Groups'
 
 ref cultureInfo en-US
 

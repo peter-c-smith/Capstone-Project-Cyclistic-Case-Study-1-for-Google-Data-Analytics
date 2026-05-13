@@ -387,17 +387,16 @@ table 'Measures Folder'
 		displayFolder: Station
 		lineageTag: f7a9d148-7109-4f87-9d43-e004da0a7af3
 
-	measure 'Estimated Casual Revenue per Ride' = ```
+	measure 'Estimated Casual Revenue per Ride' =
 			
-			VAR OverageMinutes =
-			    MAX(Trips[Ride Time (min)] - 30, 0)
+			VAR AvgDuration = [Avg Duration Casual]
+			VAR OverageMinutes = IF(AvgDuration > 30, AvgDuration - 30, 0)
 			RETURN
 			    3.30 + (OverageMinutes * 0.18)
-			/* 
-			Calculates estimated per-ride revenue for a casual rider. Applies a $3.30 unlock fee plus $0.18/min for any minutes beyond the 30-minute included threshold. */
-			```
 		displayFolder: Revenue (Synthetic or Illustrative)
 		lineageTag: 7f6fba28-35fb-4f2f-9f63-15dd464584aa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Total Estimated Casual Revenue' = ```
 			
@@ -559,6 +558,198 @@ table 'Measures Folder'
 		lineageTag: cc3a21ca-f392-46be-84a0-71068744ab78
 
 		changedProperty = IsHidden
+
+	measure 'Round Trip % Member' = ```
+			
+			DIVIDE([Member Round Trips], [Member Rides], BLANK())
+			/* 
+			Proportion of member rides that are round trips. Used in Page 2 clustered bar chart for a fair comparison against casual round trip rate. */
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Behavioral Ratios
+		lineageTag: b43b62a4-b4b9-4fb1-9c3e-16c36f6ffba3
+
+	measure 'Round Trip % Casual' = ```
+			
+			DIVIDE([Casual Round Trips], [Casual Rides], BLANK())
+			/* 
+			Proportion of casual rides that are round trips. Used in Page 2 clustered bar chart for a fair comparison against member round trip rate. */
+			```
+		displayFolder: Behavioral Ratios
+		lineageTag: 995f95eb-d03a-4521-bc3e-b84691653c35
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Unit Duration' = "min"
+		isHidden
+		displayFolder: Annotations
+		lineageTag: 42cc106f-e6e7-4bc0-98e3-0a369813d0e7
+
+		changedProperty = IsHidden
+
+	measure 'Unit Distance' = "mi"
+		isHidden
+		displayFolder: Annotations
+		lineageTag: b9d28654-4e3e-4932-b9d8-89eb81579e60
+
+		changedProperty = IsHidden
+
+	measure 'Avg Duration Member Display' = ```
+			
+			FORMAT([Avg Duration Member], "0.0") & " min"
+			/* 
+			Text-formatted version of Avg Duration Member for use in the Page 2 duration card pair. Displays to one decimal place with "min" unit suffix. */
+			```
+		isHidden
+		displayFolder: Annotations
+		lineageTag: 9299aed3-c456-4144-a183-b2dafebee18a
+
+		changedProperty = IsHidden
+
+	measure 'Avg Duration Casual Display' = ```
+			
+			FORMAT([Avg Duration Casual], "0.0") & " min"
+			/* 
+			Text-formatted version of Avg Duration Casual for use in the Page 2 duration card pair. Displays to one decimal place with "min" unit suffix. */
+			```
+		isHidden
+		displayFolder: Annotations
+		lineageTag: e459aa4e-35cd-421d-aa1f-6dd4d29b6f59
+
+		changedProperty = IsHidden
+
+	measure 'Avg Ride Distance Member Display' = ```
+			
+			FORMAT([Avg Ride Distance Member], "0.00") & " mi"
+			/* 
+			Text-formatted version of Avg Ride Distance Member for use in the Page 2 distance card pair. Displays to two decimal places with "mi" unit suffix. */
+			```
+		isHidden
+		displayFolder: Annotations
+		lineageTag: 6d8e292f-1d9e-4c43-95d3-3b90b5f158c9
+
+		changedProperty = IsHidden
+
+	measure 'Avg Ride Distance Casual Display' = ```
+			
+			FORMAT([Avg Ride Distance Casual], "0.00") & " mi"
+			/* 
+			Text-formatted version of Avg Ride Distance Casual for use in the Page 2 distance card pair. Displays to two decimal places with "mi" unit suffix. */
+			```
+		isHidden
+		displayFolder: Annotations
+		lineageTag: 43cbbecb-1db8-4540-8bfc-4b9bc2fd00ad
+
+		changedProperty = IsHidden
+
+	measure 'Member % by Metric' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Metric Groups'[Metric]),
+			    "Weekend %", [Member Weekend %],
+			    "Round Trip %", [Round Trip % Member],
+			    BLANK()
+			)
+			/* Returns the appropriate member percentage measure based on the selected metric category from the Metric Groups table. Used as a Y-axis series in the Page 2 clustered column chart. Set color to #1F77B4 in the visual format pane. */
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Behavioral Ratios
+		lineageTag: 3421be5d-e7f7-4dd4-b030-91bf5d6fefd7
+
+	measure 'Casual % by Metric' = ```
+			
+			SWITCH(
+			    SELECTEDVALUE('Metric Groups'[Metric]),
+			    "Weekend %", [Casual Weekend %],
+			    "Round Trip %", [Round Trip % Casual],
+			    BLANK()
+			)
+			/* 
+			Returns the appropriate casual percentage measure based on the selected metric category from the Metric Groups table. Used as a Y-axis series in the Page 2 clustered column chart. Set color to #FF7F0E in the visual format pane. */
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Behavioral Ratios
+		lineageTag: 4e67ee63-c34e-452d-8436-4b30165c78df
+
+	measure 'Annotation Page 2 Pace Insight' =
+			
+			VAR DurationRatio = [Duration Ratio Casual to Member]
+			VAR DistanceRatio = [Distance Ratio Casual to Member]
+			VAR DurationPct = FORMAT((DurationRatio - 1) * 100, "0")
+			VAR DistancePct = FORMAT(ABS(DistanceRatio - 1) * 100, "0")
+			VAR DistanceDirection = IF(DistanceRatio >= 1, "more", "less")
+			RETURN
+			    "Casual riders take " & DurationPct & "% longer rides but cover only " & DistancePct & "% " & DistanceDirection & " distance than members. This suggests casual riders move at a more leisurely pace — prioritizing the experience of riding over reaching a destination efficiently."
+		displayFolder: Annotations
+		lineageTag: cddb6663-e08b-41a5-8be6-92ff5b79da4e
+
+	measure 'Annotation Duration Card Callout' = ```
+			
+			VAR DurationRatio = [Duration Ratio Casual to Member]
+			VAR DurationPct = FORMAT((DurationRatio - 1) * 100, "0")
+			RETURN
+			    "Casual riders average " & DurationPct & "% longer rides than members"
+			/* 
+			Dynamic text callout displayed beneath the duration card pair on Page 2. Updates automatically when slicers are adjusted.
+			 */
+			```
+		displayFolder: Annotations
+		lineageTag: 73577803-7433-4f1e-a5b6-38536db0fb47
+
+	measure 'Annotation Distance Card Callout' = ```
+			
+			VAR DistanceRatio = [Distance Ratio Casual to Member]
+			VAR DistancePct = FORMAT((DistanceRatio - 1) * 100, "0")
+			RETURN
+			    IF(
+			        DistanceRatio >= 1,
+			        "Casual riders cover " & DistancePct & "% more distance per ride than members",
+			        "Casual riders cover " & FORMAT((1 - DistanceRatio) * 100, "0") & "% less distance per ride than members"
+			    )
+			/* 
+			Dynamic text callout displayed beneath the distance card pair on Page 2. Handles both directions — if casual riders cover more distance it says "more", if less it says "less". Updates automatically when slicers are adjusted. */
+			```
+		displayFolder: Annotations
+		lineageTag: 0300ed63-7254-4f84-8df6-d7daad5f0401
+
+	measure 'Member Rides by Day Type' = ```
+			
+			SWITCH(
+			    SELECTEDVALUE('Day Type Groups'[Day Type]),
+			    "Weekday", CALCULATE([Member Rides], 'Date'[Is Weekend] = FALSE()),
+			    "Weekend", CALCULATE([Member Rides], 'Date'[Is Weekend] = TRUE()),
+			    BLANK()
+			)
+			/* 
+			Returns member ride count for the selected day type category from the Day Type Groups table. Used as a Y-axis series in the Page 3 Weekday vs Weekend clustered column chart. */
+			```
+		formatString: 0
+		displayFolder: Temporal
+		lineageTag: dc759f39-51d3-46c0-8eb1-e21330f79f1d
+
+	measure 'Casual Rides by Day Type' = ```
+			
+			SWITCH(
+			    SELECTEDVALUE('Day Type Groups'[Day Type]),
+			    "Weekday", CALCULATE([Casual Rides], 'Date'[Is Weekend] = FALSE()),
+			    "Weekend", CALCULATE([Casual Rides], 'Date'[Is Weekend] = TRUE()),
+			    BLANK()
+			)
+			/* 
+			Returns casual ride count for the selected day type category from the Day Type Groups table. Used as a Y-axis series in the Page 3 Weekday vs Weekend clustered column chart */
+			```
+		formatString: 0
+		displayFolder: Temporal
+		lineageTag: 3c5e4e47-13e5-4eff-bce2-822e41427762
+
+	measure 'Annotation Page 3 Temporal Insight' =
+			
+			VAR SummerCasual = [Summer Rides] - CALCULATE([Summer Rides], Trips[member_casual] = "member")
+			VAR TotalCasual = [Casual Rides]
+			VAR SummerCasualPct = FORMAT(DIVIDE(SummerCasual, TotalCasual) * 100, "0")
+			RETURN
+			    "Members spike at commuter hours and favor weekdays year-round. Casual riders peak midday and on weekends — with " & SummerCasualPct & "% of all casual rides occurring in summer months."
+		displayFolder: Annotations
+		lineageTag: d85a3556-f97f-4349-a95f-0732c283e2b9
 
 	partition 'Measures Folder' = m
 		mode: import

@@ -102,6 +102,7 @@ table Date
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [Season]
+		sortByColumn: 'Season Sort'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -118,6 +119,24 @@ table Date
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [Year-Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Season Sort' = ```
+			
+			SWITCH(MONTH('Date'[Date]),
+			    3, 1, 4, 1, 5, 1,
+			    6, 2, 7, 2, 8, 2,
+			    9, 3, 10, 3, 11, 3,
+			    12, 4, 1, 4, 2, 4,
+			    BLANK()
+			)/* 
+			Added to the Date table to enable correct chronological ordering of the Season column in visuals. Without this column Power BI sorts seasons alphabetically (Fall, Spring, Summer, Winter) rather than in calendar order.
+			**Null handling:** Returns BLANK() if Season is blank, consistent with null-handling conventions for this project. */
+			```
+		formatString: 0
+		lineageTag: c1a143de-acdf-4d80-b6e8-773060066e9d
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 

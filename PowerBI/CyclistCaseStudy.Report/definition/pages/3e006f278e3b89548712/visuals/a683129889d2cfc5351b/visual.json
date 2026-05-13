@@ -1,12 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
-  "name": "42e1ec99651ad6ef5d9e",
+  "name": "a683129889d2cfc5351b",
   "position": {
-    "x": 88,
-    "y": 659,
-    "z": 11501,
-    "height": 56,
-    "width": 1104,
+    "x": 70.620689655172413,
+    "y": 624.79693486590043,
+    "z": 4000,
+    "height": 95.141762452107287,
+    "width": 1103.4482758620691,
     "tabOrder": 4000
   },
   "visual": {
@@ -23,63 +23,17 @@
                       "Entity": "Measures Folder"
                     }
                   },
-                  "Property": "Annotation Pace Insight"
+                  "Property": "Annotation Page 3 Temporal Insight"
                 }
               },
-              "queryRef": "Measures Folder.Annotation Pace Insight",
-              "nativeQueryRef": "Annotation Pace Insight"
+              "queryRef": "Measures Folder.Annotation Page 3 Temporal Insight",
+              "nativeQueryRef": "Annotation Page 3 Temporal Insight"
             }
           ]
         }
       }
     },
     "objects": {
-      "label": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Measures Folder.Annotation Pace Insight"
-          }
-        }
-      ],
-      "value": [
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
-                }
-              }
-            },
-            "italic": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "textWrap": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Measures Folder.Annotation Pace Insight"
-          }
-        }
-      ],
       "outline": [
         {
           "properties": {
@@ -167,6 +121,59 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "label": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "value": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            },
+            "italic": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "textWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
           }
         }
       ]

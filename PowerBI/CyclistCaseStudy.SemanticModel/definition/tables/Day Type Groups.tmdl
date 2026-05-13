@@ -1,0 +1,19 @@
+table 'Day Type Groups'
+	lineageTag: 667c54a1-0aca-4a0b-87df-c55b9733b5ed
+
+	column 'Day Type'
+		lineageTag: 409975ba-4c7f-4d16-b816-c366488cb01b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Day Type]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Day Type Groups' = calculated
+		mode: import
+		source =
+				
+				DATATABLE("Day Type", STRING, {{"Weekday"}, {"Weekend"}})
+
+	annotation PBI_Id = f8e0971e64ff4614bcbd2bdbdff57d97
+
