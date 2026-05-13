@@ -139,3 +139,7 @@ Calculated columns live in the `Trips` table and are not stored in measure folde
 |---|---|
 | Metric Groups | Two-row table containing "Weekend %" and "Round Trip %" used as X-axis category in the Page 2 clustered column chart. Created via Modeling → New Table. 
 
+#### Day Type Groups Table
+```dax
+Day Type Groups = 
+DATATABLE("Day Type", STRING, {{"Weekday"}, {"Weekend"}})

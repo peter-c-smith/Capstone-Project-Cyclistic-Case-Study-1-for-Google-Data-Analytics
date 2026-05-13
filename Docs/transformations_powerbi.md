@@ -135,6 +135,26 @@ ADDCOLUMNS(
     "Year-Quarter", YEAR([Date]) & " Q" & QUARTER([Date])
 )
 
+### Calculated Column — Season Sort
+
+Added to the Date table to enable correct chronological ordering of the Season column in visuals. Without this column Power BI sorts seasons alphabetically (Fall, Spring, Summer, Winter) rather than in calendar order.
+
+**Sort setup:** In Power BI Data view, select the Season column in the Date table, click Sort by Column in the Column tools ribbon, and select Season Sort. This applies the sort order globally to all visuals using the Season field.
+
+**Null handling:** Returns BLANK() if Season is blank, consistent with null-handling conventions for this project.
+
+** Note this had to be adjust because using switch on the season causes a circular dependency, so use month number instead to sort
+
+```dax
+Season Sort = 
+SWITCH(MONTH('Date'[Date]),
+    3, 1, 4, 1, 5, 1,
+    6, 2, 7, 2, 8, 2,
+    9, 3, 10, 3, 11, 3,
+    12, 4, 1, 4, 2, 4,
+    BLANK()
+)
+
 ## Phase 1 — Core Measures
 
 ### Total Rides
@@ -288,6 +308,38 @@ DIVIDE(
 )
 ```
 Proportion of member rides that occur on weekends. Expected to be lower than casual weekend %, reflecting commuter usage patterns among members.
+
+#### Member Rides by Day Type
+```dax
+Member Rides by Day Type =
+SWITCH(
+    SELECTEDVALUE('Day Type Groups'[Day Type]),
+    "Weekday", CALCULATE([Member Rides], 'Date'[Is Weekend] = FALSE()),
+    "Weekend", CALCULATE([Member Rides], 'Date'[Is Weekend] = TRUE()),
+    BLANK()
+)
+```
+Returns member ride count for the selected day type category from the Day Type Groups table. Used as a Y-axis series in the Page 3 Weekday vs Weekend clustered column chart. Set color to #1F77B4 in the visual format pane.
+
+#### Casual Rides by Day Type
+```dax
+Casual Rides by Day Type =
+SWITCH(
+    SELECTEDVALUE('Day Type Groups'[Day Type]),
+    "Weekday", CALCULATE([Casual Rides], 'Date'[Is Weekend] = FALSE()),
+    "Weekend", CALCULATE([Casual Rides], 'Date'[Is Weekend] = TRUE()),
+    BLANK()
+)
+```
+Returns casual ride count for the selected day type category from the Day Type Groups table. Used as a Y-axis series in the Page 3 Weekday vs Weekend clustered column chart. Set color to #FF7F0E in the visual format pane.
+
+
+## Calculated Columns
+...
+
+## Calculated Tables
+...
+We currently only have Metric Groups noted as needing to go there. Now Day Type Groups needs to be added as well. When we do the documentation review pass we need to add both to that section.
 
 ### Metric Group Measures
 
