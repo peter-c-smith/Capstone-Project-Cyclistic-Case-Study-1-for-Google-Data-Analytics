@@ -447,6 +447,20 @@ CALCULATE(
 ```
 Round trips by members. Expected to be proportionally lower, consistent with point-to-point commuter usage.
 
+### Round Trip % Member
+```dax
+Round Trip % Member =
+DIVIDE([Member Round Trips], [Member Rides], BLANK())
+```
+Proportion of member rides that are round trips. Used in Page 2 clustered bar chart for a fair comparison against casual round trip rate.
+
+### Round Trip % Casual
+```dax
+Round Trip % Casual =
+DIVIDE([Casual Round Trips], [Casual Rides], BLANK())
+```
+Proportion of casual rides that are round trips. Used in Page 2 clustered bar chart for a fair comparison against member round trip rate.
+
 ---
 
 ## Phase 5 — Summary KPIs & Final Viz Prep
@@ -462,8 +476,8 @@ Ties together behavioral insights from Phases 1–4 with a set of summary measur
 #### Estimated Casual Revenue per Ride
 ```dax
 Estimated Casual Revenue per Ride =
-VAR OverageMinutes =
-    MAX(Trips[Ride Time (min)] - 30, 0)
+VAR AvgDuration = [Avg Duration Casual]
+VAR OverageMinutes = IF(AvgDuration > 30, AvgDuration - 30, 0)
 RETURN
     3.30 + (OverageMinutes * 0.18)
 ```
@@ -591,6 +605,52 @@ VAR DistancePct = FORMAT((DistanceRatio - 1) * 100, "0") & "%"
 RETURN
     "Casual riders take " & DurationPct & " longer rides but cover only " & DistancePct & " more distance — suggesting a more leisurely pace than members. See the Ride Behavior page for more analysis."
 ```
-Use
+### Display Unit Measures
+
+Simple text measures used as Category/Details field in Card visuals to display unit labels alongside numeric values. Keeps underlying measures numeric and available for calculations while providing unit context in the visual. Place in the Annotations display folder in Power BI Desktop.
+
+#### Unit Duration
+```dax
+Unit Duration = "min"
+```
+Displays "min" as the unit label in card visuals showing ride duration measures. Drop into the Category or Details field of the Avg Duration Member and Avg Duration Casual card visuals.
+
+#### Unit Distance
+```dax
+Unit Distance = "mi"
+```
+Displays "mi" as the unit label in card visuals showing ride distance measures. Drop into the Category or Details field of the Avg Ride Distance Member and Avg Ride Distance Casual card visuals.
+
+### Display Measures — Card Visuals
+
+Text-formatted versions of numeric measures for use in Card visuals on Page 2. Each wraps the underlying numeric measure in a FORMAT() call and appends the appropriate unit string. The original numeric measures remain untouched and available for calculations. Place all four in the Annotations display folder in Power BI Desktop.
+
+#### Avg Duration Member Display
+```dax
+Avg Duration Member Display =
+FORMAT([Avg Duration Member], "0.0") & " min"
+```
+Text-formatted version of Avg Duration Member for use in the Page 2 duration card pair. Displays to one decimal place with "min" unit suffix.
+
+#### Avg Duration Casual Display
+```dax
+Avg Duration Casual Display =
+FORMAT([Avg Duration Casual], "0.0") & " min"
+```
+Text-formatted version of Avg Duration Casual for use in the Page 2 duration card pair. Displays to one decimal place with "min" unit suffix.
+
+#### Avg Ride Distance Member Display
+```dax
+Avg Ride Distance Member Display =
+FORMAT([Avg Ride Distance Member], "0.00") & " mi"
+```
+Text-formatted version of Avg Ride Distance Member for use in the Page 2 distance card pair. Displays to two decimal places with "mi" unit suffix.
+
+#### Avg Ride Distance Casual Display
+```dax
+Avg Ride Distance Casual Display =
+FORMAT([Avg Ride Distance Casual], "0.00") & " mi"
+```
+Text-formatted version of Avg Ride Distance Casual for use in the Page 2 distance card pair. Displays to two decimal places with "mi" unit suffix.
 
 *Place these measures in the Annotations display folder in Power BI Desktop.*

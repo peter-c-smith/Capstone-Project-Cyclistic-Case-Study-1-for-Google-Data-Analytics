@@ -47,12 +47,38 @@
 ### Page 2 — Ride Behavior
 *"Casual Riders Take Longer, More Leisurely Rides Than Members"*
 
-- Clustered bar: Avg Duration Member vs Casual
-- Clustered bar: Avg Ride Distance Member vs Casual
-- Clustered bar: Weekend Ride % by member/casual
-- Clustered bar: Round trip rate by member/casual (calculated from Round Trip measures)
-- **Goal:** Directly answer the core analysis question with behavioral data across four dimensions
+**Layout:**
 
+**Row 1 — Duration card pair**
+- Card: Avg Duration Member (blue, #1F77B4)
+- Card: Avg Duration Casual (orange, #FF7F0E)
+- Dynamic callout beneath: Annotation Duration Card Callout measure
+
+**Row 2 — Distance card pair**
+- Card: Avg Ride Distance Member (blue, #1F77B4)
+- Card: Avg Ride Distance Casual (orange, #FF7F0E)
+- Dynamic callout beneath: Annotation Distance Card Callout measure
+
+**Row 3 — Clustered bar chart**
+- Category axis: Member / Casual
+- Values: Weekend Ride % and Round Trip rate (Casual Round Trips / Casual Rides vs Member Round Trips / Member Rides)
+- Member color: #1F77B4, Casual color: #FF7F0E
+- Chart title: "Weekend & Round Trip Patterns by Rider Type"
+- Y-axis: Percentage (0–100%)
+- Note: Round trip values must be expressed as a percentage of each group's total rides, not raw counts, for a fair comparison
+
+**Row 4 — Pace insight callout**
+- Dynamic card: Annotation Page 2 Pace Insight measure
+- Style: Segoe UI italic, 11pt, #666666, no border, no background
+- Spans full width of canvas
+
+**Goal:** Directly answer the core analysis question with behavioral data across four dimensions — duration, distance, weekend concentration, and round trip tendency — and draw the connecting insight that casual riders prioritize the experience of riding over efficient point-to-point travel.
+
+**Notes:**
+- Card backgrounds should use --color-background-secondary or be turned off entirely
+- Member/casual colors must be manually set on all visuals — do not rely on theme defaults
+- The round trip clustered bar requires a calculated percentage rather than raw Round Trip counts — consider adding Round Trip % Member and Round Trip % Casual as measures if not already present
+- 
 ---
 
 ### Page 3 — Temporal Patterns

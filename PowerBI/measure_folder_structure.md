@@ -4,19 +4,6 @@ This document lists all DAX measures organized by their assigned display folder 
 
 ---
 
----
-
-## 📁 Annotations
-
-Dynamic text measures that generate descriptive sentences for use in Card visuals alongside behavioral ratio cards. Values update automatically when slicers are adjusted.
-
-| Measure | Description |
-|---|---|
-| Annotation Duration Ratio | Dynamic text describing the casual to member ride duration ratio |
-| Annotation Weekend Skew | Dynamic text describing the casual to member weekend concentration ratio |
-| Annotation Round Trip Ratio | Dynamic text describing the casual to member round trip ratio |
-| Annotation Distance Ratio | Dynamic text describing the casual to member ride distance ratio |
-
 ## 📁 Core
 
 | Measure | Description |
@@ -81,6 +68,8 @@ Dynamic text measures that generate descriptive sentences for use in Card visual
 | Round Trips | Total rides where start and end station are the same |
 | Casual Round Trips | Round trips by casual riders |
 | Member Round Trips | Round trips by members |
+| Round Trip % Member | Proportion of member rides that are round trips |
+| Round Trip % Casual | Proportion of casual rides that are round trips |
 
 ---
 
@@ -104,6 +93,29 @@ Dynamic text measures that generate descriptive sentences for use in Card visual
 | Distance Ratio Casual to Member | Ratio of average casual ride distance to average member ride distance |
 | Weekend Skew Ratio | How much more concentrated casual rides are on weekends relative to members |
 | Round Trip Ratio Casual to Member | Compares the round trip rate of casual riders vs members |
+
+---
+
+## 📁 Annotations
+
+Dynamic text measures and display formatting measures used in Card visuals throughout the report. All ratio-based annotations update automatically when slicers are adjusted. Display measures wrap numeric measures in FORMAT() and append unit strings — the underlying numeric measures remain untouched and available for calculations. Place all measures in the Annotations display folder in Power BI Desktop. Style annotation cards as Segoe UI italic, 11pt, #666666, no border, no background unless otherwise noted.
+
+| Measure | Description | Used On |
+|---|---|---|
+| Annotation Duration Ratio | Dynamic text describing the casual to member ride duration ratio | Page 1 |
+| Annotation Weekend Skew | Dynamic text describing the casual to member weekend concentration ratio | Page 1 |
+| Annotation Round Trip Ratio | Dynamic text describing the casual to member round trip ratio | Page 1 |
+| Annotation Distance Ratio | Dynamic text describing the casual to member ride distance ratio | Page 1 |
+| Annotation Pace Insight | Short dynamic callout connecting duration and distance ratios | Page 1 |
+| Annotation Duration Card Callout | Dynamic text showing % difference in ride duration between casual and member | Page 2 |
+| Annotation Distance Card Callout | Dynamic text showing % difference in ride distance between casual and member | Page 2 |
+| Annotation Page 2 Pace Insight | Fuller dynamic callout connecting duration and distance ratios with interpretive conclusion | Page 2 |
+| Unit Duration | Displays "min" as unit label in Card visuals — drop into Category/Details field | Page 2 |
+| Unit Distance | Displays "mi" as unit label in Card visuals — drop into Category/Details field | Page 2 |
+| Avg Duration Member Display | Text-formatted version of Avg Duration Member with "min" suffix for Card visuals | Page 2 |
+| Avg Duration Casual Display | Text-formatted version of Avg Duration Casual with "min" suffix for Card visuals | Page 2 |
+| Avg Ride Distance Member Display | Text-formatted version of Avg Ride Distance Member with "mi" suffix for Card visuals | Page 2 |
+| Avg Ride Distance Casual Display | Text-formatted version of Avg Ride Distance Casual with "mi" suffix for Card visuals | Page 2 |
 
 ---
 
