@@ -1,37 +1,18 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
-  "name": "6300566c11e12c70091e",
+  "name": "43a4df5682c9e5c23365",
   "position": {
-    "x": 54.691865242399338,
-    "y": 84.141331142152836,
-    "z": 1000,
-    "height": 213.50862777321282,
-    "width": 356.54889071487264,
-    "tabOrder": 1000
+    "x": 65.117691723614286,
+    "y": 162.30827638572515,
+    "z": 5000,
+    "height": 300.31890660592256,
+    "width": 569.53682611996965,
+    "tabOrder": 2000
   },
   "visual": {
-    "visualType": "columnChart",
+    "visualType": "donutChart",
     "query": {
       "queryState": {
-        "Category": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Trips"
-                    }
-                  },
-                  "Property": "member_casual"
-                }
-              },
-              "queryRef": "Trips.member_casual",
-              "nativeQueryRef": "member_casual",
-              "active": true
-            }
-          ]
-        },
         "Y": {
           "projections": [
             {
@@ -42,11 +23,11 @@
                       "Entity": "Measures Folder"
                     }
                   },
-                  "Property": "Classic Bike %"
+                  "Property": "Member Rides"
                 }
               },
-              "queryRef": "Measures Folder.Classic Bike %",
-              "nativeQueryRef": "Classic Bike %"
+              "queryRef": "Measures Folder.Member Rides",
+              "nativeQueryRef": "Member Rides"
             },
             {
               "field": {
@@ -56,11 +37,11 @@
                       "Entity": "Measures Folder"
                     }
                   },
-                  "Property": "Electric Bike %"
+                  "Property": "Casual Rides"
                 }
               },
-              "queryRef": "Measures Folder.Electric Bike %",
-              "nativeQueryRef": "Electric Bike %"
+              "queryRef": "Measures Folder.Casual Rides",
+              "nativeQueryRef": "Casual Rides"
             }
           ]
         }
@@ -75,7 +56,7 @@
                     "Entity": "Measures Folder"
                   }
                 },
-                "Property": "Classic Bike %"
+                "Property": "Member Rides"
               }
             },
             "direction": "Descending"
@@ -92,9 +73,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 5,
-                      "Percent": 0.2
+                    "Literal": {
+                      "Value": "'#FF7F0E'"
                     }
                   }
                 }
@@ -102,7 +82,7 @@
             }
           },
           "selector": {
-            "metadata": "Measures Folder.Classic Bike %"
+            "metadata": "Measures Folder.Casual Rides"
           }
         },
         {
@@ -111,9 +91,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 3,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#1F77B4'"
                     }
                   }
                 }
@@ -121,17 +100,73 @@
             }
           },
           "selector": {
-            "metadata": "Measures Folder.Electric Bike %"
+            "metadata": "Measures Folder.Member Rides"
           }
         }
       ],
       "labels": [
         {
           "properties": {
-            "show": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1000D"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "bold": {
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "legend": [
+        {
+          "properties": {
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'BottomCenter'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

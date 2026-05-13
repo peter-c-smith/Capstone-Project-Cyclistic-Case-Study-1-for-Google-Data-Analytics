@@ -409,10 +409,9 @@ table 'Measures Folder'
 			/* 
 			Sums estimated casual revenue across all qualifying rides. Excludes rides with zero or blank duration. Overage calculated per ride before summing. */
 			```
+		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: Revenue (Synthetic or Illustrative)
 		lineageTag: e553028c-4a4d-4082-be3e-402ff65c1757
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Total Estimated Member Overage Revenue' = ```
 			
@@ -424,10 +423,9 @@ table 'Measures Folder'
 			/* 
 			Captures variable overage revenue from member rides exceeding the 45-minute included threshold at $0.18/min. Does not include the annual membership fee, which is not  amortized per ride in this model.*/
 			```
+		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: Revenue (Synthetic or Illustrative)
 		lineageTag: 7947a3bf-4f63-4c85-9ad7-67b5e38c7423
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Duration Ratio Casual to Member' =
 			
@@ -501,6 +499,66 @@ table 'Measures Folder'
 		lineageTag: 0f8e3835-efc6-4b03-8125-4c8acbaf957c
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Annotation Duration Ratio' =
+			
+			VAR Ratio = [Duration Ratio Casual to Member]
+			RETURN
+			    "Casual riders take rides " & FORMAT(Ratio, "0.00") & "x longer on average than members"
+		isHidden
+		displayFolder: Annotations
+		lineageTag: 997763e5-a265-4d2f-8132-ac16b0961b17
+
+		changedProperty = IsHidden
+
+	measure 'Annotation Weekend Skew' =
+			
+			VAR Ratio = [Weekend Skew Ratio]
+			RETURN
+			    "Casual riders are " & FORMAT(Ratio, "0.00") & "x more likely to ride on weekends than members"
+		isHidden
+		displayFolder: Annotations
+		lineageTag: 8efb37a5-ab00-4478-ac95-1db106be883b
+
+		changedProperty = IsHidden
+
+	measure 'Annotation Round Trip Ratio' =
+			
+			VAR Ratio = [Round Trip Ratio Casual to Member]
+			RETURN
+			    "Casual riders return to their starting station " & FORMAT(Ratio, "0.00") & "x more often than members"
+		isHidden
+		displayFolder: Annotations
+		lineageTag: 0e6cddd6-d76b-4e03-a7af-05b4d0b995cb
+
+		changedProperty = IsHidden
+
+	measure 'Annotation Distance Ratio' =
+			
+			VAR Ratio = [Distance Ratio Casual to Member]
+			RETURN
+			    "Casual riders cover " & FORMAT(Ratio, "0.00") & "x the distance per ride compared to members"
+		isHidden
+		displayFolder: Annotations
+		lineageTag: 58c5266b-31c3-4967-aa65-4063648d5d1b
+
+		changedProperty = IsHidden
+
+	measure 'Annotation Pace Insight' = ```
+			
+			VAR DurationRatio = [Duration Ratio Casual to Member]
+			VAR DistanceRatio = [Distance Ratio Casual to Member]
+			VAR DurationPct = FORMAT((DurationRatio - 1) * 100, "0") & "%"
+			VAR DistancePct = FORMAT((DistanceRatio - 1) * 100, "0") & "%"
+			RETURN
+			    "Casual riders take " & DurationPct & " longer rides but cover only " & DistancePct & " more distance — suggesting a more leisurely pace than members. See the Ride Behavior page for more analysis."
+			
+			```
+		isHidden
+		displayFolder: Annotations
+		lineageTag: cc3a21ca-f392-46be-84a0-71068744ab78
+
+		changedProperty = IsHidden
 
 	partition 'Measures Folder' = m
 		mode: import
