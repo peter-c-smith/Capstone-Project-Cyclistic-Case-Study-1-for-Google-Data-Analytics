@@ -739,6 +739,17 @@ RETURN
 ```
 Dynamic text callout displayed at the bottom of Page 3 spanning the full canvas width. Pulls the percentage of casual rides occurring in summer months as a live data point, making the annotation data-driven rather than static. Updates automatically when slicers are adjusted. Style as Segoe UI italic, 11pt, #666666, no border, no background.
 
+### Annotation Missing Station Data
+```dax
+Annotation Missing Station Data =
+VAR Missing = CALCULATE([Rides Missing Station Data], ALL(Trips[start_station_name]), ALL(Trips[end_station_name]))
+VAR Total = CALCULATE([Total Rides], ALL(Trips[start_station_name]), ALL(Trips[end_station_name]))
+VAR MissingPct = FORMAT(DIVIDE(Missing, Total) * 100, "0.0")
+RETURN
+    FORMAT(Missing, "#,##0") & " rides (" & MissingPct & "% of total) have no station recorded. This is expected behavior for electric bike rides, which can be locked at any public bike rack rather than a designated docking station."
+```
+Dynamic text callout displayed alongside the Rides Missing Station Data card on Page 4. Uses ALL() on station name columns to remove station filter context while preserving the date filter from the synced Page 1 time frame slicer. This ensures the percentage is always calculated against total rides rather than a filtered subset. Place in the Annotations display folder in Power BI Desktop. Style as Segoe UI italic, 11pt, #666666, no border, no background.
+
 ### Display Unit Measures
 
 Simple text measures used as Category/Details field in Card visuals to display unit labels alongside numeric values. Keeps underlying measures numeric and available for calculations while providing unit context in the visual. Place in the Annotations display folder in Power BI Desktop.
