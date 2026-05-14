@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "79b3551d3c10b8971e29",
+  "position": {
+    "x": 391.34328358208955,
+    "y": 146.86567164179104,
+    "z": 2000,
+    "height": 280.29850746268659,
+    "width": 280.29850746268659,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures Folder"
+                    }
+                  },
+                  "Property": "Electric Bike Rides"
+                }
+              },
+              "queryRef": "Measures Folder.Electric Bike Rides",
+              "nativeQueryRef": "Electric Bike Rides"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures Folder"
+                    }
+                  },
+                  "Property": "Classic Bike Rides"
+                }
+              },
+              "queryRef": "Measures Folder.Classic Bike Rides",
+              "nativeQueryRef": "Classic Bike Rides"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

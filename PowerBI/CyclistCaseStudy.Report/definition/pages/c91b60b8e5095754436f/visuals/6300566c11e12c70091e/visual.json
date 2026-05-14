@@ -2,15 +2,15 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
   "name": "6300566c11e12c70091e",
   "position": {
-    "x": 54.691865242399338,
-    "y": 84.141331142152836,
-    "z": 1000,
-    "height": 213.50862777321282,
-    "width": 356.54889071487264,
+    "x": 54.444444444444443,
+    "y": 70,
+    "z": 2000,
+    "height": 241.11111111111111,
+    "width": 467.77777777777777,
     "tabOrder": 1000
   },
   "visual": {
-    "visualType": "columnChart",
+    "visualType": "hundredPercentStackedColumnChart",
     "query": {
       "queryState": {
         "Category": {
@@ -132,6 +132,47 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "legend": [
+        {
+          "properties": {
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'TopCenter'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Bike Type Mix by Rider Type'"
                 }
               }
             }

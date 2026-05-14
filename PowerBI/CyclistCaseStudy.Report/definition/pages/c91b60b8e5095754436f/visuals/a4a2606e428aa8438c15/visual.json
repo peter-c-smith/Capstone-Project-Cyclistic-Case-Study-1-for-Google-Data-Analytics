@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
-  "name": "badf61bd2d9861382917",
+  "name": "a4a2606e428aa8438c15",
   "position": {
-    "x": 490.12325390304028,
-    "y": 86.244864420706648,
-    "z": 5000,
-    "height": 250.32046014790467,
-    "width": 266.09695973705834,
-    "tabOrder": 5000
+    "x": 33.507853403141361,
+    "y": 631.064572425829,
+    "z": 7000,
+    "height": 89.3542757417103,
+    "width": 187.64397905759162,
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -23,29 +23,11 @@
                       "Entity": "Measures Folder"
                     }
                   },
-                  "Property": "Total Rides"
+                  "Property": "Rides Missing Station Data"
                 }
               },
-              "queryRef": "Measures Folder.Total Rides",
-              "nativeQueryRef": "Total Rides"
-            }
-          ]
-        },
-        "Rows": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Trips"
-                    }
-                  },
-                  "Property": "start_station_id"
-                }
-              },
-              "queryRef": "Trips.start_station_id",
-              "nativeQueryRef": "start_station_id"
+              "queryRef": "Measures Folder.Rides Missing Station Data",
+              "nativeQueryRef": "Rides Missing Station Data"
             }
           ]
         }
@@ -60,7 +42,7 @@
                     "Entity": "Measures Folder"
                   }
                 },
-                "Property": "Total Rides"
+                "Property": "Rides Missing Station Data"
               }
             },
             "direction": "Descending"
@@ -70,29 +52,6 @@
       }
     },
     "objects": {
-      "value": [
-        {
-          "properties": {
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
-            },
-            "horizontalAlignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'center'"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Measures Folder.Total Rides"
-          }
-        }
-      ],
       "smallMultiplesHeader": [
         {
           "properties": {
@@ -115,61 +74,13 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Measures Folder.Total Rides"
-          }
-        }
-      ],
-      "accentBar": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
                   "Value": "false"
                 }
               }
             }
           },
           "selector": {
-            "metadata": "Measures Folder.Total Rides"
-          }
-        }
-      ],
-      "shadowCustom": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Measures Folder.Total Rides"
-          }
-        }
-      ],
-      "glowCustom": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Measures Folder.Total Rides"
+            "id": "default"
           }
         }
       ],
@@ -179,13 +90,26 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             }
           },
           "selector": {
-            "metadata": "Measures Folder.Total Rides"
+            "id": "default"
+          }
+        }
+      ],
+      "fillCustom": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
           }
         }
       ],
@@ -201,7 +125,73 @@
             }
           },
           "selector": {
-            "metadata": "Measures Folder.Total Rides"
+            "id": "default"
+          }
+        }
+      ],
+      "value": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "20D"
+                }
+              }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Measures Folder.Rides Missing Station Data"
+          }
+        }
+      ],
+      "cardCalloutArea": [
+        {
+          "properties": {
+            "paddingIndividual": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "layout": [
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'middle'"
+                }
+              }
+            }
           }
         }
       ]
@@ -234,7 +224,34 @@
             "heading": {
               "expr": {
                 "Literal": {
-                  "Value": "'Heading3'"
+                  "Value": "'Normal'"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }
@@ -247,7 +264,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "9ca898b58dbdfcc37fa5",
+        "name": "b1ef38848ee568e390d1",
         "field": {
           "Column": {
             "Expression": {
@@ -292,7 +309,22 @@
               }
             }
           ]
-        }
+        },
+        "howCreated": "User"
+      },
+      {
+        "name": "585291f275f90557128a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Measures Folder"
+              }
+            },
+            "Property": "Rides Missing Station Data"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }

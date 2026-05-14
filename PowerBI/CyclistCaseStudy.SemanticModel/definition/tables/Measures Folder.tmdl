@@ -193,7 +193,7 @@ table 'Measures Folder'
 			/* 
 			Total rides on classic bikes across all rider types. */
 			```
-		formatString: 0
+		formatString: #,0
 		displayFolder: Bike Type
 		lineageTag: 4a557c83-6683-4610-b88b-736da32ef231
 
@@ -213,7 +213,7 @@ table 'Measures Folder'
 			/* 
 			Total rides on electric bikes across all rider types. */
 			```
-		formatString: 0
+		formatString: #,0
 		displayFolder: Bike Type
 		lineageTag: 34fa55f0-e31b-4117-ad24-578bc89dc8ac
 
@@ -750,6 +750,27 @@ table 'Measures Folder'
 			    "Members spike at commuter hours and favor weekdays year-round. Casual riders peak midday and on weekends — with " & SummerCasualPct & "% of all casual rides occurring in summer months."
 		displayFolder: Annotations
 		lineageTag: d85a3556-f97f-4349-a95f-0732c283e2b9
+
+	measure 'Annotation Missing Station Data' =
+			
+			VAR Missing = [Rides Missing Station Data]
+			VAR Total = CALCULATE([Total Rides], ALL(Trips))
+			VAR MissingNum = FORMAT(Missing, "#,##0")
+			VAR MissingPct = FORMAT(DIVIDE(Missing, Total) * 100, "0.0")
+			RETURN
+			    MissingNum & " rides (" & MissingPct & "% of total) have no station recorded. This is expected behavior for electric bike rides, which can be locked at any public bike rack rather than a designated docking station."
+		displayFolder: Annotations
+		lineageTag: 8fbc30b8-7e8e-4018-ae6c-53e0286058ae
+
+	measure 'Test Missing Count' =
+			
+			CALCULATE(
+			    COUNTROWS(Trips),
+			    Trips[start_station_name] = ""
+			)
+		formatString: 0
+		displayFolder: Annotations
+		lineageTag: 4deaaacc-40fa-4d9d-a37c-7539f7cf47c1
 
 	partition 'Measures Folder' = m
 		mode: import

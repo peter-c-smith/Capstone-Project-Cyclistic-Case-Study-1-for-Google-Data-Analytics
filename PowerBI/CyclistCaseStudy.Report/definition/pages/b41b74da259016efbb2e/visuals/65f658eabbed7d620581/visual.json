@@ -1,0 +1,133 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "65f658eabbed7d620581",
+  "position": {
+    "x": 714.83420593368237,
+    "y": 212.21640488656197,
+    "z": 3001,
+    "height": 260.24432809773123,
+    "width": 280.34904013961608,
+    "tabOrder": 3001
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Measures Folder"
+                    }
+                  },
+                  "Property": "Total Rides"
+                }
+              },
+              "queryRef": "Measures Folder.Total Rides",
+              "nativeQueryRef": "Total Rides"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Trips"
+                    }
+                  },
+                  "Property": "start_station_id"
+                }
+              },
+              "queryRef": "Trips.start_station_id",
+              "nativeQueryRef": "start_station_id"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "8db4c350e2d846543129",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Measures Folder"
+              }
+            },
+            "Property": "Total Rides"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "00507aa1eadc5ab4c2e4",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Trips"
+              }
+            },
+            "Property": "start_station_id"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5e50c6ecf916f340084b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Trips"
+              }
+            },
+            "Property": "start_station_name"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "t",
+              "Entity": "Trips",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 0,
+                  "Left": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "t"
+                        }
+                      },
+                      "Property": "start_station_name"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "''"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  }
+}

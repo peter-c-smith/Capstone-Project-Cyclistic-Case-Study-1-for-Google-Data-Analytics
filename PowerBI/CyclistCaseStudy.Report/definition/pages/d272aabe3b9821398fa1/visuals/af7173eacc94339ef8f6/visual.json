@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
-  "name": "51b0255725c7be3d5a61",
+  "name": "af7173eacc94339ef8f6",
   "position": {
-    "x": 11.050359712230216,
-    "y": 0,
-    "z": 1000,
-    "height": 53.410071942446045,
-    "width": 1257.8992805755395,
-    "tabOrder": 0
+    "x": 774.03141361256553,
+    "y": 272.53054101221642,
+    "z": 11503,
+    "height": 87.120418848167546,
+    "width": 432.25130890052355,
+    "tabOrder": 7002
   },
   "visual": {
     "visualType": "textbox",
@@ -19,14 +19,13 @@
               {
                 "textRuns": [
                   {
-                    "value": "Members and Casuals Favor Different Bikes and Different Places",
+                    "value": "Adjusting the time frame will update all pages. Seasonal metrics may appear incomplete if a partial year is selected.",
                     "textStyle": {
-                      "fontWeight": "bold",
-                      "fontSize": "20pt"
+                      "fontStyle": "italic",
+                      "color": "#666666"
                     }
                   }
-                ],
-                "horizontalTextAlignment": "center"
+                ]
               }
             ]
           }

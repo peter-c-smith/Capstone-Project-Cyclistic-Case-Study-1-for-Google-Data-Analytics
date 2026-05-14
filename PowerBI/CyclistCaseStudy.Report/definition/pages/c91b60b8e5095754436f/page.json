@@ -4,5 +4,42 @@
   "displayName": "Bike Type & Stations",
   "displayOption": "FitToPage",
   "height": 720,
-  "width": 1280
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "0a8d9c8f310b53eedf85",
+      "target": "6300566c11e12c70091e",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0a8d9c8f310b53eedf85",
+      "target": "55c04a8802117b70747a",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0a8d9c8f310b53eedf85",
+      "target": "51b0255725c7be3d5a61",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0a8d9c8f310b53eedf85",
+      "target": "f3a54cc57f905bbf2ef0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0a8d9c8f310b53eedf85",
+      "target": "b57b82096bfb0d474d25",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0a8d9c8f310b53eedf85",
+      "target": "d0a2910a314ab602c26a",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0a8d9c8f310b53eedf85",
+      "target": "a4a2606e428aa8438c15",
+      "type": "NoFilter"
+    }
+  ]
 }

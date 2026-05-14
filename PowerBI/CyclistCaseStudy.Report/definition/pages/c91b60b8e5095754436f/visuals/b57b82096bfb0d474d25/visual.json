@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
   "name": "b57b82096bfb0d474d25",
   "position": {
-    "x": 756.22021364009856,
-    "y": 369.17009038619557,
-    "z": 4000,
-    "height": 315.52999178307311,
-    "width": 489.07148726376334,
+    "x": 684.44444444444446,
+    "y": 360,
+    "z": 5000,
+    "height": 278.88888888888886,
+    "width": 584.44444444444446,
     "tabOrder": 4000
   },
   "visual": {
@@ -42,11 +42,11 @@
                       "Entity": "Measures Folder"
                     }
                   },
-                  "Property": "Total Rides"
+                  "Property": "Casual Rides"
                 }
               },
-              "queryRef": "Measures Folder.Total Rides",
-              "nativeQueryRef": "Total Rides"
+              "queryRef": "Measures Folder.Casual Rides",
+              "nativeQueryRef": "Casual Rides"
             }
           ]
         }
@@ -61,7 +61,7 @@
                     "Entity": "Measures Folder"
                   }
                 },
-                "Property": "Total Rides"
+                "Property": "Casual Rides"
               }
             },
             "direction": "Descending"
@@ -90,6 +90,64 @@
             }
           }
         }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FF7F0E'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Top 10 Casual Start Stations (minus missing)'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "drillFilterOtherVisuals": true
@@ -97,7 +155,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "26d1041ac4906bdc3638",
+        "name": "5b34368f1ec700c52857",
         "field": {
           "Column": {
             "Expression": {
@@ -153,7 +211,7 @@
                                 "Source": "m"
                               }
                             },
-                            "Property": "Total Rides"
+                            "Property": "Casual Rides"
                           }
                         }
                       }
@@ -198,7 +256,7 @@
         }
       },
       {
-        "name": "2e760c1088b851bcab36",
+        "name": "ca0e0de643c3083a27f4",
         "field": {
           "Column": {
             "Expression": {
@@ -206,10 +264,10 @@
                 "Entity": "Trips"
               }
             },
-            "Property": "member_casual"
+            "Property": "start_station_name"
           }
         },
-        "type": "Categorical",
+        "type": "Advanced",
         "filter": {
           "Version": 2,
           "From": [
@@ -222,34 +280,47 @@
           "Where": [
             {
               "Condition": {
-                "In": {
-                  "Expressions": [
-                    {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Source": "t"
-                          }
-                        },
-                        "Property": "member_casual"
-                      }
-                    }
-                  ],
-                  "Values": [
-                    [
-                      {
+                "Not": {
+                  "Expression": {
+                    "Comparison": {
+                      "ComparisonKind": 0,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "t"
+                            }
+                          },
+                          "Property": "start_station_name"
+                        }
+                      },
+                      "Right": {
                         "Literal": {
-                          "Value": "'member'"
+                          "Value": "''"
                         }
                       }
-                    ]
-                  ]
+                    }
+                  }
                 }
               }
             }
           ]
         },
         "howCreated": "User"
+      },
+      {
+        "name": "49f68bea51c28f51444d",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Measures Folder"
+              }
+            },
+            "Property": "Casual Rides"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }
