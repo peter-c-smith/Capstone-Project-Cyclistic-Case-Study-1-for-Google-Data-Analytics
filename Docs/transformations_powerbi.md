@@ -19,37 +19,18 @@ This analysis is based in the United States where miles are the standard unit of
 **Null handling:**
 Rows with missing coordinates return BLANK() rather than 0 to avoid skewing distance averages with invalid data.
 
-### Calculated Column — Ride Start Hour Label
-Converts the 24-hour Ride Start Hour column into a 12-hour clock label (e.g. "9 AM", "3 PM") for use as a display axis in visuals. The column is intended to be used alongside Ride Start Hour — place Ride Start Hour Label on the visual axis and sort it by Ride Start Hour to maintain correct 24-hour chronological order.
-
-**Null handling:** Inherits from Ride Start Hour — returns BLANK() implicitly if started_at is blank.
-
-```dax
-Ride Start Hour Label =
-VAR Hour24 = Trips[Ride Start Hour]
-VAR Hour12 = MOD(Hour24 - 1, 12) + 1
-VAR Suffix = IF(Hour24 < 12 || Hour24 = 0, " AM", " PM")
-VAR Midnight = Hour24 = 0
-VAR Noon = Hour24 = 12
-RETURN
-    IF(Midnight, "12 AM",
-        IF(Noon, "12 PM",
-            FORMAT(Hour12, "0") & Suffix
-        )
-    )
-```
 ```dax
 Ride Distance (mi) =
 IF(
     OR(
-        OR(ISBLANK(rides[start_lat]), ISBLANK(rides[end_lat])),
-        OR(ISBLANK(rides[start_lng]), ISBLANK(rides[end_lng]))
+        OR(ISBLANK(Trips[start_lat]), ISBLANK(Trips[end_lat])),
+        OR(ISBLANK(Trips[start_lng]), ISBLANK(Trips[end_lng]))
     ),
     BLANK(),
-    VAR lat1 = RADIANS(rides[start_lat])
-    VAR lat2 = RADIANS(rides[end_lat])
-    VAR lon1 = RADIANS(rides[start_lng])
-    VAR lon2 = RADIANS(rides[end_lng])
+    VAR lat1 = RADIANS(Trips[start_lat])
+    VAR lat2 = RADIANS(Trips[end_lat])
+    VAR lon1 = RADIANS(Trips[start_lng])
+    VAR lon2 = RADIANS(Trips[end_lng])
     VAR dlat = lat2 - lat1
     VAR dlon = lon2 - lon1
     VAR a =
@@ -72,12 +53,13 @@ Decimal minutes preserve precision for aggregate measures and visual accuracy. W
 
 **Null handling:**
 Rows with missing start or end timestamps return BLANK(). Negative values (where ended_at is earlier than started_at) also return BLANK() as these indicate data quality issues.
+
 ```dax
 Ride Time (min) =
 IF(
-    OR(ISBLANK(rides[started_at]), ISBLANK(rides[ended_at])),
+    OR(ISBLANK(Trips[started_at]), ISBLANK(Trips[ended_at])),
     BLANK(),
-    VAR ride_seconds = DATEDIFF(rides[started_at], rides[ended_at], SECOND)
+    VAR ride_seconds = DATEDIFF(Trips[started_at], Trips[ended_at], SECOND)
     RETURN
         IF(ride_seconds < 0, BLANK(), DIVIDE(ride_seconds, 60))
 )
@@ -86,16 +68,51 @@ IF(
 ---
 
 ### Ride Start Date
-Extracts the date portion from the started_at timestamp to create a relationship with the Date Table. Stripping the time component is necessary because Power BI requires matching data types and grain for table relationships.
+Extracts the date portion from the started_at timestamp to create a relationship with the Date table. Stripping the time component is necessary because Power BI requires matching data types and grain for table relationships.
 
 **Null handling:**
 If started_at is blank this column will also return blank, which is consistent with the ride time null handling approach.
+
 ```dax
 Ride Start Date = DATE(
-    YEAR(rides[started_at]),
-    MONTH(rides[started_at]),
-    DAY(rides[started_at])
+    YEAR(Trips[started_at]),
+    MONTH(Trips[started_at]),
+    DAY(Trips[started_at])
 )
+```
+
+---
+
+### Ride Start Hour
+Extracts the hour (0–23) from the ride start timestamp. Used as a visual axis to show ride distribution across hours of the day. Peak hour analysis is better surfaced through visuals than a single DAX measure, as the full hourly distribution is more informative than a single peak value.
+
+**Null handling:** Returns BLANK() implicitly if started_at is blank, consistent with other calculated columns.
+
+```dax
+Ride Start Hour =
+HOUR(Trips[started_at])
+```
+
+---
+
+### Ride Start Hour Label
+Converts the 24-hour Ride Start Hour column into a 12-hour clock label (e.g. "9 AM", "3 PM") for use as a display axis in visuals. The column is intended to be used alongside Ride Start Hour — place Ride Start Hour Label on the visual axis and sort it by Ride Start Hour to maintain correct 24-hour chronological order.
+
+**Null handling:** Inherits from Ride Start Hour — returns BLANK() implicitly if started_at is blank.
+
+```dax
+Ride Start Hour Label =
+VAR Hour24 = Trips[Ride Start Hour]
+VAR Hour12 = MOD(Hour24 - 1, 12) + 1
+VAR Suffix = IF(Hour24 < 12 || Hour24 = 0, " AM", " PM")
+VAR Midnight = Hour24 = 0
+VAR Noon = Hour24 = 12
+RETURN
+    IF(Midnight, "12 AM",
+        IF(Noon, "12 PM",
+            FORMAT(Hour12, "0") & Suffix
+        )
+    )
 ```
 
 ---
@@ -103,11 +120,10 @@ Ride Start Date = DATE(
 ## Tables
 
 ### Date Table
-A calculated date table spanning the full dataset range of 4/1/2025 through 3/31/2026. Includes columns for time intelligence, visual formatting, and business analysis.
-
+A calculated date table spanning the full dataset range of 4/1/2025 through 3/31/2026. Includes columns for time intelligence, visual formatting, and business analysis. The table is named `Date` in the data model.
 
 ```dax
-Date Table = 
+Date =
 VAR StartDate = DATE(2025, 4, 1)
 VAR EndDate = DATE(2026, 3, 31)
 RETURN
@@ -123,7 +139,7 @@ ADDCOLUMNS(
     "Day Name", FORMAT([Date], "dddd"),
     "Day Short", FORMAT([Date], "ddd"),
     "Is Weekend", IF(WEEKDAY([Date], 2) >= 6, TRUE(), FALSE()),
-    "Season", 
+    "Season",
         SWITCH(
             TRUE(),
             MONTH([Date]) IN {3, 4, 5}, "Spring",
@@ -134,19 +150,19 @@ ADDCOLUMNS(
     "Year-Month", FORMAT([Date], "YYYY-MM"),
     "Year-Quarter", YEAR([Date]) & " Q" & QUARTER([Date])
 )
+```
 
 ### Calculated Column — Season Sort
-
 Added to the Date table to enable correct chronological ordering of the Season column in visuals. Without this column Power BI sorts seasons alphabetically (Fall, Spring, Summer, Winter) rather than in calendar order.
 
 **Sort setup:** In Power BI Data view, select the Season column in the Date table, click Sort by Column in the Column tools ribbon, and select Season Sort. This applies the sort order globally to all visuals using the Season field.
 
-**Null handling:** Returns BLANK() if Season is blank, consistent with null-handling conventions for this project.
+**Null handling:** Returns BLANK() if the month is not matched, consistent with null-handling conventions for this project.
 
-** Note this had to be adjust because using switch on the season causes a circular dependency, so use month number instead to sort
+**Note:** Uses month number rather than the Season column to avoid a circular dependency that occurs when sorting Season by a column derived from Season.
 
 ```dax
-Season Sort = 
+Season Sort =
 SWITCH(MONTH('Date'[Date]),
     3, 1, 4, 1, 5, 1,
     6, 2, 7, 2, 8, 2,
@@ -154,31 +170,68 @@ SWITCH(MONTH('Date'[Date]),
     12, 4, 1, 4, 2, 4,
     BLANK()
 )
+```
+
+---
+
+## Calculated Tables
+
+### Metric Groups
+Two-row table used as the X-axis category in the Page 2 clustered column chart (Weekend % vs Round Trip %). Allows a single chart to display two different percentage metrics side by side with consistent member/casual color coding. Created via Modeling → New Table in Power BI Desktop.
+
+```dax
+Metric Groups =
+DATATABLE("Metric", STRING, {{"Weekend %"}, {"Round Trip %"}})
+```
+
+### Day Type Groups
+Two-row table used as the X-axis category in the Page 3 Weekday vs Weekend clustered column chart. Created via Modeling → New Table in Power BI Desktop.
+
+```dax
+Day Type Groups =
+DATATABLE("Day Type", STRING, {{"Weekday"}, {"Weekend"}})
+```
+
+---
 
 ## Phase 1 — Core Measures
 
 ### Total Rides
+```dax
 Total Rides = COUNTROWS(Trips)
+```
 Counts all rows in the Trips table. Relies on upstream cleaning for invalid record removal.
 
 ### Member Rides
+```dax
 Member Rides = CALCULATE(COUNTROWS(Trips), Trips[member_casual] = "member")
+```
 Filters to member rides only.
 
 ### Casual Rides
+```dax
 Casual Rides = CALCULATE(COUNTROWS(Trips), Trips[member_casual] = "casual")
+```
 Filters to casual rides only.
 
 ### Member Ride %
+```dax
 Member Ride % = DIVIDE([Member Rides], [Total Rides], BLANK())
+```
 Returns the proportion of rides by members. BLANK() returned on divide-by-zero to stay consistent with null-handling convention.
 
-### Avg Ride Duration (min)
-Avg Ride Duration (min) = AVERAGEX(FILTER(Trips, Trips[Ride Time (min)] > 0), Trips[Ride Time (min)])
+### Avg Ride Duration
+```dax
+Avg Ride Duration =
+AVERAGEX(FILTER(Trips, Trips[Ride Time (min)] > 0), Trips[Ride Time (min)])
+```
 Averages decimal-minute ride durations. Filters out zero and blank values before averaging to avoid skewing the result.
 
-### Avg Ride Distance (mi)
-Avg Ride Distance (mi) = AVERAGEX(FILTER(Trips, Trips[Ride Distance (mi)] > 0), Trips[Ride Distance (mi)])
+### Avg Ride Distance
+```dax
+Avg Ride Distance =
+AVERAGEX(FILTER(Trips, Trips[Ride Distance (mi)] > 0), Trips[Ride Distance (mi)])
+```
 Averages Haversine-calculated ride distances in miles. Same filter logic as duration.
 
 ### Avg Ride Distance Member
@@ -201,19 +254,9 @@ AVERAGEX(
 ```
 Average ride distance in miles for casual riders only. Filters out zero and blank values before averaging, consistent with other average measures in this project. Companion measure to Avg Ride Distance Member — both are used to feed the Distance Ratio Casual to Member measure in Phase 5.
 
-## Phase 2 — Temporal & Usage Patterns
-
-### Calculated Column — Ride Start Hour
-Extracts the hour (0–23) from the ride start timestamp. Used as a visual axis to show ride distribution across hours of the day. Peak hour analysis is better surfaced through visuals than a single DAX measure, as the full hourly distribution is more informative than a single peak value.
-
-**Null handling:** Returns BLANK() implicitly if started_at is blank, consistent with other calculated columns.
-
-```dax
-Ride Start Hour =
-HOUR(Trips[started_at])
-```
-
 ---
+
+## Phase 2 — Temporal & Usage Patterns
 
 ### Weekday Rides
 ```dax
@@ -236,8 +279,6 @@ DIVIDE([Weekend Rides], [Total Rides], BLANK())
 ```
 Proportion of all rides occurring on weekends. BLANK() returned on divide-by-zero consistent with null-handling convention.
 
----
-
 ### Avg Duration Member
 ```dax
 Avg Duration Member =
@@ -257,8 +298,6 @@ AVERAGEX(
 )
 ```
 Average ride duration in decimal minutes for casual riders only. Same filter logic as member duration.
-
----
 
 ### Spring Rides
 ```dax
@@ -285,8 +324,6 @@ CALCULATE([Total Rides], 'Date'[Season] = "Winter")
 ```
 Seasonal ride counts using the Season column from the Date table. Spring: March–May, Summer: June–August, Fall: September–November, Winter: December–February.
 
----
-
 ### Casual Weekend %
 ```dax
 Casual Weekend % =
@@ -309,7 +346,7 @@ DIVIDE(
 ```
 Proportion of member rides that occur on weekends. Expected to be lower than casual weekend %, reflecting commuter usage patterns among members.
 
-#### Member Rides by Day Type
+### Member Rides by Day Type
 ```dax
 Member Rides by Day Type =
 SWITCH(
@@ -321,7 +358,7 @@ SWITCH(
 ```
 Returns member ride count for the selected day type category from the Day Type Groups table. Used as a Y-axis series in the Page 3 Weekday vs Weekend clustered column chart. Set color to #1F77B4 in the visual format pane.
 
-#### Casual Rides by Day Type
+### Casual Rides by Day Type
 ```dax
 Casual Rides by Day Type =
 SWITCH(
@@ -333,54 +370,11 @@ SWITCH(
 ```
 Returns casual ride count for the selected day type category from the Day Type Groups table. Used as a Y-axis series in the Page 3 Weekday vs Weekend clustered column chart. Set color to #FF7F0E in the visual format pane.
 
-
-## Calculated Columns
-...
-
-## Calculated Tables
-...
-We currently only have Metric Groups noted as needing to go there. Now Day Type Groups needs to be added as well. When we do the documentation review pass we need to add both to that section.
-
-### Metric Group Measures
-
-These measures work in conjunction with the Metric Groups calculated table to drive the clustered column chart on Page 2. They use SWITCH() to return the appropriate measure value based on the selected metric category, allowing a single clustered chart to display two different percentage metrics side by side with consistent member/casual color coding.
-
-#### Metric Groups Table
-```dax
-Metric Groups = 
-DATATABLE("Metric", STRING, {{"Weekend %"}, {"Round Trip %"}})
-```
-Calculated table containing two rows used as the X-axis category in the Page 2 clustered column chart. Created via Modeling → New Table in Power BI Desktop.
-
-#### Member % by Metric
-```dax
-Member % by Metric =
-SWITCH(
-    SELECTEDVALUE('Metric Groups'[Metric]),
-    "Weekend %", [Member Weekend %],
-    "Round Trip %", [Round Trip % Member],
-    BLANK()
-)
-```
-Returns the appropriate member percentage measure based on the selected metric category from the Metric Groups table. Used as a Y-axis series in the Page 2 clustered column chart. Set color to #1F77B4 in the visual format pane.
-
-#### Casual % by Metric
-```dax
-Casual % by Metric =
-SWITCH(
-    SELECTEDVALUE('Metric Groups'[Metric]),
-    "Weekend %", [Casual Weekend %],
-    "Round Trip %", [Round Trip % Casual],
-    BLANK()
-)
-```
-Returns the appropriate casual percentage measure based on the selected metric category from the Metric Groups table. Used as a Y-axis series in the Page 2 clustered column chart. Set color to #FF7F0E in the visual format pane.
+---
 
 ## Phase 3 — Bike Type Analysis
 
 Breaks down rideable type by member type to show preferences and usage patterns. Measures are written for classic and electric bike types, which are the only types present in the current dataset. Docked bike measures are included proactively — they will return BLANK() if the type is absent and will automatically populate if docked bikes are introduced in future data.
-
----
 
 ### Classic Bike Rides
 ```dax
@@ -401,8 +395,6 @@ CALCULATE([Casual Rides], Trips[rideable_type] = "classic_bike")
 ```
 Classic bike rides by casual riders only.
 
----
-
 ### Electric Bike Rides
 ```dax
 Electric Bike Rides =
@@ -421,8 +413,6 @@ Casual Electric Rides =
 CALCULATE([Casual Rides], Trips[rideable_type] = "electric_bike")
 ```
 Electric bike rides by casual riders only.
-
----
 
 ### Docked Bike Rides
 ```dax
@@ -443,8 +433,6 @@ CALCULATE([Casual Rides], Trips[rideable_type] = "docked_bike")
 ```
 Docked bike rides by casual riders only. Returns BLANK() with current dataset.
 
----
-
 ### Bike Type Mix %
 ```dax
 Classic Bike % =
@@ -464,11 +452,13 @@ DIVIDE([Docked Bike Rides], [Total Rides], BLANK())
 ```
 Proportion of all rides on docked bikes. Returns BLANK() with current dataset.
 
+---
+
 ## Phase 4 — Station & Geographic Analysis
 
-Analyzes ride origins and destinations to identify popular stations and geographic patterns by rider type. Most insights in this phase are surfaced through visuals (maps using coordinate fields, top station bar charts sliced by member/casual) rather than standalone measures. Note: missing station data is common in this dataset, particularly for electric bikes which can be docked at non-fixed locations.
+Analyzes ride origins and destinations to identify popular stations and geographic patterns by rider type. Most insights in this phase are surfaced through visuals (maps using coordinate fields, top station bar charts sliced by member/casual) rather than standalone measures.
 
----
+**Note on missing station data:** A significant number of records contain empty station names. This is expected behavior for electric bike rides, which can be locked at any public bike rack rather than a designated docking station. Station name fields contain empty strings ("") rather than true blanks — this distinction matters for DAX filter logic. See the Annotation Missing Station Data measure for the correct filter approach.
 
 ### Station Activity
 ```dax
@@ -489,8 +479,6 @@ Rides Missing Station Data =
 ```
 Quantifies rides with no start station recorded. Expected to be non-trivial, particularly for electric bike rides.
 
----
-
 ### Member vs Casual Station Usage
 ```dax
 Member Rides with Start Station =
@@ -503,8 +491,6 @@ Casual Rides with Start Station =
 CALCULATE([Casual Rides], Trips[start_station_name] <> BLANK())
 ```
 Casual rides where a start station name is recorded.
-
----
 
 ### Round Trips
 ```dax
@@ -554,8 +540,6 @@ Proportion of casual rides that are round trips. Used in Page 2 clustered bar ch
 
 Ties together behavioral insights from Phases 1–4 with a set of summary measures designed to directly answer the core analysis question: how do casual and member riders use Cyclistic bikes differently? Also includes an illustrative revenue proxy modeled after documented Divvy pricing. See `pricing_model_rationale.md` for full rationale and assumptions.
 
----
-
 ### Revenue Proxy Measures
 
 > **These figures are entirely illustrative.** Cyclistic is a fictional company. Pricing assumptions are modeled after publicly documented Divvy rates. See `pricing_model_rationale.md` for details.
@@ -572,26 +556,25 @@ Calculates estimated per-ride revenue for a casual rider. Applies a $3.30 unlock
 
 #### Total Estimated Casual Revenue
 ```dax
+Total Estimated Casual Revenue =
 SUMX(
     FILTER(Trips, Trips[member_casual] = "casual" && Trips[Ride Time (min)] > 0),
-    VAR OverageMinutes = MAX(Trips[Ride Time (min)] - 30, 0)
+    VAR OverageMinutes = IF(Trips[Ride Time (min)] > 30, Trips[Ride Time (min)] - 30, 0)
     RETURN 3.30 + (OverageMinutes * 0.18)
 )
 ```
-Sums estimated casual revenue across all qualifying rides. Excludes rides with zero or blank duration. Overage calculated per ride before summing.
+Sums estimated casual revenue across all qualifying rides. Excludes rides with zero or blank duration. Overage calculated per ride using IF() rather than MAX() to avoid DAX evaluation issues. Overage calculated per ride before summing.
 
 #### Total Estimated Member Overage Revenue
 ```dax
 Total Estimated Member Overage Revenue =
 SUMX(
     FILTER(Trips, Trips[member_casual] = "member" && Trips[Ride Time (min)] > 0),
-    VAR OverageMinutes = MAX(Trips[Ride Time (min)] - 45, 0)
+    VAR OverageMinutes = IF(Trips[Ride Time (min)] > 45, Trips[Ride Time (min)] - 45, 0)
     RETURN OverageMinutes * 0.18
 )
 ```
-Captures variable overage revenue from member rides exceeding the 45-minute included threshold at $0.18/min. Does not include the annual membership fee, which is not amortized per ride in this model.
-
----
+Captures variable overage revenue from member rides exceeding the 45-minute included threshold at $0.18/min. Uses IF() rather than MAX() for consistent DAX evaluation. Does not include the annual membership fee, which is not amortized per ride in this model.
 
 ### Behavioral Summary Measures
 
@@ -629,6 +612,30 @@ DIVIDE(
 ```
 Compares the proportion of round trips for casual riders vs. members. Expected to be significantly above 1, supporting the conclusion that casual riders use the service recreationally while members use it for point-to-point commuting.
 
+#### Member % by Metric
+```dax
+Member % by Metric =
+SWITCH(
+    SELECTEDVALUE('Metric Groups'[Metric]),
+    "Weekend %", [Member Weekend %],
+    "Round Trip %", [Round Trip % Member],
+    BLANK()
+)
+```
+Returns the appropriate member percentage measure based on the selected metric category from the Metric Groups table. Used as a Y-axis series in the Page 2 clustered column chart. Set color to #1F77B4 in the visual format pane.
+
+#### Casual % by Metric
+```dax
+Casual % by Metric =
+SWITCH(
+    SELECTEDVALUE('Metric Groups'[Metric]),
+    "Weekend %", [Casual Weekend %],
+    "Round Trip %", [Round Trip % Casual],
+    BLANK()
+)
+```
+Returns the appropriate casual percentage measure based on the selected metric category from the Metric Groups table. Used as a Y-axis series in the Page 2 clustered column chart. Set color to #FF7F0E in the visual format pane.
+
 ### Fleet Utilization
 True concurrent ride calculation (peak bikes in use simultaneously) requires interval overlap analysis that is computationally impractical in DAX. The Ride Start Hour column combined with day-of-week from the Date table serves as a proxy for peak demand periods in Power BI visuals. Full concurrency analysis is deferred to the R and Python phases of this project.
 
@@ -645,41 +652,47 @@ A what-if analysis estimating revenue uplift from casual rider conversion would 
 
 *Phase 5 completes the DAX measure library for the Cyclistic Power BI analysis. Additional documentation for R and Python analysis phases will be maintained in separate files.*
 
-### Annotation Measures
+---
 
-Dynamic text measures that generate descriptive sentences for use in Card visuals alongside behavioral ratio cards. Values update automatically when slicers are adjusted.
+## Annotations
 
-#### Annotation Duration Ratio
+Dynamic text measures that generate descriptive sentences for use in Card visuals. All ratio-based annotations update automatically when slicers are adjusted. Place all measures in the Annotations display folder in Power BI Desktop. Style annotation cards as Segoe UI italic, 11pt, #666666, no border, no background unless otherwise noted.
+
+### Annotation Duration Ratio
 ```dax
 Annotation Duration Ratio =
 VAR Ratio = [Duration Ratio Casual to Member]
 RETURN
     "Casual riders take rides " & FORMAT(Ratio, "0.00") & "x longer on average than members"
 ```
+Dynamic text card displayed beneath the Duration Ratio card on Page 1.
 
-#### Annotation Weekend Skew
+### Annotation Weekend Skew
 ```dax
 Annotation Weekend Skew =
 VAR Ratio = [Weekend Skew Ratio]
 RETURN
     "Casual riders are " & FORMAT(Ratio, "0.00") & "x more likely to ride on weekends than members"
 ```
+Dynamic text card displayed beneath the Weekend Skew Ratio card on Page 1.
 
-#### Annotation Round Trip Ratio
+### Annotation Round Trip Ratio
 ```dax
 Annotation Round Trip Ratio =
 VAR Ratio = [Round Trip Ratio Casual to Member]
 RETURN
     "Casual riders return to their starting station " & FORMAT(Ratio, "0.00") & "x more often than members"
 ```
+Dynamic text card displayed beneath the Round Trip Ratio card on Page 1.
 
-#### Annotation Distance Ratio
+### Annotation Distance Ratio
 ```dax
 Annotation Distance Ratio =
 VAR Ratio = [Distance Ratio Casual to Member]
 RETURN
     "Casual riders cover " & FORMAT(Ratio, "0.00") & "x the distance per ride compared to members"
 ```
+Dynamic text card displayed beneath the Distance Ratio card on Page 1.
 
 ### Annotation Pace Insight
 ```dax
@@ -691,6 +704,8 @@ VAR DistancePct = FORMAT((DistanceRatio - 1) * 100, "0") & "%"
 RETURN
     "Casual riders take " & DurationPct & " longer rides but cover only " & DistancePct & " more distance — suggesting a more leisurely pace than members. See the Ride Behavior page for more analysis."
 ```
+Summary callout on Page 1 below the behavioral ratio cards. Connects the Duration Ratio and Distance Ratio into a single insight statement. References the Ride Behavior page for more analysis.
+
 ### Annotation Duration Card Callout
 ```dax
 Annotation Duration Card Callout =
@@ -726,7 +741,7 @@ VAR DistanceDirection = IF(DistanceRatio >= 1, "more", "less")
 RETURN
     "Casual riders take " & DurationPct & "% longer rides but cover only " & DistancePct & "% " & DistanceDirection & " distance than members. This suggests casual riders move at a more leisurely pace — prioritizing the experience of riding over reaching a destination efficiently."
 ```
-Fuller pace insight callout displayed at the bottom of Page 2 spanning the full canvas width. Connects the duration and distance findings into a single interpretive conclusion. Updates automatically when slicers are adjusted. Style as Segoe UI italic, 11pt, #666666, no border, no background.
+Fuller pace insight callout displayed at the bottom of Page 2 spanning the full canvas width. Connects the duration and distance findings into a single interpretive conclusion. Updates automatically when slicers are adjusted.
 
 ### Annotation Page 3 Temporal Insight
 ```dax
@@ -737,65 +752,62 @@ VAR SummerCasualPct = FORMAT(DIVIDE(SummerCasual, TotalCasual) * 100, "0")
 RETURN
     "Members spike at commuter hours and favor weekdays year-round. Casual riders peak midday and on weekends — with " & SummerCasualPct & "% of all casual rides occurring in summer months."
 ```
-Dynamic text callout displayed at the bottom of Page 3 spanning the full canvas width. Pulls the percentage of casual rides occurring in summer months as a live data point, making the annotation data-driven rather than static. Updates automatically when slicers are adjusted. Style as Segoe UI italic, 11pt, #666666, no border, no background.
+Dynamic text callout displayed at the bottom of Page 3 spanning the full canvas width. Pulls the percentage of casual rides occurring in summer months as a live data point. Updates automatically when slicers are adjusted.
 
 ### Annotation Missing Station Data
 ```dax
 Annotation Missing Station Data =
-VAR Missing = CALCULATE([Rides Missing Station Data], ALL(Trips[start_station_name]), ALL(Trips[end_station_name]))
-VAR Total = CALCULATE([Total Rides], ALL(Trips[start_station_name]), ALL(Trips[end_station_name]))
+VAR Missing = [Rides Missing Station Data]
+VAR Total = CALCULATE([Total Rides], ALL(Trips))
+VAR MissingNum = FORMAT(Missing, "#,##0")
 VAR MissingPct = FORMAT(DIVIDE(Missing, Total) * 100, "0.0")
 RETURN
-    FORMAT(Missing, "#,##0") & " rides (" & MissingPct & "% of total) have no station recorded. This is expected behavior for electric bike rides, which can be locked at any public bike rack rather than a designated docking station."
+    MissingNum & " rides (" & MissingPct & "% of total) have no station recorded. This is expected behavior for electric bike rides, which can be locked at any public bike rack rather than a designated docking station."
 ```
-Dynamic text callout displayed alongside the Rides Missing Station Data card on Page 4. Uses ALL() on station name columns to remove station filter context while preserving the date filter from the synced Page 1 time frame slicer. This ensures the percentage is always calculated against total rides rather than a filtered subset. Place in the Annotations display folder in Power BI Desktop. Style as Segoe UI italic, 11pt, #666666, no border, no background.
+Dynamic text callout displayed alongside the Rides Missing Station Data card on Page 4. Uses ALL(Trips) on the Total variable to ensure the percentage is calculated against total rides rather than the filtered context from station chart cross-filtering. Note: station name fields in this dataset contain empty strings ("") rather than true blanks — this distinction is important for any DAX measures filtering on station name fields.
 
-### Display Unit Measures
+---
 
-Simple text measures used as Category/Details field in Card visuals to display unit labels alongside numeric values. Keeps underlying measures numeric and available for calculations while providing unit context in the visual. Place in the Annotations display folder in Power BI Desktop.
+## Display Measures
 
-#### Unit Duration
+Text-formatted versions of numeric measures and unit label measures for use in Card visuals. The original numeric measures remain untouched and available for calculations. Place all measures in the Annotations display folder in Power BI Desktop.
+
+### Unit Duration
 ```dax
 Unit Duration = "min"
 ```
 Displays "min" as the unit label in card visuals showing ride duration measures. Drop into the Category or Details field of the Avg Duration Member and Avg Duration Casual card visuals.
 
-#### Unit Distance
+### Unit Distance
 ```dax
 Unit Distance = "mi"
 ```
 Displays "mi" as the unit label in card visuals showing ride distance measures. Drop into the Category or Details field of the Avg Ride Distance Member and Avg Ride Distance Casual card visuals.
 
-### Display Measures — Card Visuals
-
-Text-formatted versions of numeric measures for use in Card visuals on Page 2. Each wraps the underlying numeric measure in a FORMAT() call and appends the appropriate unit string. The original numeric measures remain untouched and available for calculations. Place all four in the Annotations display folder in Power BI Desktop.
-
-#### Avg Duration Member Display
+### Avg Duration Member Display
 ```dax
 Avg Duration Member Display =
 FORMAT([Avg Duration Member], "0.0") & " min"
 ```
 Text-formatted version of Avg Duration Member for use in the Page 2 duration card pair. Displays to one decimal place with "min" unit suffix.
 
-#### Avg Duration Casual Display
+### Avg Duration Casual Display
 ```dax
 Avg Duration Casual Display =
 FORMAT([Avg Duration Casual], "0.0") & " min"
 ```
 Text-formatted version of Avg Duration Casual for use in the Page 2 duration card pair. Displays to one decimal place with "min" unit suffix.
 
-#### Avg Ride Distance Member Display
+### Avg Ride Distance Member Display
 ```dax
 Avg Ride Distance Member Display =
 FORMAT([Avg Ride Distance Member], "0.00") & " mi"
 ```
 Text-formatted version of Avg Ride Distance Member for use in the Page 2 distance card pair. Displays to two decimal places with "mi" unit suffix.
 
-#### Avg Ride Distance Casual Display
+### Avg Ride Distance Casual Display
 ```dax
 Avg Ride Distance Casual Display =
 FORMAT([Avg Ride Distance Casual], "0.00") & " mi"
 ```
 Text-formatted version of Avg Ride Distance Casual for use in the Page 2 distance card pair. Displays to two decimal places with "mi" unit suffix.
-
-*Place these measures in the Annotations display folder in Power BI Desktop.*
