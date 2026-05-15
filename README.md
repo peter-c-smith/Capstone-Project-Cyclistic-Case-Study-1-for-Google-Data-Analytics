@@ -28,16 +28,20 @@ Understanding this behavioral distinction is the foundation for a targeted marke
 
 ## What Makes This Project Different
 
-This capstone is implemented across **three tools** — Power BI, R, and Python — allowing direct comparison of how the same analytical tasks are approached in each environment. This structure is intentional and designed to demonstrate tool flexibility relevant to real-world data analyst roles.
+This capstone is implemented across **five tools** — Power BI, SQL Server + SSIS, DuckDB, R, and Python — allowing direct comparison of how the same analytical tasks are approached in each environment. This structure is intentional and designed to demonstrate tool flexibility relevant to real-world data analyst roles.
 
 ---
 
 ## Tools & Technologies
 
-- **Power BI** — data modeling, DAX calculations, and interactive dashboards ✅ Complete
-- **R** — statistical analysis, data profiling, and visualization ⏳ In progress
-- **Python** — data manipulation and analysis using Polars and pandas ⏳ Planned
-- **Claude (Anthropic)** — AI-assisted analysis and documentation, reflecting modern analyst workflows
+| Tool | Purpose | Status |
+|------|---------|--------|
+| **Power BI** | Data modeling, DAX calculations, and interactive dashboards | ✅ Complete |
+| **SQL Server + SSIS** | Enterprise ETL pipeline and T-SQL analytical queries | ⏳ In development |
+| **DuckDB** | Lightweight analytical SQL directly against CSV files | ⏳ Planned |
+| **R** | Statistical analysis, data profiling, and visualization | ⏳ Planned |
+| **Python** | Data manipulation using Polars and pandas | ⏳ Planned |
+| **Claude (Anthropic)** | AI-assisted analysis and documentation | Throughout |
 
 ---
 
@@ -72,15 +76,21 @@ The full dataset is not included in this repository due to file size. A sample f
 │   ├── report_design_brief.md        — Power BI report design decisions, page layouts, color conventions
 │   └── pricing_model_rationale.md    — rationale for illustrative revenue model based on Divvy pricing
 │
-├── /PowerBI
+├── /PowerBI                          ✅ Complete
 │   ├── measure_folder_structure.md   — all measures organized by display folder
 │   └── CyclistCaseStudy.pbip         — Power BI project file
 │
-├── /R
-│   └── (in progress)
+├── /SQLServer                        ⏳ In development
+│   └── README.md
 │
-├── /Python
-│   └── (planned)
+├── /DuckDB                           ⏳ Planned
+│   └── README.md
+│
+├── /R                                ⏳ Planned
+│   └── README.md
+│
+├── /Python                           ⏳ Planned
+│   └── README.md
 │
 └── /Visuals
     └── /PowerBI
