@@ -30,6 +30,8 @@ This document lists all DAX measures organized by their assigned display folder 
 | Avg Duration Casual | Average ride duration in decimal minutes for casual riders |
 | Casual Weekend % | Proportion of casual rides occurring on weekends |
 | Member Weekend % | Proportion of member rides occurring on weekends |
+| Member Rides by Day Type | Returns member ride count for selected day type — used in Page 3 Weekday vs Weekend chart |
+| Casual Rides by Day Type | Returns casual ride count for selected day type — used in Page 3 Weekday vs Weekend chart |
 | Spring Rides | Total rides occurring March–May |
 | Summer Rides | Total rides occurring June–August |
 | Fall Rides | Total rides occurring September–November |
@@ -112,6 +114,8 @@ Dynamic text measures and display formatting measures used in Card visuals throu
 | Annotation Duration Card Callout | Dynamic text showing % difference in ride duration between casual and member | Page 2 |
 | Annotation Distance Card Callout | Dynamic text showing % difference in ride distance between casual and member | Page 2 |
 | Annotation Page 2 Pace Insight | Fuller dynamic callout connecting duration and distance ratios with interpretive conclusion | Page 2 |
+| Annotation Page 3 Temporal Insight | Dynamic callout stating % of casual rides occurring in summer — ties together hour, season, and weekday visuals | Page 3 |
+| Annotation Missing Station Data | Dynamic callout showing missing station count and % — uses ALL(Trips) to avoid cross-filter from station charts | Page 4 |
 | Unit Duration | Displays "min" as unit label in Card visuals — drop into Category/Details field | Page 2 |
 | Unit Distance | Displays "mi" as unit label in Card visuals — drop into Category/Details field | Page 2 |
 | Avg Duration Member Display | Text-formatted version of Avg Duration Member with "min" suffix for Card visuals | Page 2 |
@@ -123,23 +127,24 @@ Dynamic text measures and display formatting measures used in Card visuals throu
 
 ## Calculated Columns
 
-Calculated columns live in the `Trips` table and are not stored in measure folders.
+Calculated columns live in the `Trips` table unless otherwise noted. They are not stored in measure folders.
 
-| Column | Description |
-|---|---|
-| Ride Distance (mi) | Haversine formula distance in miles between start and end coordinates |
-| Ride Time (min) | Ride duration in decimal minutes |
-| Ride Start Date | Date portion of started_at for use with the Date table |
-| Ride Start Hour | Hour (0–23) extracted from started_at for hourly distribution visuals |
-| Ride Start Hour Label | 12-hour clock label (e.g. "9 AM", "3 PM") — sort by Ride Start Hour to maintain chronological order |
+| Column | Table | Description |
+|---|---|---|
+| Ride Distance (mi) | Trips | Haversine formula distance in miles between start and end coordinates |
+| Ride Time (min) | Trips | Ride duration in decimal minutes |
+| Ride Start Date | Trips | Date portion of started_at for use with the Date table |
+| Ride Start Hour | Trips | Hour (0–23) extracted from started_at for hourly distribution visuals |
+| Ride Start Hour Label | Trips | 12-hour clock label (e.g. "9 AM", "3 PM") — sort by Ride Start Hour to maintain chronological order |
+| Season Sort | Date | Numeric sort order (1–4) for Season column — based on month number to avoid circular dependency |
+
+---
 
 ## Calculated Tables
 
+Calculated tables are created via Modeling → New Table in Power BI Desktop.
+
 | Table | Description |
 |---|---|
-| Metric Groups | Two-row table containing "Weekend %" and "Round Trip %" used as X-axis category in the Page 2 clustered column chart. Created via Modeling → New Table. 
-
-#### Day Type Groups Table
-```dax
-Day Type Groups = 
-DATATABLE("Day Type", STRING, {{"Weekday"}, {"Weekend"}})
+| Metric Groups | Two-row table containing "Weekend %" and "Round Trip %" — used as X-axis category in the Page 2 clustered column chart via Member % by Metric and Casual % by Metric measures |
+| Day Type Groups | Two-row table containing "Weekday" and "Weekend" — used as X-axis category in the Page 3 Weekday vs Weekend clustered column chart via Member Rides by Day Type and Casual Rides by Day Type measures |
