@@ -155,7 +155,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "5b34368f1ec700c52857",
+        "name": "3f0c5327a2873d23adb4",
         "field": {
           "Column": {
             "Expression": {
@@ -307,20 +307,6 @@
           ]
         },
         "howCreated": "User"
-      },
-      {
-        "name": "49f68bea51c28f51444d",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Measures Folder"
-              }
-            },
-            "Property": "Casual Rides"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

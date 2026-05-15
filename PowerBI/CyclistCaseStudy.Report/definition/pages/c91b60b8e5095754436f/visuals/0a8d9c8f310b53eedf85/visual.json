@@ -285,7 +285,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "7137ca1fe203dc9188cf",
+        "name": "845fa865a3919ce1b564",
         "field": {
           "Column": {
             "Expression": {
@@ -332,20 +332,6 @@
           ]
         },
         "howCreated": "User"
-      },
-      {
-        "name": "d02055824412d7194f81",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Measures Folder"
-              }
-            },
-            "Property": "Annotation Missing Station Data"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

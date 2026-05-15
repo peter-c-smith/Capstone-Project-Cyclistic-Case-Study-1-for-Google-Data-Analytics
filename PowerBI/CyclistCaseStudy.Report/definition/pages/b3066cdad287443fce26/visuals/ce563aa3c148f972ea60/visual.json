@@ -1,12 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
-  "name": "67befb3c7d8a8dfee189",
+  "name": "ce563aa3c148f972ea60",
   "position": {
-    "x": 31.192341166231504,
-    "y": 359.82593559617055,
+    "x": 26.043707611152978,
+    "y": 187.12886209495105,
     "z": 3000,
-    "height": 318.60748476936465,
-    "width": 485.70931244560484,
+    "height": 244.03918613413717,
+    "width": 1227.9125847776941,
     "tabOrder": 3000
   },
   "visual": {
@@ -64,10 +64,42 @@
                 "Property": "Season"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
           }
         ]
       }
+    },
+    "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FF7F0E'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "1L"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "drillFilterOtherVisuals": true
   }

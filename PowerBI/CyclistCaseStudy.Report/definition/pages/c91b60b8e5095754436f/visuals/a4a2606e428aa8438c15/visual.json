@@ -264,7 +264,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "b1ef38848ee568e390d1",
+        "name": "b13f97d2b99562d55a02",
         "field": {
           "Column": {
             "Expression": {
@@ -311,20 +311,6 @@
           ]
         },
         "howCreated": "User"
-      },
-      {
-        "name": "585291f275f90557128a",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Measures Folder"
-              }
-            },
-            "Property": "Rides Missing Station Data"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

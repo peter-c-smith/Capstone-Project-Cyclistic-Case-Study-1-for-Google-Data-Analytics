@@ -155,7 +155,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "5dface4f36a281add0bf",
+        "name": "1ed0ae63a855f7557c0b",
         "field": {
           "Column": {
             "Expression": {
@@ -307,20 +307,6 @@
           ]
         },
         "howCreated": "User"
-      },
-      {
-        "name": "d419c872f1bf90f2dff4",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Measures Folder"
-              }
-            },
-            "Property": "Member Rides"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

@@ -393,10 +393,9 @@ table 'Measures Folder'
 			VAR OverageMinutes = IF(AvgDuration > 30, AvgDuration - 30, 0)
 			RETURN
 			    3.30 + (OverageMinutes * 0.18)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		displayFolder: Revenue (Synthetic or Illustrative)
 		lineageTag: 7f6fba28-35fb-4f2f-9f63-15dd464584aa
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Total Estimated Casual Revenue' = ```
 			

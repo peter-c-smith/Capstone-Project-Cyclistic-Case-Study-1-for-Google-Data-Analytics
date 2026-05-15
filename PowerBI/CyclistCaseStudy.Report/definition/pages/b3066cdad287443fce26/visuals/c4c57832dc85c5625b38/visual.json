@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
-  "name": "9bf002cb5d7b0fc6f3de",
+  "name": "c4c57832dc85c5625b38",
   "position": {
     "x": 11.569433032046014,
     "y": 0,
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Converting Casual Rider to Member Represents Revenue Potential",
+                    "value": "Converting Casual Riders to Members Represents Significant Revenue Potential",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "20pt"

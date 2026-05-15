@@ -1,0 +1,95 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "4a7cdd70ee0bd414e1ad",
+  "position": {
+    "x": 26.043707611152978,
+    "y": 442.74302938960062,
+    "z": 5002,
+    "height": 272.97663903541826,
+    "width": 1235.6292388847025,
+    "tabOrder": 5001
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "The Conversion Opportunity",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "11pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Casual riders currently generate revenue through per-ride unlock fees ($3.30) and per-minute overage charges beyond 30 minutes. At $9.8M in estimated annual casual revenue, the variable nature of this income is heavily concentrated in summer months — making it sensitive to weather, seasonality, and discretionary spending.",
+                    "textStyle": {
+                      "fontSize": "11pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "An annual membership at $120 converts this variable revenue into predictable recurring income. Members ride more frequently, more consistently year-round, and generate overage revenue on longer rides. The behavioral data across this report consistently shows that casual riders already demonstrate strong engagement with the service — they ride longer, return to starting points more often, and concentrate their usage during peak leisure periods.",
+                    "textStyle": {
+                      "fontSize": "11pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "The question is not whether casual riders use Cyclistic — they do, extensively. The question is whether targeted marketing can convert that seasonal, leisure-driven engagement into the consistent, year-round commitment that characterizes member behavior.",
+                    "textStyle": {
+                      "fontSize": "11pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Note on Conversion Rate Modeling",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "11pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "A quantitative conversion rate analysis — estimating revenue impact if a percentage of casual riders became members — has been intentionally omitted. The dataset does not include unique rider identifiers, making it impossible to establish a defensible casual rider population baseline. Without that foundation, conversion estimates would require compounding assumptions that undermine analytical integrity. This analysis is flagged as a recommended next step should Cyclistic provide rider-level data in the future.",
+                    "textStyle": {
+                      "fontSize": "11pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -4,10 +4,10 @@
   "position": {
     "x": 714.83420593368237,
     "y": 212.21640488656197,
-    "z": 3001,
+    "z": 4000,
     "height": 260.24432809773123,
     "width": 280.34904013961608,
-    "tabOrder": 3001
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "tableEx",
@@ -51,34 +51,6 @@
   },
   "filterConfig": {
     "filters": [
-      {
-        "name": "8db4c350e2d846543129",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Measures Folder"
-              }
-            },
-            "Property": "Total Rides"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "00507aa1eadc5ab4c2e4",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Trips"
-              }
-            },
-            "Property": "start_station_id"
-          }
-        },
-        "type": "Advanced"
-      },
       {
         "name": "5e50c6ecf916f340084b",
         "field": {

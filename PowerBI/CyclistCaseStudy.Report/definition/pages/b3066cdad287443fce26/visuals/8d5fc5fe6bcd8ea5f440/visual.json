@@ -1,13 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
-  "name": "42e1ec99651ad6ef5d9e",
+  "name": "8d5fc5fe6bcd8ea5f440",
   "position": {
-    "x": 88,
-    "y": 659,
+    "x": 832.4340617935195,
+    "y": 0,
     "z": 5000,
-    "height": 56,
-    "width": 1104,
-    "tabOrder": 4000
+    "height": 89.706103993971368,
+    "width": 395.47852298417484
   },
   "visual": {
     "visualType": "cardVisual",
@@ -23,63 +22,35 @@
                       "Entity": "Measures Folder"
                     }
                   },
-                  "Property": "Annotation Pace Insight"
+                  "Property": "Estimated Casual Revenue per Ride"
                 }
               },
-              "queryRef": "Measures Folder.Annotation Pace Insight",
-              "nativeQueryRef": "Annotation Pace Insight"
+              "queryRef": "Measures Folder.Estimated Casual Revenue per Ride",
+              "nativeQueryRef": "Estimated Casual Revenue per Ride"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Measures Folder"
+                  }
+                },
+                "Property": "Estimated Casual Revenue per Ride"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
-      "label": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Measures Folder.Annotation Pace Insight"
-          }
-        }
-      ],
-      "value": [
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
-                }
-              }
-            },
-            "italic": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "textWrap": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Measures Folder.Annotation Pace Insight"
-          }
-        }
-      ],
       "outline": [
         {
           "properties": {
@@ -96,7 +67,7 @@
           }
         }
       ],
-      "shadowCustom": [
+      "divider": [
         {
           "properties": {
             "show": {
@@ -125,67 +96,69 @@
           }
         }
       ],
-      "divider": [
+      "value": [
         {
           "properties": {
-            "show": {
+            "horizontalAlignment": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "'center'"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "2L"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FF7F0E'"
+                    }
+                  }
                 }
               }
             }
           },
           "selector": {
-            "id": "default"
+            "metadata": "Measures Folder.Estimated Casual Revenue per Ride"
           }
         }
       ],
-      "padding": [
+      "label": [
         {
           "properties": {
-            "paddingUniform": {
+            "position": {
               "expr": {
                 "Literal": {
-                  "Value": "0L"
+                  "Value": "'aboveValue'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#605E5C'"
+                    }
+                  }
                 }
               }
             }
           },
           "selector": {
-            "id": "default"
-          }
-        }
-      ],
-      "layout": [
-        {
-          "properties": {
-            "calloutSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "45D"
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    "visualContainerObjects": {
-      "background": [
-        {
-          "properties": {
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "100D"
-                }
-              }
-            }
+            "metadata": "Measures Folder.Estimated Casual Revenue per Ride"
           }
         }
       ]
     },
     "drillFilterOtherVisuals": true
-  }
+  },
+  "parentGroupName": "0d7cbdf535b232a8d101"
 }
