@@ -1,22 +1,113 @@
-# Capstone-Project-Cyclistic-Case-Study-1-for-Google-Data-Analytics
-This is a case study for a fictional company named Cyclistic, one of the Google Data Analytics Certification Capstone Projects. Real-world tasks are performed and documented as outlined by Google's data analytics methodology. As part of my workflow, I'm incorporating AI assistance through Claude (by Anthropic) to reflect how modern analysts collaborate with AI tools in practice.
-
 # Cyclistic Bike-Share Case Study
 ### Google Data Analytics Certification Capstone Project
 
 This case study analyzes data for Cyclistic, a fictional bike-share company, as part of the Google Data Analytics Certification Capstone. Real-world tasks are performed and documented following Google's structured data analytics methodology: Ask, Prepare, Process, Analyze, Share, and Act.
 
+As part of my workflow, I'm incorporating AI assistance through Claude (by Anthropic) to reflect how modern analysts collaborate with AI tools in practice.
+
+---
+
+## The Business Question
+
+**How do annual members and casual riders use Cyclistic bikes differently?**
+
+Understanding this behavioral distinction is the foundation for a targeted marketing strategy to convert casual riders into annual members — the goal identified by Cyclistic's director of marketing.
+
+---
+
+## Key Findings
+
+- **Casual riders take 82% longer rides** than members on average, but cover only 3% more distance — suggesting a more leisurely pace rather than longer routes
+- **Casual riders are 1.6x more likely to ride on weekends** than members, who concentrate usage on weekday commuter hours with clear spikes at 8 AM and 5 PM
+- **Casual riders return to their starting station 1.6x more often** than members, consistent with recreational rather than point-to-point commuter usage
+- **47% of all casual rides occur in summer months**, making seasonal targeting a key lever for any conversion campaign
+- **Casual riders favor lakefront and tourist destinations** (DuSable Lake Shore Drive, Navy Pier, Millennium Park) while members cluster near transit hubs and office corridors
+- **1.2M rides (21.3%)** have no station data recorded — expected behavior for electric bikes which can be locked at any public rack
+
+---
+
 ## What Makes This Project Different
-This capstone is implemented across **three tools and languages** — Power BI, R, and Python — allowing direct comparison of how the same analytical tasks are approached in each environment. This structure is intentional and designed to demonstrate tool flexibility relevant to real-world data analyst roles.
+
+This capstone is implemented across **three tools** — Power BI, R, and Python — allowing direct comparison of how the same analytical tasks are approached in each environment. This structure is intentional and designed to demonstrate tool flexibility relevant to real-world data analyst roles.
+
+---
 
 ## Tools & Technologies
-- **Power BI** — data modeling, DAX calculations, and interactive dashboards
-- **R** — statistical analysis and visualization
-- **Python** — data manipulation and analysis
+
+- **Power BI** — data modeling, DAX calculations, and interactive dashboards ✅ Complete
+- **R** — statistical analysis, data profiling, and visualization ⏳ In progress
+- **Python** — data manipulation and analysis using Polars and pandas ⏳ Planned
 - **Claude (Anthropic)** — AI-assisted analysis and documentation, reflecting modern analyst workflows
 
+---
+
+## Data Source
+
+The dataset consists of 12 months of Cyclistic (Divvy) historical trip data provided by Motivate International Inc. under the [Divvy Data License Agreement](https://divvybikes.com/data-license-agreement).
+
+The full dataset is not included in this repository due to file size. A sample file and full source details are available in the `/Data` folder.
+
+**Dataset period:** April 2025 – March 2026
+**Total rides:** 5,623,280
+**Fields:** ride_id, rideable_type, started_at, ended_at, start/end station names and IDs, start/end coordinates, member_casual
+
+---
+
 ## Repository Structure
-- `/transformations` — data cleaning and transformation logic in each language
-- `/visuals` — dashboard screenshots and exported charts
-- `/data` — data source references and descriptions
-- `/writeup` — full case study write-up following Google's methodology phases
+
+```
+/
+├── README.md
+├── LICENSE
+├── Important Notes During Process.md
+├── Transformation Process Notes.md
+├── Original Google Requirement Case Study 1...md
+│
+├── /Data
+│   ├── data_sources.md          — dataset description, source link, field definitions
+│   └── sample_data.csv          — one month of data illustrating structure
+│
+├── /Docs
+│   ├── transformations_powerbi.md    — all DAX measures and calculated columns with documentation
+│   ├── report_design_brief.md        — Power BI report design decisions, page layouts, color conventions
+│   └── pricing_model_rationale.md    — rationale for illustrative revenue model based on Divvy pricing
+│
+├── /PowerBI
+│   ├── measure_folder_structure.md   — all measures organized by display folder
+│   └── CyclistCaseStudy.pbip         — Power BI project file
+│
+├── /R
+│   └── (in progress)
+│
+├── /Python
+│   └── (planned)
+│
+└── /Visuals
+    └── /PowerBI
+        ├── page1_executive_summary.png
+        ├── page2_ride_behavior.png
+        ├── page3_temporal_patterns.png
+        ├── page4_bike_type_station.png
+        └── page5_revenue_opportunity.png
+```
+
+---
+
+## Power BI Report Pages
+
+| Page | Title | Key Visual |
+|------|-------|------------|
+| 1 | Casual and Member Riders Use Cyclistic in Fundamentally Different Ways | Behavioral ratio cards with dynamic annotations |
+| 2 | Casual Riders Take Longer, More Leisurely Rides Than Members | Duration and distance card pairs, weekend/round trip chart |
+| 3 | Members Ride on Schedule — Casuals Ride for Leisure | Hour-of-day distribution chart showing commuter spikes |
+| 4 | Members and Casuals Favor Different Bikes and Different Places | Map of ride start locations, top 10 station charts |
+| 5 | Converting Casual Riders to Members Represents Significant Revenue Potential | Illustrative seasonal revenue chart and conversion narrative |
+
+---
+
+## Important Notes
+
+- **Cyclistic is a fictional company.** The underlying data is real Divvy trip data provided by Motivate International Inc.
+- **Revenue figures on Page 5 are entirely illustrative.** Pricing is modeled after publicly documented Divvy rates. See `/Docs/pricing_model_rationale.md` for full rationale.
+- **Unique rider IDs are not available** in this dataset. Conversion rate modeling has been intentionally omitted — see `/Docs/transformations_powerbi.md` Phase 5 for discussion.
+- This project uses AI assistance (Claude by Anthropic) as part of the analytical workflow, reflecting modern analyst practice.
