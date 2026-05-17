@@ -11,12 +11,1548 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="LoadTrips"
   DTS:PackageType="5"
-  DTS:VersionBuild="1"
-  DTS:VersionGUID="{83821D0E-3DFD-4C38-A34A-2BAF5A3D7F20}">
+  DTS:VersionBuild="18"
+  DTS:VersionGUID="{049D4CC3-AF32-4410-970D-EE7713F68EF3}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
-  <DTS:Variables />
-  <DTS:Executables />
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[CSV_Source]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{30DD11DA-49B5-40AB-AC99-E6FE4746F7F0}"
+      DTS:ObjectName="CSV_Source">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::CurrentFile]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x0022_"
+          DTS:CodePage="1252">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;ride_id&quot;"
+              DTS:DTSID="{533BF1A5-C03B-4404-9683-04EC2BDF29A8}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;rideable_type&quot;"
+              DTS:DTSID="{BBC52F4B-B332-4B69-B4B2-1402128DA2DC}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;started_at&quot;"
+              DTS:DTSID="{5597C1A5-96C5-4E67-98BC-545EBE41E54F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;ended_at&quot;"
+              DTS:DTSID="{5ACABFF7-3969-4D2A-BCF8-E6EE093C0AB6}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;start_station_name&quot;"
+              DTS:DTSID="{D990F356-1E9B-4B97-85C5-2536EBC3B46D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;start_station_id&quot;"
+              DTS:DTSID="{DCBB5FB4-9446-4253-A063-A52EDD42F7F1}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;end_station_name&quot;"
+              DTS:DTSID="{69B24B4F-F7FC-452B-ACA1-147DE2290A9A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;end_station_id&quot;"
+              DTS:DTSID="{997620CD-59FC-4591-AF2C-E6B167FBFEC2}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;start_lat&quot;"
+              DTS:DTSID="{DD39F1AC-97D1-43EA-9ACB-D6030D50AE4A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;start_lng&quot;"
+              DTS:DTSID="{2F67DD3F-1BB6-4488-A973-A911653999BC}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;end_lat&quot;"
+              DTS:DTSID="{A87C84B2-7677-444F-81BB-34FE92EB8964}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;end_lng&quot;"
+              DTS:DTSID="{58FDCAB9-F190-4DC9-BDA6-09F891DB3A30}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;member_casual&quot;"
+              DTS:DTSID="{33B798E8-CF45-4934-ADDC-3678FCCD5B71}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[CyclisticCaseStudy]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{1CF096C4-3ADC-4B9F-956D-0D03CC0E67EB}"
+      DTS:ObjectName="CyclisticCaseStudy">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=PETRISLAP2025\PETRIS2022;User ID=claude;Initial Catalog=CyclisticCaseStudy;Provider=MSOLEDBSQL.1;Persist Security Info=True;Application Name=SSIS-LoadTrips-{1CF096C4-3ADC-4B9F-956D-0D03CC0E67EB}PETRISLAP2025\PETRIS2022.CyclisticCaseStudy.claude;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAnyK56lHACkuk6dGJD4rJHQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAASiZmizYgAb2zyxRC6ev5gzIj06N82dDhFMnaUGWYbXQAAAAAOgAAAAAIAACAAAABYWJ5PW97ygXSRuTVsr9upQHp/wbEqiyIyshyGGBMmtxAAAABuvAq78lyOo+E2HFsFVj6QQAAAAA1cMIeTgRY9S81ejLmAFnCRwLyHgsZQD+6C/y+RMYZpa1foivXeQJl/LQ562P2aI416zOJvW8kDU9eEQjlcKUs</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[PETRISLAP2025\PETRIS2022.CyclisticCaseStudy.claude]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{E7CC7F5E-711C-471A-84A7-AFEEBDF34725}"
+      DTS:ObjectName="PETRISLAP2025\PETRIS2022.CyclisticCaseStudy.claude">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=PETRISLAP2025\PETRIS2022;User ID=claude;Initial Catalog=CyclisticCaseStudy;Provider=MSOLEDBSQL.1;Persist Security Info=True;Application Name=SSIS-LoadTrips-{E7CC7F5E-711C-471A-84A7-AFEEBDF34725}PETRISLAP2025\PETRIS2022.CyclisticCaseStudy.claude;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAnyK56lHACkuk6dGJD4rJHQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAB+zXxnsSOddNXc05M4Zf1gpUe3N+CJ39OVL5nLsETgxwAAAAAOgAAAAAIAACAAAACJN7i8HPvfEPdb2LRDpGTapRCEghqBGI4KhadkFJ+W2hAAAACKPngguIIA0EbKBysCDnQlQAAAAAPmDD8DMEMtW8dLJopLS9uAjVH4VwWtYuErkYJ+FnRm0zDs42+qo84nKb+dgecV1vOrLoSfPWqV4ucntQzjgik</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2B0E3726-FE03-47C0-83C8-53E30C0E3C49}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CurrentFile">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E53DD832-036F-4100-84AC-924D3D9E3433}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FolderPath">
+      <DTS:VariableValue
+        DTS:DataType="8">D:\OneDrive\Job Stuff\Portfolio Stuff 2026\Google Cert Capstone Case Study 1 - Cyclist\Data\DATAfile_Consolidated\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{885CB716-19F3-4F60-8B34-B87EC8B2BBDF}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="MinExpectedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">1000000</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AB4F2650-E863-4AD0-B4D7-7A207733E0A6}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="StagingRowCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Fail - Staging Row Count Too Low"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{3C652ED5-4244-4AE7-9A66-165E7EB1EC34}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Fail - Staging Row Count Too Low"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{1CF096C4-3ADC-4B9F-956D-0D03CC0E67EB}"
+          SQLTask:SqlStatementSource="INSERT INTO dbo.ETL_ErrorLog (package_name, task_name, error_message)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{52EC9E6B-0486-44B1-A537-5C1D6DD38085}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Loop Container">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{95AED2F6-D048-44CB-A694-3701C43656DE}"
+        DTS:ObjectName="{95AED2F6-D048-44CB-A694-3701C43656DE}">
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="D:\OneDrive\Job Stuff\Portfolio Stuff 2026\Google Cert Capstone Case Study 1 - Cyclist\Data\DATAfile_Consolidated" />
+            <FEFEProperty
+              FileSpec="*.csv" />
+            <FEFEProperty
+              FileNameRetrievalType="0" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Load CSV to stg_Trips"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{7E7D580E-457E-4F37-B59A-07C4EE6AACF7}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load CSV to stg_Trips"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Cyclistic Database Staging"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[stg].[Trips]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">true</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[CyclisticCaseStudy]"
+                      connectionManagerRefId="Package.ConnectionManagers[CyclisticCaseStudy]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].Columns[source_file]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="source_file"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[source_file]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Outputs[Derived Column Output].Columns[source_file]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].Columns[&quot;ride_id&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;ride_id&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[ride_id]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;ride_id&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].Columns[&quot;rideable_type&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;rideable_type&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[rideable_type]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;rideable_type&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].Columns[&quot;started_at&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;started_at&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[started_at]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;started_at&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].Columns[&quot;ended_at&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;ended_at&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[ended_at]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;ended_at&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].Columns[&quot;start_station_name&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;start_station_name&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[start_station_name]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_station_name&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].Columns[&quot;start_station_id&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;start_station_id&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[start_station_id]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_station_id&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].Columns[&quot;end_station_name&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;end_station_name&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[end_station_name]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_station_name&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].Columns[&quot;end_station_id&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;end_station_id&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[end_station_id]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_station_id&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].Columns[&quot;start_lat&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;start_lat&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[start_lat]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_lat&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].Columns[&quot;start_lng&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;start_lng&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[start_lng]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_lng&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].Columns[&quot;end_lat&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;end_lat&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[end_lat]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_lat&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].Columns[&quot;end_lng&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;end_lng&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[end_lng]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_lng&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].Columns[&quot;member_casual&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="&quot;member_casual&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[member_casual]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;member_casual&quot;]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[ride_id]"
+                          dataType="wstr"
+                          length="50"
+                          name="ride_id" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[rideable_type]"
+                          dataType="wstr"
+                          length="50"
+                          name="rideable_type" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[started_at]"
+                          dataType="wstr"
+                          length="50"
+                          name="started_at" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[ended_at]"
+                          dataType="wstr"
+                          length="50"
+                          name="ended_at" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[start_station_name]"
+                          dataType="wstr"
+                          length="100"
+                          name="start_station_name" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[start_station_id]"
+                          dataType="wstr"
+                          length="50"
+                          name="start_station_id" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[end_station_name]"
+                          dataType="wstr"
+                          length="100"
+                          name="end_station_name" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[end_station_id]"
+                          dataType="wstr"
+                          length="50"
+                          name="end_station_id" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[start_lat]"
+                          dataType="wstr"
+                          length="50"
+                          name="start_lat" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[start_lng]"
+                          dataType="wstr"
+                          length="50"
+                          name="start_lng" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[end_lat]"
+                          dataType="wstr"
+                          length="50"
+                          name="end_lat" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[end_lng]"
+                          dataType="wstr"
+                          length="50"
+                          name="end_lng" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[member_casual]"
+                          dataType="wstr"
+                          length="50"
+                          name="member_casual" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input].ExternalColumns[source_file]"
+                          dataType="wstr"
+                          length="255"
+                          name="source_file" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Derived Column"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Outputs[Derived Column Output].Columns[source_file]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Outputs[Derived Column Output].Columns[source_file]"
+                          name="source_file"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_WSTR,255)@[User::CurrentFile]</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_WSTR,255)@[User::CurrentFile]</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Error Rows to stg_Trips_Erros"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[stg].[Trips_Errors]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[CyclisticCaseStudy]"
+                      connectionManagerRefId="Package.ConnectionManagers[CyclisticCaseStudy]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[source_file]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="source_file"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[source_file]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Outputs[Derived Column Output].Columns[source_file]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[&quot;ride_id&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;ride_id&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[ride_id]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;ride_id&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[&quot;rideable_type&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;rideable_type&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[rideable_type]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;rideable_type&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[&quot;started_at&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;started_at&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[started_at]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;started_at&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[&quot;ended_at&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;ended_at&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[ended_at]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;ended_at&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[&quot;start_station_name&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;start_station_name&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[start_station_name]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_station_name&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[&quot;start_station_id&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;start_station_id&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[start_station_id]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_station_id&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[&quot;end_station_name&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;end_station_name&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[end_station_name]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_station_name&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[&quot;end_station_id&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;end_station_id&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[end_station_id]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_station_id&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[&quot;start_lat&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;start_lat&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[start_lat]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_lat&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[&quot;start_lng&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;start_lng&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[start_lng]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_lng&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[&quot;end_lat&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;end_lat&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[end_lat]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_lat&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[&quot;end_lng&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="&quot;end_lng&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[end_lng]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_lng&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[&quot;member_casual&quot;]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="&quot;member_casual&quot;"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[member_casual]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;member_casual&quot;]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[ErrorCode]"
+                          cachedDataType="i4"
+                          cachedName="ErrorCode"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[error_column]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].Columns[ErrorColumn]"
+                          cachedDataType="i4"
+                          cachedName="ErrorColumn"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[error_code]"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[ride_id]"
+                          dataType="wstr"
+                          length="50"
+                          name="ride_id" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[rideable_type]"
+                          dataType="wstr"
+                          length="50"
+                          name="rideable_type" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[started_at]"
+                          dataType="wstr"
+                          length="50"
+                          name="started_at" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[ended_at]"
+                          dataType="wstr"
+                          length="50"
+                          name="ended_at" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[start_station_name]"
+                          dataType="wstr"
+                          length="100"
+                          name="start_station_name" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[start_station_id]"
+                          dataType="wstr"
+                          length="50"
+                          name="start_station_id" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[end_station_name]"
+                          dataType="wstr"
+                          length="100"
+                          name="end_station_name" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[end_station_id]"
+                          dataType="wstr"
+                          length="50"
+                          name="end_station_id" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[start_lat]"
+                          dataType="wstr"
+                          length="50"
+                          name="start_lat" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[start_lng]"
+                          dataType="wstr"
+                          length="50"
+                          name="start_lng" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[end_lat]"
+                          dataType="wstr"
+                          length="50"
+                          name="end_lat" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[end_lng]"
+                          dataType="wstr"
+                          length="50"
+                          name="end_lng" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[member_casual]"
+                          dataType="wstr"
+                          length="50"
+                          name="member_casual" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[source_file]"
+                          dataType="wstr"
+                          length="255"
+                          name="source_file" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[error_column]"
+                          dataType="i4"
+                          name="error_column" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[error_code]"
+                          dataType="i4"
+                          name="error_code" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input].ExternalColumns[error_description]"
+                          dataType="wstr"
+                          length="4000"
+                          name="error_description" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source"
+                  componentClassID="Microsoft.FlatFileSource"
+                  contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Flat File Source"
+                  localeId="1033"
+                  name="Flat File Source"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether zero-length columns are treated as null."
+                      name="RetainNulls">true</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                      name="FileNameColumnName"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[CSV_Source]"
+                      connectionManagerRefId="Package.ConnectionManagers[CSV_Source]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output]"
+                      name="Flat File Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;ride_id&quot;]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;ride_id&quot;]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;ride_id&quot;]"
+                          name="&quot;ride_id&quot;"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;rideable_type&quot;]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;rideable_type&quot;]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;rideable_type&quot;]"
+                          name="&quot;rideable_type&quot;"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;started_at&quot;]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;started_at&quot;]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;started_at&quot;]"
+                          name="&quot;started_at&quot;"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;ended_at&quot;]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;ended_at&quot;]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;ended_at&quot;]"
+                          name="&quot;ended_at&quot;"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_station_name&quot;]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;start_station_name&quot;]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_station_name&quot;]"
+                          name="&quot;start_station_name&quot;"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_station_id&quot;]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;start_station_id&quot;]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_station_id&quot;]"
+                          name="&quot;start_station_id&quot;"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_station_name&quot;]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;end_station_name&quot;]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_station_name&quot;]"
+                          name="&quot;end_station_name&quot;"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_station_id&quot;]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;end_station_id&quot;]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_station_id&quot;]"
+                          name="&quot;end_station_id&quot;"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_lat&quot;]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;start_lat&quot;]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_lat&quot;]"
+                          name="&quot;start_lat&quot;"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_lng&quot;]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;start_lng&quot;]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;start_lng&quot;]"
+                          name="&quot;start_lng&quot;"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_lat&quot;]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;end_lat&quot;]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_lat&quot;]"
+                          name="&quot;end_lat&quot;"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_lng&quot;]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;end_lng&quot;]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;end_lng&quot;]"
+                          name="&quot;end_lng&quot;"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;member_casual&quot;]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;member_casual&quot;]"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].Columns[&quot;member_casual&quot;]"
+                          name="&quot;member_casual&quot;"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;ride_id&quot;]"
+                          dataType="wstr"
+                          length="255"
+                          name="&quot;ride_id&quot;" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;rideable_type&quot;]"
+                          dataType="wstr"
+                          length="255"
+                          name="&quot;rideable_type&quot;" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;started_at&quot;]"
+                          dataType="wstr"
+                          length="255"
+                          name="&quot;started_at&quot;" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;ended_at&quot;]"
+                          dataType="wstr"
+                          length="255"
+                          name="&quot;ended_at&quot;" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;start_station_name&quot;]"
+                          dataType="wstr"
+                          length="255"
+                          name="&quot;start_station_name&quot;" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;start_station_id&quot;]"
+                          dataType="wstr"
+                          length="255"
+                          name="&quot;start_station_id&quot;" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;end_station_name&quot;]"
+                          dataType="wstr"
+                          length="255"
+                          name="&quot;end_station_name&quot;" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;end_station_id&quot;]"
+                          dataType="wstr"
+                          length="255"
+                          name="&quot;end_station_id&quot;" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;start_lat&quot;]"
+                          dataType="wstr"
+                          length="255"
+                          name="&quot;start_lat&quot;" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;start_lng&quot;]"
+                          dataType="wstr"
+                          length="255"
+                          name="&quot;start_lng&quot;" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;end_lat&quot;]"
+                          dataType="wstr"
+                          length="255"
+                          name="&quot;end_lat&quot;" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;end_lng&quot;]"
+                          dataType="wstr"
+                          length="255"
+                          name="&quot;end_lng&quot;" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[&quot;member_casual&quot;]"
+                          dataType="wstr"
+                          length="50"
+                          name="&quot;member_casual&quot;" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Error Output]"
+                      isErrorOut="true"
+                      name="Flat File Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          codePage="1252"
+                          dataType="text"
+                          description="Flat File Source Error Output Column"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          name="Flat File Source Error Output Column" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Foreach Loop Container\Load CSV to stg_Trips.Paths[Derived Column Output]"
+                  endId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Foreach Loop Container\Load CSV to stg_Trips.Paths[Flat File Source Output]"
+                  endId="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column.Inputs[Derived Column Input]"
+                  name="Flat File Source Output"
+                  startId="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source.Outputs[Flat File Source Output]" />
+                <path
+                  refId="Package\Foreach Loop Container\Load CSV to stg_Trips.Paths[OLE DB Destination Error Output]"
+                  endId="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Destination Error Output"
+                  startId="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging.Outputs[OLE DB Destination Error Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{713E1D8A-4E61-400C-A6FC-A75D3238AFE7}"
+          DTS:ObjectName="{713E1D8A-4E61-400C-A6FC-A75D3238AFE7}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::CurrentFile" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Transform stg to dbo_Trips"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{83551AAD-76DE-4B4F-86A5-B5569CC4C402}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Transform stg to dbo_Trips"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{1CF096C4-3ADC-4B9F-956D-0D03CC0E67EB}"
+          SQLTask:SqlStatementSource="INSERT INTO dbo.Trips (&#xA;    ride_id, rideable_type, started_at, ended_at,&#xA;    start_station_name, start_station_id,&#xA;    end_station_name, end_station_id,&#xA;    start_lat, start_lng, end_lat, end_lng,&#xA;    member_casual, ride_time_min, ride_distance_mi, source_file&#xA;)&#xA;SELECT&#xA;    ride_id,&#xA;    rideable_type,&#xA;    TRY_CAST(started_at AS DATETIME2),&#xA;    TRY_CAST(ended_at AS DATETIME2),&#xA;    NULLIF(LTRIM(RTRIM(start_station_name)), ''),&#xA;    NULLIF(LTRIM(RTRIM(start_station_id)), ''),&#xA;    NULLIF(LTRIM(RTRIM(end_station_name)), ''),&#xA;    NULLIF(LTRIM(RTRIM(end_station_id)), ''),&#xA;    TRY_CAST(start_lat AS DECIMAL(10,6)),&#xA;    TRY_CAST(start_lng AS DECIMAL(10,6)),&#xA;    TRY_CAST(end_lat AS DECIMAL(10,6)),&#xA;    TRY_CAST(end_lng AS DECIMAL(10,6)),&#xA;    member_casual,&#xA;    CASE&#xA;        WHEN TRY_CAST(started_at AS DATETIME2) IS NULL&#xA;          OR TRY_CAST(ended_at AS DATETIME2) IS NULL THEN NULL&#xA;        WHEN DATEDIFF(SECOND,&#xA;                TRY_CAST(started_at AS DATETIME2),&#xA;                TRY_CAST(ended_at AS DATETIME2)) &lt; 0 THEN NULL&#xA;        ELSE CAST(DATEDIFF(SECOND,&#xA;                TRY_CAST(started_at AS DATETIME2),&#xA;                TRY_CAST(ended_at AS DATETIME2))&#xA;             AS DECIMAL(10,4)) / 60&#xA;    END,&#xA;    CASE&#xA;        WHEN TRY_CAST(start_lat AS FLOAT) IS NULL&#xA;          OR TRY_CAST(start_lng AS FLOAT) IS NULL&#xA;          OR TRY_CAST(end_lat AS FLOAT) IS NULL&#xA;          OR TRY_CAST(end_lng AS FLOAT) IS NULL THEN NULL&#xA;        ELSE 3958.8 * 2.0 * ASIN(SQRT(&#xA;            POWER(SIN((RADIANS(TRY_CAST(end_lat AS FLOAT))&#xA;                - RADIANS(TRY_CAST(start_lat AS FLOAT))) / 2.0), 2) +&#xA;            COS(RADIANS(TRY_CAST(start_lat AS FLOAT))) *&#xA;            COS(RADIANS(TRY_CAST(end_lat AS FLOAT))) *&#xA;            POWER(SIN((RADIANS(TRY_CAST(end_lng AS FLOAT))&#xA;                - RADIANS(TRY_CAST(start_lng AS FLOAT))) / 2.0), 2)&#xA;        ))&#xA;    END,&#xA;    source_file&#xA;FROM stg.Trips&#xA;WHERE ride_id IS NOT NULL&#xA;  AND rideable_type IS NOT NULL&#xA;  AND TRY_CAST(started_at AS DATETIME2) IS NOT NULL&#xA;  AND TRY_CAST(ended_at AS DATETIME2) IS NOT NULL&#xA;  AND member_casual IS NOT NULL;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate stg_Trips"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2C433089-1D77-4680-A094-28E3F2FE243B}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate stg_Trips"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E7CC7F5E-711C-471A-84A7-AFEEBDF34725}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE stg.Trips" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE TABLE dbo_Trips"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C6796B65-CA53-4985-809C-A7DC78E86ABA}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE TABLE dbo_Trips"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{1CF096C4-3ADC-4B9F-956D-0D03CC0E67EB}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.Trips" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Validate stg Row Count"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{BD500200-02F2-4C36-A8B1-CAE3873639FF}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Validate stg Row Count"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{1CF096C4-3ADC-4B9F-956D-0D03CC0E67EB}"
+          SQLTask:SqlStatementSource="SELECT COUNT(*) AS row_count FROM stg.Trips"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="row_count"
+            SQLTask:DtsVariableName="User::StagingRowCount" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{017E3CD5-D6CB-4E8F-BF84-A02614B1A21A}"
+      DTS:From="Package\Truncate stg_Trips"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\TRUNCATE TABLE dbo_Trips" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{822AE73E-B1C7-4A16-829A-2B246995D6F5}"
+      DTS:From="Package\TRUNCATE TABLE dbo_Trips"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Foreach Loop Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{13F79827-CA76-4289-BF1E-265BD7B51BF0}"
+      DTS:From="Package\Foreach Loop Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Validate stg Row Count" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{700BCFB1-D1EC-4555-9BC1-DE4BBF3D4009}"
+      DTS:EvalOp="3"
+      DTS:Expression="@[User::StagingRowCount] &gt;= @[User::MinExpectedRows]"
+      DTS:From="Package\Validate stg Row Count"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Transform stg to dbo_Trips" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{7ACEBF73-5EA8-408F-B51F-DA01E0CDFE9A}"
+      DTS:EvalOp="3"
+      DTS:Expression="@[User::StagingRowCount] &lt; @[User::MinExpectedRows]"
+      DTS:From="Package\Validate stg Row Count"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Fail - Staging Row Count Too Low" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{1C5AF82A-C6D0-44DE-B845-A40DE79E9FC1}"
+      DTS:EventID="1795382424"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{47C121D1-BEBA-40B9-A3AC-31FD7EFFDD5D}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\Log Error to Database"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{BCB40B9F-9547-4C6A-BD7B-694196E97EC9}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Log Error to Database"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{1CF096C4-3ADC-4B9F-956D-0D03CC0E67EB}"
+              SQLTask:SqlStatementSource="INSERT INTO dbo.ETL_ErrorLog " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::SourceName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="4"
+                SQLTask:DtsVariableName="User::CurrentFile"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
 <!--If you manually edit this section and make a mistake, you can delete it. -->
@@ -24,5 +1560,348 @@
 <Objects
   Version="8">
   <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Truncate stg_Trips"
+          TopLeft="125,56" />
+        <NodeLayout
+          Size="172,42"
+          Id="Package\TRUNCATE TABLE dbo_Trips"
+          TopLeft="121,157" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="207.75,98">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59"
+              Start="0,0"
+              End="0,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Foreach Loop Container\Load CSV to stg_Trips"
+          TopLeft="77,40" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="278,158"
+          Size="278,201"
+          Id="Package\Foreach Loop Container"
+          TopLeft="99,283" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="207,199">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="31,84"
+              Start="0,0"
+              End="31,76.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,38"
+                    Point2="0,42"
+                    Point3="4,42" />
+                  <mssgle:LineSegment
+                    End="27,42" />
+                  <mssgle:CubicBezierSegment
+                    Point1="27,42"
+                    Point2="31,42"
+                    Point3="31,46" />
+                  <mssgle:LineSegment
+                    End="31,76.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="208,42"
+          Id="Package\Transform stg to dbo_Trips"
+          TopLeft="780,333" />
+        <NodeLayout
+          Size="189,42"
+          Id="Package\Validate stg Row Count"
+          TopLeft="448,341" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="377,383.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="71,-21.5"
+              Start="0,0"
+              End="63.5,-21.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="31.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="31.5,0"
+                    Point2="35.5,0"
+                    Point3="35.5,-4" />
+                  <mssgle:LineSegment
+                    End="35.5,-17.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="35.5,-17.5"
+                    Point2="35.5,-21.5"
+                    Point3="39.5,-21.5" />
+                  <mssgle:LineSegment
+                    End="63.5,-21.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="637,362">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="143,-8"
+              Start="0,0"
+              End="135.5,-8">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="67.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="67.5,0"
+                    Point2="71.5,0"
+                    Point3="71.5,-4" />
+                  <mssgle:LineSegment
+                    End="71.5,-4" />
+                  <mssgle:CubicBezierSegment
+                    Point1="71.5,-4"
+                    Point2="71.5,-8"
+                    Point3="75.5,-8" />
+                  <mssgle:LineSegment
+                    End="135.5,-8" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="63.5,1,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="239,42"
+          Id="Package\Fail - Staging Row Count Too Low"
+          TopLeft="464,447" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="542.5,383">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="41,64"
+              Start="0,0"
+              End="41,56.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28"
+                    Point2="0,32"
+                    Point3="4,32" />
+                  <mssgle:LineSegment
+                    End="37,32" />
+                  <mssgle:CubicBezierSegment
+                    Point1="37,32"
+                    Point2="41,32"
+                    Point3="41,36" />
+                  <mssgle:LineSegment
+                    End="41,56.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="12.5,37,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Foreach Loop Container\Load CSV to stg_Trips">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Foreach Loop Container\Load CSV to stg_Trips\Flat File Source"
+          TopLeft="156,80" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Foreach Loop Container\Load CSV to stg_Trips\Derived Column"
+          TopLeft="154,170" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Load CSV to stg_Trips.Paths[Flat File Source Output]"
+          TopLeft="231.25,122">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48"
+              Start="0,0"
+              End="0,40.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="202,42"
+          Id="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging"
+          TopLeft="152,265" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Load CSV to stg_Trips.Paths[Derived Column Output]"
+          TopLeft="231,212">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="22,53"
+              Start="0,0"
+              End="22,45.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.5"
+                    Point2="0,26.5"
+                    Point3="4,26.5" />
+                  <mssgle:LineSegment
+                    End="18,26.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18,26.5"
+                    Point2="22,26.5"
+                    Point3="22,30.5" />
+                  <mssgle:LineSegment
+                    End="22,45.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="220,42"
+          Id="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros"
+          TopLeft="522,262" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Load CSV to stg_Trips.Paths[OLE DB Destination Error Output]"
+          TopLeft="354,284.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="168,0"
+              Start="0,0"
+              End="160.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="160.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="7.04109375,5,146.4178125,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Foreach Loop Container\Load CSV to stg_Trips\Cyclistic Database Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="183,42"
+          Id="Package.EventHandlers[OnError]\Log Error to Database"
+          TopLeft="125,103" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <PipelineComponentMetadata
+    design-time-name="Package\Foreach Loop Container\Load CSV to stg_Trips\Error Rows to stg_Trips_Erros">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>

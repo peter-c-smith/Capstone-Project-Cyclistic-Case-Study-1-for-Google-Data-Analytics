@@ -128,6 +128,56 @@ The staging table is truncated before each load. The production Trips table is a
 
 ---
 
+---
+
+### dbo.ETL_ErrorLog
+
+Captures package-level errors from the SSIS OnError event handler. One row is written per error event, providing a permanent audit trail of load failures.
+
+```sql
+CREATE TABLE dbo.ETL_ErrorLog
+(
+    error_id        INT             NOT NULL    IDENTITY(1,1),
+    log_time        DATETIME2       NOT NULL    DEFAULT SYSUTCDATETIME(),
+    package_name    NVARCHAR(255)   NULL,
+    task_name       NVARCHAR(255)   NULL,
+    error_code      INT             NULL,
+    error_message   NVARCHAR(4000)  NULL,
+    source_file     NVARCHAR(255)   NULL,
+
+    CONSTRAINT PK_ETL_ErrorLog PRIMARY KEY CLUSTERED (error_id)
+);
+```
+
+**Design notes:**
+- `log_time` defaults to `SYSUTCDATETIME()` — UTC timestamp set automatically on insert
+- `source_file` captures `User::CurrentFile` from the SSIS package — useful for identifying which CSV was being processed when an error occurred
+- Populated by the OnError event handler on the `LoadTrips` package — fires automatically on any task failure
+
+---
+
+### stg.Trips_Errors
+
+Receives rows redirected from the `Load CSV to stg_Trips` Data Flow task when an OLE DB Destination error occurs. Contains all columns from `stg.Trips` plus three error tracking columns.
+
+```sql
+-- Created dynamically from stg.Trips structure:
+SELECT TOP 0 *,
+    CAST(NULL AS INT)            AS error_column,
+    CAST(NULL AS INT)            AS error_code,
+    CAST(NULL AS NVARCHAR(4000)) AS error_description
+INTO stg.Trips_Errors
+FROM stg.Trips;
+```
+
+**Design notes:**
+- `error_column` — SSIS column ID of the column that caused the error
+- `error_code` — SSIS numeric error code (look up in SSIS error code reference)
+- `error_description` — not populated automatically by SSIS data flow; reserved for future use
+- A non-zero row count in this table after a load indicates rows that failed to insert into `stg.Trips` and should be investigated
+
+---
+
 ## Script Execution Order
 
 Run scripts in this order when rebuilding the schema from scratch:
@@ -138,5 +188,8 @@ Run scripts in this order when rebuilding the schema from scratch:
 | 2 | `schema/02_create_stg_trips.sql` | Creates `stg.Trips` |
 | 3 | `schema/03_create_trips.sql` | Creates `dbo.Trips` with constraints |
 | 4 | `schema/04_create_indexes.sql` | Creates non-clustered indexes on `dbo.Trips` |
+| 5 | `schema/05_create_error_log.sql` | Creates `dbo.ETL_ErrorLog` |
 
-All scripts are safe to re-run — they drop and recreate objects cleanly.
+`stg.Trips_Errors` is created dynamically by running the SELECT INTO statement in `schema.md` — no separate script. It mirrors `stg.Trips` structure at creation time so it stays in sync if the staging table is rebuilt.
+
+All scripts are safe to re-run — they drop and recreate objects cleanly. Note: dropping `dbo.ETL_ErrorLog` clears historical error records.

@@ -52,7 +52,7 @@ The dataset consists of 12 months of Cyclistic (Divvy) historical trip data prov
 The full dataset is not included in this repository due to file size. A sample file and full source details are available in the `/Data` folder.
 
 **Dataset period:** April 2025 – March 2026
-**Total rides:** 5,623,280
+**Total rides:** 5,620,544 (12 months loaded after ETL cleaning — 2,736 rows excluded from raw source count of 5,623,280 due to missing critical fields)
 **Fields:** ride_id, rideable_type, started_at, ended_at, start/end station names and IDs, start/end coordinates, member_casual
 
 ---
