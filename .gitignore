@@ -289,6 +289,9 @@ ServiceFabricBackup/
 *.ldf
 *.ndf
 
+# Query runner output — generated files, not source controlled
+SQLServer/query_results/
+
 # Business Intelligence projects
 *.rdl.data
 *.bim.layout
