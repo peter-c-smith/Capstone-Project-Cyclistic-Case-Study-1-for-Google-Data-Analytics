@@ -58,22 +58,36 @@ def connect():
     )
 
 
+def split_batches(sql: str) -> list[str]:
+    """
+    Split a SQL script on GO batch separators (case-insensitive,
+    GO must appear on its own line). pymssql does not understand GO —
+    it is an SSMS/sqlcmd directive, not valid T-SQL.
+    Returns a list of non-empty batch strings.
+    """
+    import re
+    batches = re.split(r'^\s*GO\s*$', sql, flags=re.IGNORECASE | re.MULTILINE)
+    return [b.strip() for b in batches if b.strip()]
+
+
 def run_query(conn, sql: str) -> tuple[list, list]:
     """
-    Execute a SQL string and return (columns, rows).
-    Handles multi-statement scripts — returns results from the last
-    statement that produced a result set.
+    Execute a SQL script, splitting on GO batch separators.
+    Returns (columns, rows) from the last batch that produced a result set.
+    Earlier result sets are captured and returned if no later batch
+    produces one — useful for scripts with multiple SELECT statements.
     """
-    cursor = conn.cursor()
-    cursor.execute(sql)
-
     columns, rows = [], []
-    while True:
-        if cursor.description:
-            columns = [d[0] for d in cursor.description]
-            rows    = cursor.fetchall()
-        if not cursor.nextset():
-            break
+
+    for batch in split_batches(sql):
+        cursor = conn.cursor()
+        cursor.execute(batch)
+        while True:
+            if cursor.description:
+                columns = [d[0] for d in cursor.description]
+                rows    = cursor.fetchall()
+            if not cursor.nextset():
+                break
 
     return columns, rows
 
