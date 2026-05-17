@@ -51,6 +51,8 @@ Generated\ Files/
 # Data files
 *.zip
 *.csv
+# Exception for example data file
+!Data/DATAfile_Consolidated/202512-divvy-tripdata.csv
 
 *.abf
 *.pbix
@@ -291,6 +293,11 @@ ServiceFabricBackup/
 
 # Query runner output — generated files, not source controlled
 SQLServer/query_results/
+
+# SSIS — user-specific and build output files
+*.dtproj.user
+SQLServer/SSIS/**/bin/
+SQLServer/SSIS/**/obj/
 
 # Business Intelligence projects
 *.rdl.data

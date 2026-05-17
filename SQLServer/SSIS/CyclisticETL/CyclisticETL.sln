@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{C9674DCB-5085-4A16-B785-4C70DD1589BD}") = "CyclisticETL", "CyclisticETL\CyclisticETL.dtproj", "{13C4A610-8255-255A-9363-EBF6F4AE3466}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13C4A610-8255-255A-9363-EBF6F4AE3466}.Development|Default.ActiveCfg = Development
+		{13C4A610-8255-255A-9363-EBF6F4AE3466}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1477250E-9DEF-4F6D-951C-0F3FCEF126C5}
+	EndGlobalSection
+EndGlobal
