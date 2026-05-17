@@ -68,6 +68,36 @@ Copy `.env.example` to `.env` and set your connection details. `.env` is git-ign
 
 ---
 
+## Cross-Validation Against Power BI
+
+All T-SQL analytical queries were written to replicate the DAX measures in the Power BI report, then run against SQL Server to verify the figures. This cross-validation process uncovered one noteworthy finding.
+
+### Discovery: DAX BLANK() vs. SQL NULL Semantics (Round Trips)
+
+The initial round trip query — which counted rides where both `start_station_name` and `end_station_name` were non-empty and equal — produced results that didn't match the Power BI report:
+
+| Metric | Power BI | Initial SQL |
+|---|---|---|
+| Member round trip % | ~11% | 2.0% |
+| Casual round trip % | ~18% | 6.0% |
+| Ratio (casual / member) | 1.63 | 3.01 |
+
+A diagnostic query (`08b_round_trips_diag.sql`) was written to test three definitions side by side. The finding: **Power BI DAX treats `BLANK() = BLANK()` as TRUE**, meaning rides where *both* station names are missing (common with e-bikes locked at non-station racks) were being counted as round trips. SQL Server's three-valued logic treats `NULL = NULL` as UNKNOWN, not TRUE — so those rows were silently excluded.
+
+Fixing the query to use `ISNULL(start_station_name,'') = ISNULL(end_station_name,'')` — which replicates DAX blank-equality behavior — produced an exact match:
+
+| Metric | Power BI | Corrected SQL |
+|---|---|---|
+| Member round trip % | ~11% | **11.1%** ✓ |
+| Casual round trip % | ~18% | **18.1%** ✓ |
+| Ratio (casual / member) | 1.63 | **1.63** ✓ |
+
+This is a meaningful difference in analytical tools, not a data quality issue. It demonstrates the importance of understanding how each tool handles missing values when replicating measures across platforms.
+
+Full validation results for all metrics are documented in [`cross_validation.md`](cross_validation.md).
+
+---
+
 ## Why SQL Server & SSIS
 
 SQL Server and SSIS represent the enterprise standard for relational database management and ETL workflows. This section demonstrates the ability to handle large datasets in a production database environment — a skill set that complements the analytical work shown in the Power BI, R, and Python sections.
