@@ -18,11 +18,13 @@ Understanding this behavioral distinction is the foundation for a targeted marke
 ## Key Findings
 
 - **Casual riders take 82% longer rides** than members on average, but cover only 3% more distance — suggesting a more leisurely pace rather than longer routes
-- **Casual riders are 1.6x more likely to ride on weekends** than members, who concentrate usage on weekday commuter hours with clear spikes at 8 AM and 5 PM
-- **Casual riders return to their starting station 1.6x more often** than members, consistent with recreational rather than point-to-point commuter usage
-- **47% of all casual rides occur in summer months**, making seasonal targeting a key lever for any conversion campaign
-- **Casual riders favor lakefront and tourist destinations** (DuSable Lake Shore Drive, Navy Pier, Millennium Park) while members cluster near transit hubs and office corridors
-- **1.2M rides (21.3%)** have no station data recorded — expected behavior for electric bikes which can be locked at any public rack
+- **Casual riders are 1.61x more likely to ride on weekends** than members, who concentrate usage on weekday commuter hours with clear spikes at 8 AM and 5 PM
+- **Casual riders return to their starting station 1.63x more often** than members, consistent with recreational rather than point-to-point commuter usage
+- **Casual ridership peaks at 42.7% of summer rides**, dropping to just 19.6% in winter — far more seasonal than members who ride year-round
+- **Zero overlap** between the member and casual top 10 station lists — casuals concentrate at lakefront tourist destinations (Shedd Aquarium 81.8% casual, Navy Pier, Millennium Park) while members cluster near transit hubs
+- **E-bikes have onboard GPS hardware** — inferred from data: 100% of the 1.2M rides missing a station name still have GPS coordinates, while classic bikes have zero missing station names
+- **Bike type is not a differentiator** — members and casuals use electric bikes at nearly identical rates (65% vs 67%), confirming that conversion strategy should focus on when and where people ride, not what they ride
+- **A retired bike type discovered in historical data** — `docked_bike` appeared in 2022–2023 Divvy data (3.1% of rides) but is absent from the 2025–2026 dataset, revealing fleet evolution not visible in the current data alone
 
 ---
 
@@ -37,8 +39,8 @@ This capstone is implemented across **five tools** — Power BI, SQL Server + SS
 | Tool | Purpose | Status |
 |------|---------|--------|
 | **Power BI** | Data modeling, DAX calculations, and interactive dashboards | ✅ Complete |
-| **SQL Server + SSIS** | Enterprise ETL pipeline and T-SQL analytical queries | ⏳ In development |
-| **DuckDB** | Lightweight analytical SQL directly against CSV files | ⏳ Planned |
+| **SQL Server + SSIS** | Enterprise ETL pipeline and T-SQL analytical queries | ✅ Complete |
+| **DuckDB** | Lightweight analytical SQL directly against CSV files | ✅ Complete |
 | **R** | Statistical analysis, data profiling, and visualization | ⏳ Planned |
 | **Python** | Data manipulation using Polars and pandas | ⏳ Planned |
 | **Claude (Anthropic)** | AI-assisted analysis and documentation | Throughout |
@@ -80,11 +82,30 @@ The full dataset is not included in this repository due to file size. A sample f
 │   ├── measure_folder_structure.md   — all measures organized by display folder
 │   └── CyclistCaseStudy.pbip         — Power BI project file
 │
-├── /SQLServer                        ⏳ In development
-│   └── README.md
+├── /SQLServer                        ✅ Complete
+│   ├── README.md
+│   ├── etl_process.md
+│   ├── cross_validation.md
+│   ├── schema.md
+│   ├── query_runner.py
+│   ├── /queries                      — 14 analytical queries (05–14)
+│   ├── /schema                       — DDL scripts
+│   └── /SSIS                         — LoadTrips.dtsx ETL package
 │
-├── /DuckDB                           ⏳ Planned
-│   └── README.md
+├── /DuckDB                           ✅ Complete
+│   ├── README.md
+│   ├── 01_hello_duckdb.py
+│   ├── 02_core_ride_counts.py
+│   ├── 03_avg_duration_distance.py
+│   ├── 04_weekend_weekday.py
+│   ├── 05_round_trips.py
+│   ├── 06_seasonal_breakdown.py
+│   ├── 07_bike_type_mix.py
+│   ├── 08_top_stations.py
+│   ├── 09_hourly_distribution.py
+│   ├── 10_missing_station_data.py
+│   ├── 11_revenue_proxy.py
+│   └── 12_scooter_experiment.py
 │
 ├── /R                                ⏳ Planned
 │   └── README.md
