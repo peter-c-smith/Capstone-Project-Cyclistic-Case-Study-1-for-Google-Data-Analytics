@@ -1,0 +1,19 @@
+# Normalize line endings to LF in the repository; checkout as-is on all platforms
+* text=auto eol=lf
+
+# Explicitly mark binary files so git never touches their bytes
+*.pbix   binary
+*.pbip   binary
+*.pbit   binary
+*.docx   binary
+*.xlsx   binary
+*.pptx   binary
+*.pdf    binary
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.ico    binary
+*.zip    binary
+*.dtsx   binary
+*.dtproj binary
+*.sln    text eol=crlf

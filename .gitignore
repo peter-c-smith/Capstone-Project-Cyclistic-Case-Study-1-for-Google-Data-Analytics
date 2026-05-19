@@ -434,3 +434,7 @@ FodyWeavers.xsd
 *.msm
 *.msp
 cyclistic_pricing_rationale.docx
+
+# Power BI — user-specific local settings (not shared, changes on every open)
+**/.pbi/localSettings.json
+**/.pbi/editorSettings.json
