@@ -17,7 +17,7 @@ Understanding this behavioral distinction is the foundation for a targeted marke
 
 ## Key Findings
 
-- **Casual riders take 82% longer rides** than members on average, but cover only 3% more distance — suggesting a more leisurely pace rather than longer routes
+- **Casual riders take 82% longer rides** than members on average, but cover similar straight-line distance — suggesting a more leisurely pace rather than longer routes (casual round trips return to start, reducing Haversine average)
 - **Casual riders are 1.61x more likely to ride on weekends** than members, who concentrate usage on weekday commuter hours with clear spikes at 8 AM and 5 PM
 - **Casual riders return to their starting station 1.63x more often** than members, consistent with recreational rather than point-to-point commuter usage
 - **Casual ridership peaks at 42.7% of summer rides**, dropping to just 19.6% in winter — far more seasonal than members who ride year-round
@@ -41,7 +41,7 @@ This capstone is implemented across **five tools** — Power BI, SQL Server + SS
 | **Power BI** | Data modeling, DAX calculations, and interactive dashboards | ✅ Complete |
 | **SQL Server + SSIS** | Enterprise ETL pipeline and T-SQL analytical queries | ✅ Complete |
 | **DuckDB** | Lightweight analytical SQL directly against CSV files | ✅ Complete |
-| **R** | Statistical analysis, data profiling, and visualization | ⏳ Planned |
+| **R** | Statistical analysis, data profiling, and visualization | ✅ Complete |
 | **Python** | Data manipulation using Polars and pandas | ⏳ Planned |
 | **Claude (Anthropic)** | AI-assisted analysis and documentation | Throughout |
 
@@ -107,19 +107,43 @@ The full dataset is not included in this repository due to file size. A sample f
 │   ├── 11_revenue_proxy.py
 │   └── 12_scooter_experiment.py
 │
-├── /R                                ⏳ Planned
-│   └── README.md
+├── /R                                ✅ Complete
+│   ├── README.md
+│   ├── 00_run_all.R
+│   ├── 01_hello_r.R                  — sanity check, 5,620,544 rows confirmed
+│   ├── 02_core_ride_counts.R
+│   ├── 03_avg_duration_distance.R
+│   ├── 04_weekend_weekday.R
+│   ├── 05_round_trips.R
+│   ├── 06_seasonal_breakdown.R
+│   ├── 07_bike_type_mix.R
+│   ├── 08_top_stations.R
+│   ├── 09_hourly_distribution.R
+│   ├── 10_missing_station_data.R
+│   ├── 11_revenue_proxy.R
+│   └── 12_statistical_tests.R       — R-exclusive: Welch's t-test + chi-square validation
 │
 ├── /Python                           ⏳ Planned
 │   └── README.md
 │
 └── /Visuals
-    └── /PowerBI
-        ├── page1_executive_summary.png
-        ├── page2_ride_behavior.png
-        ├── page3_temporal_patterns.png
-        ├── page4_bike_type_station.png
-        └── page5_revenue_opportunity.png
+    ├── /PowerBI
+    │   ├── page1_executive_summary.png
+    │   ├── page2_ride_behavior.png
+    │   ├── page3_temporal_patterns.png
+    │   ├── page4_bike_type_station.png
+    │   └── page5_revenue_opportunity.png
+    └── /R
+        ├── 02_core_ride_counts.png
+        ├── 03_avg_duration_distance.png
+        ├── 04_weekend_weekday.png
+        ├── 05_round_trips.png
+        ├── 06_seasonal_breakdown.png
+        ├── 07_bike_type_mix.png
+        ├── 08_top_stations.png
+        ├── 09_hourly_distribution.png
+        ├── 10_missing_station_data.png
+        └── 11_revenue_proxy.png
 ```
 
 ---
