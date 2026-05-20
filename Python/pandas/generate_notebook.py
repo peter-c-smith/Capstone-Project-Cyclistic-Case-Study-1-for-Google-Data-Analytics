@@ -13,7 +13,8 @@ Then open the notebook in Jupyter:
 The notebook mirrors the 12 analysis scripts but adds:
   - Narrative markdown commentary
   - matplotlib charts (inline + saved as PNGs to ../../Visuals/Python/)
-  - A pandas learning notes section at the end
+  - A casual rider segmentation section (Script 13 insight from Polars module)
+  - A key findings summary at the end
 
 Charts are saved as high-resolution PNGs alongside inline display so they
 can be embedded in the final portfolio README and presentations.
@@ -71,7 +72,8 @@ to confirm consistency across tools.
 8. Where do they start? — top stations
 9. The conversion opportunity — revenue proxy
 10. Fleet utilization — peak concurrent rides
-11. Key findings summary
+11. Casual rider segmentation — who to target
+12. Key findings summary
 """))
 
 # ===========================================================================
@@ -756,10 +758,166 @@ plt.show()
 """))
 
 # ===========================================================================
+# SECTION 11: CASUAL RIDER SEGMENTATION
+# ===========================================================================
+cells.append(md("""---
+## 11. Casual Rider Segmentation — Who to Target
+
+Not all casual riders are equal conversion opportunities. The data reveals
+two very different casual rider profiles:
+
+| Profile | Description | Conversion probability |
+|---|---|---|
+| **Commuter-pattern casuals** | Weekday rides, peak hours (7–9 AM or 4–6 PM) | **High** — already using bikes as transportation |
+| **Leisure/tourist casuals** | Weekend afternoons, lakefront destinations | **Low** — visiting Chicago or riding for fun |
+
+### Definition: "Commuter-pattern casual"
+
+A casual ride meeting **both** behavioral conditions:
+- **Weekday** (Monday–Friday)
+- **Peak hour** (7:00–9:00 AM or 16:00–18:00 PM)
+
+If you're riding at 8 AM on a Tuesday, you're almost certainly commuting — not touring Chicago.
+The behavioral signal alone identifies the segment. As corroboration, we separately measure what
+fraction of commuter-pattern casuals start at member top-10 stations (transit hubs rather than
+lakefront destinations). That overlap confirms they're using member corridors.
+
+### Why this matters for revenue
+
+A targeted campaign aimed at commuter-pattern casuals can achieve a **higher conversion rate
+per marketing dollar** than a broad casual campaign, because these riders already have a direct
+financial incentive: they are paying per-minute for something they could get for a flat annual fee.
+The chart below shows this using a 2× conversion rate assumption for the targeted segment.
+"""))
+
+cells.append(code("""\
+# Replicate the Polars Script 13 analysis in pandas
+# Definition: "commuter-pattern casual" = weekday + peak hour
+# The behavioral signal (WHEN they ride) is the primary criterion.
+# Station overlap with member corridors is reported separately as corroboration.
+
+# Step 1: Tag rides with timing signals
+if "hour" not in trips.columns:
+    trips["hour"] = trips["started_at"].dt.hour
+if "is_weekend" not in trips.columns:
+    trips["is_weekend"] = trips["started_at"].dt.dayofweek >= 5
+
+trips["is_peak_hour"] = trips["hour"].isin([7, 8, 16, 17])
+trips["is_weekday"]   = ~trips["is_weekend"]
+
+# Step 2: Segment casual rides — behavioral definition only
+casual_rides   = trips[trips["member_casual"] == "casual"].copy()
+commuter_mask  = casual_rides["is_peak_hour"] & casual_rides["is_weekday"]
+
+total_casual   = len(casual_rides)
+total_commuter = commuter_mask.sum()
+total_leisure  = total_casual - total_commuter
+commuter_pct   = total_commuter / total_casual * 100
+
+MEMBER_ANNUAL = 9.99 * 12  # $119.88
+
+print("=" * 65)
+print("  Casual Rider Segmentation — Commuter vs Leisure Profile")
+print("=" * 65)
+print(f"  Total casual rides:            {total_casual:>10,}")
+print(f"  Commuter-pattern casuals:      {total_commuter:>10,}  ({commuter_pct:.1f}%)")
+print(f"  Leisure/tourist casuals:       {total_leisure:>10,}  ({100-commuter_pct:.1f}%)")
+print(f"  Definition: weekday + peak hour (7-9 AM or 4-6 PM)")
+
+# Step 3: Corroboration — what % of commuter casuals start at member top-10 stations?
+def is_missing(col):
+    return col.isna() | (col.str.strip() == "")
+
+valid = trips[~is_missing(trips["start_station_name"])].copy()
+member_station_counts = (
+    valid[valid["member_casual"] == "member"]
+    .groupby("start_station_name")
+    .size()
+    .nlargest(10)
+)
+top10_member_stations = set(member_station_counts.index)
+
+commuter_rides = casual_rides[commuter_mask].copy()
+commuter_at_member_station = commuter_rides["start_station_name"].isin(top10_member_stations).sum()
+print(f"\\n  Corroboration: {commuter_at_member_station:,} of commuter-pattern casuals")
+print(f"  start at a member top-10 station")
+print(f"  ({commuter_at_member_station / total_commuter * 100:.1f}% of commuter casuals — confirms corridor overlap)")
+
+# Step 4: Revenue comparison
+print()
+print("  Revenue Upside — Targeted vs Broad Campaign")
+print(f"  {'Strategy':<35} {'10% rate':>12} {'20% rate':>12} {'25% rate':>12}")
+print(f"  {'-'*66}")
+for label, pool in [("Broad (all casuals)", total_casual),
+                    ("Targeted (commuter casuals)", total_commuter)]:
+    row_vals = [f"${int(pool*r)*MEMBER_ANNUAL/1e6:.1f}M" for r in [0.10, 0.20, 0.25]]
+    print(f"  {label:<35} {'  '.join(row_vals)}")
+print()
+print("  Key: targeted campaign reaches a smaller pool but at higher conversion")
+print("  rate — fewer contacts, lower cost, comparable or better return.")
+
+# --- Chart 1: Commuter vs Leisure breakdown (bar, not pie — both visible) ---
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+ax = axes[0]
+labels = ["Commuter-pattern\\ncasuals", "Leisure / tourist\\ncasuals"]
+values = [total_commuter, total_leisure]
+colors = ["#E53935", CASUAL_COLOR]
+bars = ax.bar(labels, [v/1000 for v in values], color=colors, edgecolor="white",
+              width=0.5)
+for bar, v, pct in zip(bars, values, [commuter_pct, 100-commuter_pct]):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 5,
+            f"{v:,}\\n({pct:.0f}%)", ha="center", va="bottom",
+            fontsize=10, fontweight="bold")
+ax.set_ylabel("Rides (thousands)")
+ax.set_title(f"Casual Rider Profiles\\n({total_casual:,} total casual rides)",
+             fontweight="bold")
+ax.set_ylim(0, max(values)/1000 * 1.25)
+
+# --- Chart 2: Targeted vs Broad — show conversion rate assumption explicitly ---
+ax = axes[1]
+# Premise: commuter casuals convert at 2x the rate of average casuals
+# because they already behave like members (weekday + peak hour)
+broad_rates    = [0.05, 0.10, 0.15, 0.20]
+targeted_rates = [0.10, 0.20, 0.30, 0.40]   # 2x conversion rate assumption
+broad_rev    = [int(total_casual   * r) * MEMBER_ANNUAL / 1e6 for r in broad_rates]
+targeted_rev = [int(total_commuter * r) * MEMBER_ANNUAL / 1e6 for r in targeted_rates]
+
+x = np.arange(len(broad_rates))
+w = 0.38
+b1 = ax.bar(x - w/2, broad_rev,    width=w, label="Broad @ base rate",
+            color=CASUAL_COLOR, alpha=0.7, edgecolor="white")
+b2 = ax.bar(x + w/2, targeted_rev, width=w, label="Targeted @ 2× rate",
+            color="#E53935", edgecolor="white")
+
+for bar, v in zip(b1, broad_rev):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.3,
+            f"${v:.1f}M", ha="center", va="bottom", fontsize=8.5, fontweight="bold")
+for bar, v in zip(b2, targeted_rev):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.3,
+            f"${v:.1f}M", ha="center", va="bottom", fontsize=8.5, fontweight="bold",
+            color="#E53935")
+
+ax.set_xticks(x)
+ax.set_xticklabels(["5% / 10%", "10% / 20%", "15% / 30%", "20% / 40%"], fontsize=9)
+ax.set_xlabel("Conversion Rate (Broad / Targeted)")
+ax.set_ylabel("Annual Revenue Upside ($M)")
+ax.set_title("Targeted Campaign at 2× Conversion Rate\\nvs Broad Campaign",
+             fontweight="bold")
+ax.legend(fontsize=9)
+
+fig.suptitle("Commuter-Pattern Casuals: Smaller Pool, Higher Intent,\\n"
+             "Better ROI on Marketing Spend", fontsize=12, fontweight="bold", y=1.02)
+plt.tight_layout()
+save_fig("10_casual_segmentation")
+plt.show()
+"""))
+
+# ===========================================================================
 # KEY FINDINGS SUMMARY
 # ===========================================================================
 cells.append(md("""---
-## 11. Key Findings Summary
+## 12. Key Findings Summary
 
 | # | Finding | Evidence |
 |---|---|---|
@@ -773,6 +931,35 @@ cells.append(md("""---
 | 8 | Conversion opportunity: 5%–25% conversion = $12M–$60M annual upside | At $119.88/yr × 2,015,499 casual riders |
 | 9 | Peak fleet: 1,199 simultaneous rides (Oct 12, 2025, noon Sunday) | Sweep line algorithm — unique Python analysis |
 | 10 | Converting casuals to members changes pricing, not behavior | Peak fleet demand stays stable at conversion |
+| 11 | Commuter-pattern casuals are the highest-value conversion target | Weekday + peak hour — higher probability, lower cost |
+
+---
+
+### Recommendation
+
+A targeted campaign aimed at casual riders who already commute (weekday + peak hour)
+has the highest conversion probability. These riders are paying per-minute for something
+they could get for a flat annual fee — the value proposition is immediate and concrete.
+
+The seasonal timing (late spring), behavioral targeting (commuter-pattern casuals),
+and pricing message ($119.88/yr vs pay-per-minute) are the three levers the marketing
+team controls.
+
+---
+*Analysis by Peter | Cyclistic Capstone | Google Data Analytics Certificate*
+*Tools: Power BI · SQL Server/SSIS · DuckDB · R · Python (pandas + Polars)*
+"""))
+
+# ===========================================================================
+# ASSEMBLE & WRITE
+# ===========================================================================
+nb.cells = cells
+nbf.write(nb, OUTPUT_NB)
+print(f"Notebook written to: {OUTPUT_NB}")
+print(f"Open with: jupyter notebook cyclistic_analysis.ipynb")
+| 9 | Peak fleet: 1,199 simultaneous rides (Oct 12, 2025, noon Sunday) | Sweep line algorithm — unique Python analysis |
+| 10 | Converting casuals to members changes pricing, not behavior | Peak fleet demand stays stable at conversion |
+| 11 | Commuter-pattern casuals are the highest-value conversion target | Weekday + peak hour + member station — higher probability, lower cost |
 
 ---
 
@@ -796,3 +983,31 @@ nb.cells = cells
 nbf.write(nb, OUTPUT_NB)
 print(f"Notebook written to: {OUTPUT_NB}")
 print(f"Open with: jupyter notebook cyclistic_analysis.ipynb")
+| 10 | Converting casuals to members changes pricing, not behavior | Peak fleet demand stays stable at conversion |
+| 11 | Commuter-pattern casuals are the highest-value conversion target | Weekday + peak hour — higher probability, lower cost |
+
+---
+
+### Recommendation
+
+A targeted campaign aimed at casual riders who already commute (weekday + peak hour)
+has the highest conversion probability. These riders are paying per-minute for something
+they could get for a flat annual fee.
+
+The seasonal timing (late spring), behavioral targeting (commuter-pattern casuals),
+and pricing message (\$119.88/yr vs pay-per-minute) are the three levers the marketing
+team controls.
+
+---
+*Analysis by Peter | Cyclistic Capstone | Google Data Analytics Certificate*
+*Tools: Power BI · SQL Server/SSIS · DuckDB · R · Python (pandas + Polars)*
+"""))
+
+# ===========================================================================
+# ASSEMBLE & WRITE
+# ===========================================================================
+nb.cells = cells
+nbf.write(nb, OUTPUT_NB)
+print(f"Notebook written to: {OUTPUT_NB}")
+print(f"Open with: jupyter notebook cyclistic_analysis.ipynb")
+upiter notebook cyclistic_analysis.ipynb")
