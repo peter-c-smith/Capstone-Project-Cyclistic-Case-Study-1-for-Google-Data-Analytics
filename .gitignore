@@ -439,7 +439,8 @@ cyclistic_pricing_rationale.docx
 **/.pbi/localSettings.json
 **/.pbi/editorSettings.json
 
-# RStudio — user-specific session data
+# RStudio — user-specific session data and project file
+*.Rproj
 .Rproj.user/
 .Rhistory
 .RData
