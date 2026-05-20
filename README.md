@@ -139,7 +139,7 @@ The full dataset is not included in this repository due to file size. A sample f
 │   │   ├── 00_run_all.py            — 12/12 pass, ~333s total
 │   │   ├── 01_hello_pandas.py through 12_peak_concurrent_rides.py
 │   │   ├── generate_notebook.py
-│   │   ├── cyclistic_analysis.ipynb — Jupyter notebook with 9 charts
+│   │   ├── cyclistic_analysis.ipynb — Jupyter notebook with 10 charts
 │   │   └── cyclistic_analysis.html  — standalone HTML export (no Jupyter needed)
 │   └── /polars
 │       ├── utils.py                 — lazy scan_csv loader
@@ -150,7 +150,7 @@ The full dataset is not included in this repository due to file size. A sample f
 └── /Visuals
     ├── /PowerBI                     — 5 dashboard page screenshots
     ├── /R                           — 10 ggplot2 chart exports
-    └── /Python                      — 9 matplotlib chart exports (from Jupyter notebook)
+    └── /Python                      — 10 matplotlib chart exports (from Jupyter notebook)
 ```
 
 ---
