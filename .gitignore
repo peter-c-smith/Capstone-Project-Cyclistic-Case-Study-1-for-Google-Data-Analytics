@@ -434,17 +434,3 @@ FodyWeavers.xsd
 *.msm
 *.msp
 cyclistic_pricing_rationale.docx
-
-# Power BI — user-specific local settings (not shared, changes on every open)
-**/.pbi/localSettings.json
-**/.pbi/editorSettings.json
-
-# RStudio — user-specific session data
-.Rproj.user/
-.Rhistory
-.RData
-.Ruserdata
-
-# Personal learning notes — study material, not portfolio deliverables
-*_Learning_Notes.docx
-.positai
